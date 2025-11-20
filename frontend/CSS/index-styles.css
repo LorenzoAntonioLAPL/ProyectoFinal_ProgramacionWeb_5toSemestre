@@ -1,0 +1,30 @@
+#home{
+    background-image: url("../imagenes/fondo.jpg");
+    background-size: cover;
+    background-position: center;
+    color: rgb(172, 6, 255);
+    text-align: left;
+    font-size: 30px;
+    padding: 100px 20px;
+}
+
+main section {
+  border-bottom: 2px solid #ccc;
+  padding: 1.5rem 0;
+}
+
+main section h2 {
+  color: rgb(246, 5, 158);
+  margin-bottom: 0.5rem;
+}
+
+#titulo{
+    color: #222;
+    font-size: 30px;
+    color: rgb(246, 5, 158);
+}
+
+main section p {
+  color: #333;
+  line-height: 1.6;
+}
