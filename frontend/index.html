@@ -1,52 +1,62 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <link rel="icon" type="image/x-icon" href="./imagenes/logo.png">
-  <title>CertifiCLAN</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <link rel="stylesheet" href="Css/estilos.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papa's Donuteria</title>
+
+    <link rel="icon" type="image/x-icon" href="./imagenes/logo.png">
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="./CSS/essencial-styles.css">
+    <link rel="stylesheet" href="./CSS/index-styles.css">
+
+    <!-- Scripts -->
+    <script src="js/login.js" defer></script>
+    <script src="js/slider.js" defer></script>
+    <script src="https://kit.fontawesome.com/d420dccc9b.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar">
-        <div class="nav-left">
-        <div class="logo-circulo">
-            <img src="imagenes/logo.png">
+        <div id="header-logo">
+            <h1><i class="fa-solid fa-scroll"></i> CERTIVIFY</h1>
         </div>
-        <a href="index.html" class="nav-logo">Donas</a>
-        <a href="index.html" class="nav-link">Home</a>
-        </div>
-        <div class="nav-right">
-        <span id="userName" class="user-name"></span>
-        <button id="loginBtn" class="icon-btn" title="Login">
-            <span class="login-icon">🔒</span>
-        </button>
-        <button id="logoutBtn" class="icon-btn" title="Logout" style="display: none;">
-            <span class="logout-icon">🚪</span>
-        </button>
+        <div id="header-right">
+            <div id="header-navigation">
+                <a href="./index.html">INICIO</a>
+                <a href="./certificaciones.html">NUESTROS PRODUCTOS</a>
+                <a href="./contacto.html">CONTACTANOS</a>
+                <a href="./nosotros.html">SOBRE NOSOTROS</a>
+            </div>
+            <span id="userName" class="user-name"></span>
+            <button id="loginBtn" class="icon-btn" title="Login">
+                <span class="login-icon"><i class="fa-solid fa-lock"></i></span>
+            </button>
+            <button id="logoutBtn" class="icon-btn" title="Logout" style="display: none;">
+                <span class="logout-icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+            </button>
         </div>
     </nav>
 
     <!-- Secciones principales -->
     <main>
         <section id="home">
-        <h1>Tienda de donas</h1>
+            <h1>Tienda de donas</h1>
         </section>
 
-        <section class="servicios-section"> 
-            <!-- div.servicios-container -->
-            <div class="servicios-container">
-                <h2 class="servicios-titulo">Productos</h2>
+        <section class="carousel-section center-object"> 
+            <div class="carousel-container">
+                <h2 class="carousel-titulo">Productos</h2>
 
                 <div class="slider-controls">
                     <button id="btnPrev">‹</button>
                     <button id="btnNext">›</button>
                 </div>
 
-                <div class="servicios-grid">
-                    <div class="servicio-card">
+                <div class="carousel-grid">
+                    <div class="carousel-card">
                         <img src="imagenes/donas.jpg" alt="">
                         <h3>Donas</h3>
                         <p>
@@ -57,7 +67,7 @@
                         </p>
                     </div>
 
-                    <div class="servicio-card">
+                    <div class="carousel-card">
                         <img src="imagenes/donas.jpg" alt="">
                         <h3>Donas</h3>
                         <p>
@@ -68,7 +78,7 @@
                         </p>
                     </div>
 
-                    <div class="servicio-card">
+                    <div class="carousel-card">
                         <img src="imagenes/donas.jpg" alt="">
                         <h3>Donas</h3>
                         <p>
@@ -79,7 +89,7 @@
                         </p>
                     </div>
 
-                    <div class="servicio-card">
+                    <div class="carousel-card">
                         <img src="imagenes/bebida.jpg" alt="">
                         <h3>Bebidas</h3>
                         <p>
@@ -90,7 +100,7 @@
                         </p>
                     </div>
 
-                    <div class="servicio-card">
+                    <div class="carousel-card">
                         <img src="imagenes/bebida.jpg" alt="">
                         <h3>Bebidas</h3>
                         <p>
@@ -101,7 +111,7 @@
                         </p>
                     </div>
 
-                    <div class="servicio-card">
+                    <div class="carousel-card">
                         <img src="imagenes/bebida.jpg" alt="">
                         <h3>Bebidas</h3>
                         <p>
@@ -128,14 +138,37 @@
         </form>
         </div>
     </div>
-    <footer class="footer">
-        <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi quibusdam 
-            eligendi, incidunt, ut quod amet unde sequi maiores exercitationem velit dolores 
-            ullam alias ab eius sed quidem doloribus, facilis fuga.
-        </p>
+
+    <!-- Footer -->
+    <footer class="center-object">
+        <div id="footer-top" class="footer-flex">
+            <div id="footer-info">
+                <h1>CERTIVIFY</h1>
+                <p>
+                    Puedes confiar en nuestros años de experiencia
+                    como proveedores en certificaciones en idiomas
+                    como C/C++, C#, Java y Python.
+                </p>
+            </div>
+            <div id="useful-links">
+                <h2>Links Útiles</h2>
+                <ul id="links-extras">
+                    <li><a href="#">Términos de Uso <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
+                    <li><a href="#">Centro de Ayuda <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
+                    <li><a href="#">Aviso de Privacidad <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
+        <div id="footer-bottom" class="footer-flex">
+            <h3 id="footer-copyright">© 2025 CERTIVIFY</h3>
+            <div id="social-media-list">
+                <a href="https://www.tumblr.com/certivify"><i class="fa-brands fa-tumblr fa-bounce"></i></a>
+                <a href="mailto:lacomunidaddeltropiezoxd@gmail.com"><i class="fa-solid fa-envelope fa-bounce"></i></a>
+            </div>
+        </div>
+        <p>Nota: Esto es un Projecto Escolar</p>
     </footer>
-    <script src="js/login.js"></script>
-    <script src="js/slider.js"></script>
 </body>
 </html>
