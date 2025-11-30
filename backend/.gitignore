@@ -1,0 +1,6 @@
+# Archivos sensibles y de configuración de la base de datos de railway
+.env
+
+# Dependencias
+node_modules/
+
