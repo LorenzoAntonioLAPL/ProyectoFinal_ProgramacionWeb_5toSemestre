@@ -17,7 +17,10 @@ import { isAdmin } from "./middleware/isAdmin.js";
 const app = express();
 const PORT = process.env.PORT || 4000;
 
-app.use(cors());
+app.use(cors({
+  origin: "*"
+}));
+
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
