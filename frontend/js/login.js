@@ -65,10 +65,12 @@ form.addEventListener("submit", async (e) => {
         }
     }
 
+    const API = "https://proyectofinal-programacionweb-5tosemestre.onrender.com";
 
-  const url = isRegister 
-    ? "http://localhost:4000/api/auth/register"
-    : "http://localhost:4000/api/auth/login"
+    const url = isRegister
+    ? `${API}/api/auth/register`
+    : `${API}/api/auth/login`;
+
 
   const body = isRegister
     ? { nombre, email, password }
