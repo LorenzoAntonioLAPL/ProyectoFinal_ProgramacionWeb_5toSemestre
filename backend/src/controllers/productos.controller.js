@@ -30,6 +30,7 @@ const createProduct = async (req, res) => {
     console.log(req.body); 
 
     //---------------------------------------------------------------
+<<<<<<< HEAD
     const { nombre, precio, descripcion, existencia, categoria, imagen, ventas } = req.body; 
     if (!nombre || !precio || !categoria || !imagen || !descripcion ) 
       return res.status(400).json({ mensaje: 'Faltan datos obligatorios' }); 
@@ -42,6 +43,15 @@ const createProduct = async (req, res) => {
     console.log("1"); 
     //----------------------------------------------------------------
     const id_insertado = await ProductoModel.createProduct(nombre, precio, descripcion, existencia, categoria, imagen, ventas); 
+=======
+    const { nombre, precio, existencia, categoria, imagen, ventas } = req.body; 
+    if (!nombre || !precio || !categoria || !imagen) 
+      return res.status(400).json({ mensaje: 'Faltan datos obligatorios' }); 
+ 
+    console.log("1"); 
+    //----------------------------------------------------------------
+    const id_insertado = await ProductoModel.createProduct(nombre, precio, existencia, categoria, imagen, ventas); 
+>>>>>>> 8e190a4 (Añadidas funciones de los productos, graficas e imagenes)
     res.status(201).json({ mensaje: 'Producto agregado', id_insertado }); 
     console.log("2"); 
   } catch (error) { 
@@ -54,6 +64,7 @@ const updateProduct = async (req, res) => {
   try { 
     const { id } = req.params; 
     //---------------------------------------------
+<<<<<<< HEAD
     const { nombre, precio, descripcion, existencia, categoria, imagen, ventas } = req.body; 
 
     precio = parseFloat(precio) || 0;
@@ -63,6 +74,12 @@ const updateProduct = async (req, res) => {
  
     //-----------------------------------------------------------
     const filas = await ProductoModel.updateProduct(id, nombre, precio, descripcion, existencia, categoria, imagen, ventas); 
+=======
+    const { nombre, precio, existencia, categoria, imagen, ventas } = req.body; 
+ 
+    //-----------------------------------------------------------
+    const filas = await ProductoModel.updateProduct(id, nombre, precio, existencia, categoria, imagen, ventas); 
+>>>>>>> 8e190a4 (Añadidas funciones de los productos, graficas e imagenes)
     if (filas === 0) 
       return res.status(404).json({ mensaje: 'Producto no encontrado' }); 
  
@@ -73,6 +90,7 @@ const updateProduct = async (req, res) => {
   } 
 }; 
 
+<<<<<<< HEAD
 const updateVentas = async (req, res) => { 
   try { 
     const { id } = req.params; 
@@ -96,6 +114,8 @@ const updateVentas = async (req, res) => {
   } 
 }; 
 
+=======
+>>>>>>> 8e190a4 (Añadidas funciones de los productos, graficas e imagenes)
 const deleteProduct = async (req, res) => { 
   try { 
     const { id } = req.params; 
@@ -110,6 +130,7 @@ const deleteProduct = async (req, res) => {
     res.status(500).json({ mensaje: 'Error al eliminar producto' }); 
   } 
 }; 
+<<<<<<< HEAD
 
 const getProductByCategoria = async (req, res) => { 
   try { 
@@ -125,13 +146,19 @@ const getProductByCategoria = async (req, res) => {
     res.status(500).json({ mensaje: 'Error al obtener producto' }); 
   } 
 };
+=======
+>>>>>>> 8e190a4 (Añadidas funciones de los productos, graficas e imagenes)
  
 module.exports = { 
   getProductos, 
   getProductById, 
   createProduct, 
   updateProduct, 
+<<<<<<< HEAD
   deleteProduct,
   updateVentas,
   getProductByCategoria
+=======
+  deleteProduct 
+>>>>>>> 8e190a4 (Añadidas funciones de los productos, graficas e imagenes)
 }; 

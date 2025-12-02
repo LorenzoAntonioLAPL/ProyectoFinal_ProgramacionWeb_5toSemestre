@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 const ProductoModel = require('../models/productos.model.js'); 
 
+=======
+>>>>>>> 8e190a4 (Añadidas funciones de los productos, graficas e imagenes)
 export const getDatos = async (req, res) => { 
   try { 
     const productos = await ProductoModel.getAllProducts(); 
@@ -20,7 +23,12 @@ export const getDatos = async (req, res) => {
         datosVentas: VENTAS
     });
   } catch (error) { 
+<<<<<<< HEAD
     console.error('Error: error al obtener los datos de los productos', error); 
     res.status(500).json({ mensaje: 'Error al obtener los datos de los productos' }); 
+=======
+    console.error('Error:', error); 
+    res.status(500).json({ mensaje: 'Error' }); 
+>>>>>>> 8e190a4 (Añadidas funciones de los productos, graficas e imagenes)
   } 
 }; 
