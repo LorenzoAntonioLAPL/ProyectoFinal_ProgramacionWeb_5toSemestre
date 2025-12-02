@@ -28,35 +28,56 @@ main section h2 {
     width: 100%;
 }
 
+.home-overlay-container {
+    display: grid;
+}
+
+.ho-object {
+    grid-column: 1;
+    grid-row: 1;
+}
+
 .home-title {
     font-size: 4.5rem;
     font-weight: 800;
     color: #3e2723; 
-    text-shadow: 1px 1px 6px rgba(0,0,0,0.3);
     margin-bottom: 15px;
 >>>>>>> 3f6b773 (Pagina inicio - Contacto - Estilos generales)
+}
+
+#ht-outline {
+    -webkit-text-stroke: 5px #fff7f0;
+    text-shadow: 1px 1px 6px rgba(0,0,0,0.3);
 }
 
 .home-subtitle {
     font-size: 1.8rem;
     font-weight: 500;
-    color: #201916;  
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+    color: #fff7f0;  
     margin-bottom: 35px;
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 main section p {
     color: #333;
     line-height: 1.6;
 =======
+=======
+#hs-outline {
+    -webkit-text-stroke: 5px #3e2723;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+}
+
+>>>>>>> 3052d50 (editar pag principal + nota footer)
 .home-btn {
     display: inline-block;
     padding: 14px 35px;
     font-size: 1.3rem;
     font-weight: 600;
+    border: 5px solid #fff7f0;
     background-color: #8d6e63;
-    color: white;
+    color: #fff7f0;
     border-radius: 25px;
     text-decoration: none;
     transition: 0.3s ease;
