@@ -12,6 +12,7 @@ import authRoutes from "./routes/auth.routes.js";
 import productRoutes from "./routes/productos.routes.js";
 import imgRoutes from "./routes/img.routes.js";
 import listaRoutes from "./routes/listaDeseos.routes.js";
+import carritoRoutes from "./routes/carrito.routes.js";
 import extraRoutes from "./routes/extras.routes.js";
 import connection from "./database/db.js";
 import { verifyToken } from "./middleware/verifyToken.js";
@@ -33,6 +34,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/imagenes", imgRoutes);
 app.use("/api/extras", extraRoutes);
 app.use("/api/listaDeseos", listaRoutes);
+app.use("/api/carritoCompra", carritoRoutes);
 
 // Ruta normal para usuarios con login
 app.get("/api/perfil", verifyToken, (req, res) => {
