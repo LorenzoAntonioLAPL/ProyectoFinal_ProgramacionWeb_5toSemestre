@@ -50,36 +50,38 @@ toggleForm.addEventListener("click", (e) => {
 
 // Enviar formulario
 form.addEventListener("submit", async (e) => {
-    e.preventDefault()
+  e.preventDefault()
 
-    const email = emailInput.value
-    const password = passwordInput.value
-    const nombre = nombreInput.value
+  const email = emailInput.value
+  const password = passwordInput.value
+  const nombre = nombreInput.value
 
-    if (!email.endsWith("@gmail.com")) {
-      swal("Error", "Solo se permiten correos Gmail", "error")
+  // Obtener token del captcha
+  const captchaToken = grecaptcha.getResponse()
+
+  if (!captchaToken) {
+    swal("Error", "Confirma que no eres un robot", "error")
+    return
+  }
+
+  if (isRegister) {
+    const confirmPassword = confirmPasswordInput.value
+
+    if (password !== confirmPassword) {
+      swal("Error", "Las contraseñas no coinciden", "error")
       return
     }
+  }
 
-    if (isRegister) {
-        const confirmPassword = confirmPasswordInput.value
+  const API = "https://proyectofinal-programacionweb-5tosemestre.onrender.com"
 
-        if (password !== confirmPassword) {
-            swal("Error", "Las contraseñas no coinciden", "error")
-            return
-        }
-    }
-
-    const API = "https://proyectofinal-programacionweb-5tosemestre.onrender.com";
-
-    const url = isRegister
+  const url = isRegister
     ? `${API}/api/auth/register`
-    : `${API}/api/auth/login`;
-
+    : `${API}/api/auth/login`
 
   const body = isRegister
-    ? { nombre, email, password }
-    : { email, password }
+    ? { nombre, email, password, captchaToken }
+    : { email, password, captchaToken }
 
   try {
     const res = await fetch(url, {
@@ -92,6 +94,7 @@ form.addEventListener("submit", async (e) => {
 
     if (!res.ok) {
       swal("Error", data.msg || "Algo salió mal", "error")
+      grecaptcha.reset() // reinicia captcha al fallar
       return
     }
 
@@ -103,16 +106,18 @@ form.addEventListener("submit", async (e) => {
 
     swal("¡Listo!", isRegister ? "Usuario registrado" : "Sesión iniciada", "success")
     .then(() => {
-    modal.style.display = "none"
-    location.reload()
+      grecaptcha.reset()
+      modal.style.display = "none"
+      location.reload()
     })
-
 
   } catch (error) {
     console.error(error)
     swal("Error", "No se pudo conectar al servidor", "error")
+    grecaptcha.reset()
   }
 })
+
 
 // Mostrar usuario si ya está logueado
 const userNameSpan = document.getElementById("userName");
