@@ -1,0 +1,59 @@
+#contact-form-section {
+    margin: 2rem;
+}
+
+#contact-form-section hr {
+    width: 90%;
+    height: 2px;
+    background-color: #1f215f;
+    color: #1f215f;
+    border: 0;
+    margin: 1rem;
+}
+
+#formContact {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.form-input {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-input input {
+    padding: .5rem;
+    width: 18rem;
+    height: 2rem;
+    border-radius: 1rem;
+}
+
+.form-input textarea {
+    width: 50rem;
+    border-radius: 1rem;
+    padding: .5rem;
+}
+
+.form-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.form-button button {
+    width: 150px;
+    height: 150px;
+    background-color: #1f215f;
+    border-style: none;
+    border-radius: 100%;
+}

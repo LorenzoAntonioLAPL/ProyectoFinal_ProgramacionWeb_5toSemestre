@@ -42,7 +42,50 @@
 
     <!-- Seccion principal, poner toda la información de la página aquí dentro -->
     <main>
-        
+        <section id="contact-form-section" class="center-object">
+            <h1>Llena este formulario y entraremos en contacto con usted</h1>
+            <hr>
+            <form id="formContact">
+            <div class="form-row">
+                <div class="form-input">
+                    <label for="nombre">Nombre*</label>
+                    <input type="text" id="nombre" name="nombre" required />
+                </div>
+                <div class="form-input">
+                    <label for="apPaterno">Apellido Paterno</label>
+                    <input type="text" id="apPaterno" name="apPaterno" />
+                </div>
+                <div class="form-input">
+                    <label for="apMaterno">Apellido Materno</label>
+                    <input type="text" id="apMaterno" name="apMaterno" />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-input">
+                    <label for="email">Email*</label>
+                    <input type="text" id="email" name="email" required />
+                </div>
+                <div class="form-input">
+                    <label for="asunto">Asunto*</label>
+                    <input type="text" id="asunto" name="asunto" required />
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-input">
+                <label for="mensaje">Mensaje*</label>
+                <textarea
+                    rows="10"
+                    name="mensaje"
+                    id="mensaje"
+                    required
+                ></textarea>
+                </div>
+                    <div class="form-button">
+                    <button type="submit">ENVIAR</button>
+                </div>
+            </div>
+            </form>
+        </section>
     </main>
 
     <!-- Modal de Login -->
