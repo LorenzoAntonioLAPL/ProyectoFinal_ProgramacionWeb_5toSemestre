@@ -14,7 +14,11 @@ export async function createLista(user_id, product_ids) {
         'INSERT INTO listdeseos (user_id, product_ids) VALUES (?, ?)',
         [user_id, product_ids]
     );
+<<<<<<< HEAD
     return result;
+=======
+    return result.insertId;
+>>>>>>> ac88a46 (Arreglo de errores y funciones de lista de deseos)
 }
 
 export async function updateLista(user_id, product_ids) {

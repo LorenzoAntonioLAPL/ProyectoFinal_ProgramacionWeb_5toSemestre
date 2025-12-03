@@ -1,8 +1,13 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 const ProductoModel = require('../models/productos.model.js'); 
 
 =======
 >>>>>>> 8e190a4 (Añadidas funciones de los productos, graficas e imagenes)
+=======
+const ProductoModel = require('../models/productos.model.js'); 
+
+>>>>>>> ac88a46 (Arreglo de errores y funciones de lista de deseos)
 export const getDatos = async (req, res) => { 
   try { 
     const productos = await ProductoModel.getAllProducts(); 
@@ -24,11 +29,16 @@ export const getDatos = async (req, res) => {
     });
   } catch (error) { 
 <<<<<<< HEAD
+<<<<<<< HEAD
     console.error('Error: error al obtener los datos de los productos', error); 
     res.status(500).json({ mensaje: 'Error al obtener los datos de los productos' }); 
 =======
     console.error('Error:', error); 
     res.status(500).json({ mensaje: 'Error' }); 
 >>>>>>> 8e190a4 (Añadidas funciones de los productos, graficas e imagenes)
+=======
+    console.error('Error: error al obtener los datos de los productos', error); 
+    res.status(500).json({ mensaje: 'Error al obtener los datos de los productos' }); 
+>>>>>>> ac88a46 (Arreglo de errores y funciones de lista de deseos)
   } 
 }; 

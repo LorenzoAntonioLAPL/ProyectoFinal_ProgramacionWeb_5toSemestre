@@ -31,6 +31,7 @@ const createProduct = async (req, res) => {
 
     //---------------------------------------------------------------
 <<<<<<< HEAD
+<<<<<<< HEAD
     const { nombre, precio, descripcion, existencia, categoria, imagen, ventas } = req.body; 
     if (!nombre || !precio || !categoria || !imagen || !descripcion ) 
       return res.status(400).json({ mensaje: 'Faltan datos obligatorios' }); 
@@ -46,12 +47,25 @@ const createProduct = async (req, res) => {
 =======
     const { nombre, precio, existencia, categoria, imagen, ventas } = req.body; 
     if (!nombre || !precio || !categoria || !imagen) 
+=======
+    const { nombre, precio, descripcion, existencia, categoria, imagen, ventas } = req.body; 
+    if (!nombre || !precio || !categoria || !imagen || !descripcion ) 
+>>>>>>> ac88a46 (Arreglo de errores y funciones de lista de deseos)
       return res.status(400).json({ mensaje: 'Faltan datos obligatorios' }); 
+
+    precio = parseFloat(precio) || 0;
+    existencia = parseInt(existencia, 10) || 0;
+    categoria = parseInt(categoria, 10) || 0;
+    ventas = parseFloat(ventas) || 0;
  
     console.log("1"); 
     //----------------------------------------------------------------
+<<<<<<< HEAD
     const id_insertado = await ProductoModel.createProduct(nombre, precio, existencia, categoria, imagen, ventas); 
 >>>>>>> 8e190a4 (Añadidas funciones de los productos, graficas e imagenes)
+=======
+    const id_insertado = await ProductoModel.createProduct(nombre, precio, descripcion, existencia, categoria, imagen, ventas); 
+>>>>>>> ac88a46 (Arreglo de errores y funciones de lista de deseos)
     res.status(201).json({ mensaje: 'Producto agregado', id_insertado }); 
     console.log("2"); 
   } catch (error) { 
@@ -65,12 +79,16 @@ const updateProduct = async (req, res) => {
     const { id } = req.params; 
     //---------------------------------------------
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ac88a46 (Arreglo de errores y funciones de lista de deseos)
     const { nombre, precio, descripcion, existencia, categoria, imagen, ventas } = req.body; 
 
     precio = parseFloat(precio) || 0;
     existencia = parseInt(existencia, 10) || 0;
     categoria = parseInt(categoria, 10) || 0;
     ventas = parseFloat(ventas) || 0;
+<<<<<<< HEAD
  
     //-----------------------------------------------------------
     const filas = await ProductoModel.updateProduct(id, nombre, precio, descripcion, existencia, categoria, imagen, ventas); 
@@ -80,6 +98,11 @@ const updateProduct = async (req, res) => {
     //-----------------------------------------------------------
     const filas = await ProductoModel.updateProduct(id, nombre, precio, existencia, categoria, imagen, ventas); 
 >>>>>>> 8e190a4 (Añadidas funciones de los productos, graficas e imagenes)
+=======
+ 
+    //-----------------------------------------------------------
+    const filas = await ProductoModel.updateProduct(id, nombre, precio, descripcion, existencia, categoria, imagen, ventas); 
+>>>>>>> ac88a46 (Arreglo de errores y funciones de lista de deseos)
     if (filas === 0) 
       return res.status(404).json({ mensaje: 'Producto no encontrado' }); 
  
@@ -91,6 +114,9 @@ const updateProduct = async (req, res) => {
 }; 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ac88a46 (Arreglo de errores y funciones de lista de deseos)
 const updateVentas = async (req, res) => { 
   try { 
     const { id } = req.params; 
@@ -114,8 +140,11 @@ const updateVentas = async (req, res) => {
   } 
 }; 
 
+<<<<<<< HEAD
 =======
 >>>>>>> 8e190a4 (Añadidas funciones de los productos, graficas e imagenes)
+=======
+>>>>>>> ac88a46 (Arreglo de errores y funciones de lista de deseos)
 const deleteProduct = async (req, res) => { 
   try { 
     const { id } = req.params; 
@@ -131,6 +160,9 @@ const deleteProduct = async (req, res) => {
   } 
 }; 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ac88a46 (Arreglo de errores y funciones de lista de deseos)
 
 const getProductByCategoria = async (req, res) => { 
   try { 
@@ -146,8 +178,11 @@ const getProductByCategoria = async (req, res) => {
     res.status(500).json({ mensaje: 'Error al obtener producto' }); 
   } 
 };
+<<<<<<< HEAD
 =======
 >>>>>>> 8e190a4 (Añadidas funciones de los productos, graficas e imagenes)
+=======
+>>>>>>> ac88a46 (Arreglo de errores y funciones de lista de deseos)
  
 module.exports = { 
   getProductos, 
@@ -155,10 +190,16 @@ module.exports = {
   createProduct, 
   updateProduct, 
 <<<<<<< HEAD
+<<<<<<< HEAD
   deleteProduct,
   updateVentas,
   getProductByCategoria
 =======
   deleteProduct 
 >>>>>>> 8e190a4 (Añadidas funciones de los productos, graficas e imagenes)
+=======
+  deleteProduct,
+  updateVentas,
+  getProductByCategoria
+>>>>>>> ac88a46 (Arreglo de errores y funciones de lista de deseos)
 }; 

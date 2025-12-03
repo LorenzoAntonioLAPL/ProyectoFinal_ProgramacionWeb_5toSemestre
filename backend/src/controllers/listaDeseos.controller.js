@@ -8,6 +8,7 @@ const añadirLista = async (req, res) => {
     const { idProducto } = req.params;
 
     const usuario = await ListaModel.findUserById(user); 
+<<<<<<< HEAD
     if (!usuario){
       const producto = String(idProducto)+",";
       const resultado = await ListaModel.createLista(user, producto);
@@ -16,6 +17,10 @@ const añadirLista = async (req, res) => {
 
       res.json({ mensaje: 'Lista de deseos actualizada correctamente' }); 
     }
+=======
+    if (!usuario) 
+      return res.status(404).json({ mensaje: 'Usuario no encontrado' });
+>>>>>>> ac88a46 (Arreglo de errores y funciones de lista de deseos)
 
     const listaDeseos = usuario.product_ids.split(",");
     if(listaDeseos[listaDeseos.length - 1] === "") listaDeseos.pop();
