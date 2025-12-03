@@ -50,11 +50,16 @@ toggleForm.addEventListener("click", (e) => {
 
 // Enviar formulario
 form.addEventListener("submit", async (e) => {
-  e.preventDefault()
+    e.preventDefault()
 
-  const email = emailInput.value
-  const password = passwordInput.value
-  const nombre = nombreInput.value
+    const email = emailInput.value
+    const password = passwordInput.value
+    const nombre = nombreInput.value
+
+    if (!email.endsWith("@gmail.com")) {
+      swal("Error", "Solo se permiten correos Gmail", "error")
+      return
+    }
 
     if (isRegister) {
         const confirmPassword = confirmPasswordInput.value
