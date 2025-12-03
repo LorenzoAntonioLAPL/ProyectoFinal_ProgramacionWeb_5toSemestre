@@ -1,3 +1,5 @@
+const ProductoModel = require('../models/productos.model.js'); 
+
 export const getDatos = async (req, res) => { 
   try { 
     const productos = await ProductoModel.getAllProducts(); 
@@ -18,7 +20,7 @@ export const getDatos = async (req, res) => {
         datosVentas: VENTAS
     });
   } catch (error) { 
-    console.error('Error:', error); 
-    res.status(500).json({ mensaje: 'Error' }); 
+    console.error('Error: error al obtener los datos de los productos', error); 
+    res.status(500).json({ mensaje: 'Error al obtener los datos de los productos' }); 
   } 
 }; 
