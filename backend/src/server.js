@@ -11,6 +11,7 @@ import cors from "cors";
 import authRoutes from "./routes/auth.routes.js";
 import productRoutes from "./routes/productos.routes.js";
 import imgRoutes from "./routes/img.routes.js";
+import listaRoutes from "./routes/listaDeseos.routes.js";
 import extraRoutes from "./routes/extras.routes.js";
 import connection from "./database/db.js";
 import { verifyToken } from "./middleware/verifyToken.js";
@@ -31,6 +32,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/imagenes", imgRoutes);
 app.use("/api/extras", extraRoutes);
+app.use("/api/listaDeseos", listaRoutes);
 
 // Ruta normal para usuarios con login
 app.get("/api/perfil", verifyToken, (req, res) => {
