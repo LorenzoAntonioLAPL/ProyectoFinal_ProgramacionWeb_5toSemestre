@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Papa's Donuteria</title>
 
-    <link rel="icon" type="image/x-icon" href="./imagenes/logo.png">
+    <link rel="icon" type="image/x-icon" href="./imagenes/favicon.ico">
 
     <!-- Estilos -->
     <link rel="stylesheet" href="./CSS/essencial-styles.css">
@@ -21,22 +21,36 @@
     <!-- Navbar -->
     <nav class="navbar">
         <div id="header-logo">
-            <h1><i class="fa-solid fa-scroll"></i> PLACEHOLDERNAME</h1>
+            <img src="./imagenes/LogoDona.png" alt="Logo">
+            <h1><i class="fa-solid fa-donut"></i> PAPA'S DONUTERIA</h1>
         </div>
+
         <div id="header-right">
+
             <div id="header-navigation">
                 <a href="./index.html">INICIO</a>
-                <a href="./categoria.html">NUESTROS PRODUCTOS</a>
-                <a href="./contacto.html">CONTACTANOS</a>
-                <a href="./nosotros.html">SOBRE NOSOTROS</a>
+                <a href="./categoria.html">PRODUCTOS</a>
+                <a href="./contacto.html">CONTACTO</a>
+                <a href="./nosotros.html">NOSOTROS</a>
             </div>
-            <span id="userName" class="user-name"></span>
+
+            <button class="icon-btn" title="Lista de deseos">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+
+            <button class="icon-btn" title="Carrito">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+
             <button id="loginBtn" class="icon-btn" title="Login">
-                <span class="login-icon"><i class="fa-solid fa-lock"></i></span>
+                <i class="fa-solid fa-user"></i>
             </button>
-            <button id="logoutBtn" class="icon-btn" title="Logout" style="display: none;">
-                <span class="logout-icon"><i class="fa-solid fa-right-from-bracket"></i></span>
+
+            <button id="logoutBtn" class="icon-btn" style="display:none;" title="Cerrar sesión">
+                <i class="fa-solid fa-right-from-bracket"></i>
             </button>
+
+            <span id="userName" class="user-name"></span>
         </div>
     </nav>
 
@@ -45,53 +59,77 @@
         
     </main>
 
-    <!-- Modal de Login -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-        <span class="close" id="closeModal">&times;</span>
-        <h2>Iniciar Sesión</h2>
-        <form id="formLogin">
-            <input type="text" id="login" placeholder="Usuario" required>
-            <input type="password" id="password" placeholder="Contraseña" required>
-            <button type="submit">Enviar</button>
-        </form>
-        </div>
-    </div>
+    
+<!-- Modal de Login / Registro -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeModal">&times;</span>
 
-    <!-- Footer -->
-    <footer class="center-object">
-        <div id="footer-top" class="footer-flex">
-            <!-- Escrito muy sencillo de lo que es el sitio -->
-            <div id="footer-info">
-                <h1>PLACEHOLDERNAME</h1>
-                <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing
-                    elit. Veritatis ullam harum facilis ipsum magni delectus,
-                    reiciendis qui eum natus mollitia tempora itaque labore,
-                    corporis, unde dolor? Repellat, cum quo. Odit?
-                </p>
-            </div>
-            <!-- Links Útiles: Están más que otra cosa de decoración la verdad -->
-            <div id="useful-links">
-                <h2>Links Útiles</h2>
-                <ul id="links-extras">
-                    <li><a href="#">Términos de Uso <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
-                    <li><a href="#">Centro de Ayuda <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
-                    <li><a href="#">Aviso de Privacidad <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
-                    <li><a href="#">Blog</a></li>
-                </ul>
-            </div>
+    <h2 id="modalTitle">Iniciar Sesión</h2>
+
+    <form id="formLogin">
+
+      <!-- Solo aparece en modo REGISTRO -->
+      <input 
+        type="text" 
+        id="nombre" 
+        placeholder="Nombre completo"
+        style="display:none;"
+      >
+
+      <input 
+        type="text" 
+        id="login" 
+        placeholder="Correo electrónico" 
+        required
+      >
+
+      <input 
+        type="password" 
+        id="password" 
+        placeholder="Contraseña" 
+        required
+      >
+
+      <input 
+        type="password" 
+        id="confirmPassword" 
+        placeholder="Confirmar contraseña"
+        style="display:none;"
+      >
+
+      <button type="submit" id="submitBtn">Login</button>
+    </form>
+
+    <p style="margin-top: 10px; text-align:center;">
+        <span id="toggleText">¿No tienes cuenta?</span>
+        <a href="#" id="toggleForm"> Regístrate</a>
+    </p>
+
+  </div>
+</div>
+
+   <footer>
+    <div class="footer-container">
+        
+        <h1 class="footer-title"> Papas's Donuteria </h1><br>
+        <p class="footer-tagline">El sabor perfecto para tu día</p>
+
+        <div class="footer-links">
+            <a href="contacto.html">Contáctanos</a>
+            <a href="nosotros.html">Sobre nosotros</a>
         </div>
-        <hr>
-        <!-- Copyright & Redes Sociales -->
-        <div id="footer-bottom" class="footer-flex">
-            <h3 id="footer-copyright">© 2025 PLACEHOLDERNAME</h3>
-            <div id="social-media-list">
-                <a href=""><i class="fa-brands fa-tumblr"></i></a>
-                <a href=""><i class="fa-solid fa-envelope"></i></a>
-            </div>
+
+        <div class="footer-social">
+            <a href="https://instagram.com" target="_blank">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
         </div>
-        <p>Nota: Esto es un Projecto Escolar</p>
-    </footer>
+
+        <p class="footer-rights">© 2025 Papa's Donuteria — Todos los derechos reservados.</p>
+        <hr class="footer-divider">
+        <p class="footer-rights">Nota: Esto es un proyecto escolar sin el objetivo de ser una tienda real</p>
+    </div>
+</footer>
 </body>
 </html>

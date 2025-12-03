@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Papa's Donuteria</title>
+
+    <!-- Favicon: Icono de la pagina-->
+    <link rel="icon" type="image/x-icon" href="./imagenes/favicon.ico">
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="./CSS/essencial-styles.css">
+    <link rel="stylesheet" href="./CSS/admin-styles.css">
+
+    <!-- Scripts -->
+    <script src="js/login.js" defer></script>
+    <script src="js/slider.js" defer></script>
+    <script src="./js/collapsable.js" defer></script>
+    <script src="./js/admin.js" defer></script>
+    <script src="https://kit.fontawesome.com/d420dccc9b.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div id="header-logo">
+            <img src="./imagenes/LogoDona.png" alt="Logo">
+            <h1><i class="fa-solid fa-donut"></i> PAPA'S DONUTERIA</h1>
+        </div>
+
+        <div id="header-right">
+
+            <div id="header-navigation">
+                <a href="./index.html">INICIO</a>
+                <a href="./categoria.html">PRODUCTOS</a>
+                <a href="./contacto.html">CONTACTO</a>
+                <a href="./nosotros.html">NOSOTROS</a>
+            </div>
+
+            <button class="icon-btn" title="Lista de deseos">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+
+            <button class="icon-btn" title="Carrito">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+
+            <button id="loginBtn" class="icon-btn" title="Login">
+                <i class="fa-solid fa-user"></i>
+            </button>
+
+            <button id="logoutBtn" class="icon-btn" style="display:none;" title="Cerrar sesión">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+
+            <span id="userName" class="user-name"></span>
+        </div>
+    </nav>
+
+    <!-- Seccion principal, poner toda la información de la página aquí dentro -->
+    <main>
+        <!-- Datos de Productors -->
+        <section id="admin-products" class="admin-section">
+            <h1 class="admin-title">Productos existentes</h1>
+            <form action="searchProduct">
+                <label for="">Producto a Buscar:</label>
+                <input type="number" step="1" name="" id="" min="1">
+                <input type="submit" value="Buscar">
+            </form>
+            <div id="prod-container">
+                <div id="product" class="a-product-card">
+                    <img src="imagenes/donas.jpg" alt="Dona ejemplo">
+                    <div class="a-product-desc">
+                        <h2>Dona de Chocolate</h2>
+                        <h3>ID: [Numero de ID]</h3>
+                        <p>Rellena y bañada en chocolate derretido premium.</p>
+                    </div>
+                    <button id="btn-eliminar[Num]" type="button" class="a-product-button" title="Eliminar"><i class="fa-solid fa-trash"></i></button>
+                    <button id="btn-modificar[Num]" type="button" class="collapsible a-product-button" title="Modificar"><i class="fa-solid fa-gear"></i></button>
+                    <div class="a-product-modify collapse-content">
+                        <hr>
+                        <form action="formModProduct">
+                            <label for="prodNom[Num]">Nombre:</label>
+                            <input type="text" id="prodNom[Num]" class="a-product-input" placeholder="NombreDelProducto">
+
+                            <label for="prodDesc[Num]">Descripción:</label>
+                            <textarea type="text" id="prodDesc[Num]" class="a-product-input input-resize" placeholder="DescripcionDelProducto"></textarea>
+
+                            <label for="prodPrecio[Num]">Precio:</label>
+                            <input type="number" id="prodPrecio[Num]" class="a-product-input" min="0" step="any" placeholder="Precioactual">
+
+                            <label for="prodExist[Num]">Existencias:</label>
+                            <input type="number" id="prodExist[Num]" class="a-product-input" name="quantity" min="0" placeholder="ExistenciaActual">
+                            
+                            <label for="prodImagen[Num]">Imagen:</label>
+                            <input type="file" id="prodImagen[Num]" accept="image/png, image/gif, image/jpeg" name="prodImagen[Num]">
+
+                            <br><br>
+                            
+                            <input type="submit" class="btn-modify" value="Modificar">
+                            <input type="reset" class="btn-modify" value="Reset">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="admin-graphs" class="admin-section">
+            <h1 class="admin-title">Ventas Totales por categoría</h1>
+            <!-- Muestra una grafica de barras donde cada barra representa a cada categoria-->
+            <button id="btn-grp-dona" type="button" class="collapsible">Mostrar Gráfica</button>
+            <div id="graph-container" class="collapse-content">
+                <canvas id="grafica"></canvas>
+                <div id="graph-data">
+                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae nihil mollitia itaque, sed sequi sint a consequuntur vitae suscipit molestias placeat dignissimos omnis cupiditate accusamus cumque aliquam quos repudiandae alias!
+                    Explicabo eius culpa neque dolore accusantium aliquam optio eligendi voluptatibus nobis velit at maiores libero hic fuga voluptate perspiciatis quasi, assumenda ipsa. Deserunt autem dicta suscipit deleniti architecto, enim ratione?
+                    Sed animi dolorum aliquam laborum, eaque similique reiciendis commodi dicta vero inventore, a voluptates repellat cupiditate ex officia soluta. Reiciendis fugit qui aperiam officia aut nesciunt dolorem nobis rerum debitis!
+                    Ullam, rem ipsa blanditiis accusantium qui iure praesentium modi suscipit velit expedita explicabo minus dolorum exercitationem iusto officia repudiandae aspernatur adipisci cumque placeat. Modi voluptatem qui voluptate aspernatur! Laboriosam, nulla.
+                    Fugit laboriosam quae perspiciatis omnis quaerat aliquid culpa officiis reiciendis, incidunt temporibus laborum error voluptatum dolorum, non sed eveniet quibusdam quam consectetur, quasi voluptates exercitationem ut repudiandae vitae! Consequatur, soluta.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    
+<!-- Modal de Login / Registro -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeModal">&times;</span>
+
+    <h2 id="modalTitle">Iniciar Sesión</h2>
+
+    <form id="formLogin">
+
+      <!-- Solo aparece en modo REGISTRO -->
+      <input 
+        type="text" 
+        id="nombre" 
+        placeholder="Nombre completo"
+        style="display:none;"
+      >
+
+      <input 
+        type="text" 
+        id="login" 
+        placeholder="Correo electrónico" 
+        required
+      >
+
+      <input 
+        type="password" 
+        id="password" 
+        placeholder="Contraseña" 
+        required
+      >
+
+      <input 
+        type="password" 
+        id="confirmPassword" 
+        placeholder="Confirmar contraseña"
+        style="display:none;"
+      >
+
+      <button type="submit" id="submitBtn">Login</button>
+    </form>
+
+    <p style="margin-top: 10px; text-align:center;">
+        <span id="toggleText">¿No tienes cuenta?</span>
+        <a href="#" id="toggleForm"> Regístrate</a>
+    </p>
+
+  </div>
+</div>
+
+    <!-- Footer -->
+    <footer>
+    <div class="footer-container">
+        
+        <h1 class="footer-title"> Papas's Donuteria </h1><br>
+        <p class="footer-tagline">El sabor perfecto para tu día</p>
+
+        <div class="footer-links">
+            <a href="contacto.html">Contáctanos</a>
+            <a href="nosotros.html">Sobre nosotros</a>
+        </div>
+
+        <div class="footer-social">
+            <a href="https://instagram.com" target="_blank">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+        </div>
+
+        <p class="footer-rights">© 2025 Papa's Donuteria — Todos los derechos reservados.</p>
+        <hr class="footer-divider">
+        <p class="footer-rights">Nota: Esto es un proyecto escolar sin el objetivo de ser una tienda real</p>
+    </div>
+</footer>
+</body>
+</html>
