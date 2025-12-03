@@ -16,6 +16,10 @@ export const register = async (req, res) => {
       return res.status(400).json({ msg: "Todos los campos son obligatorios" });
     }
 
+    if (!email.endsWith("@gmail.com")) {
+      return res.status(400).json({ msg: "Solo se permiten correos Gmail" })
+    }
+    
     const existingUser = await findUserByEmail(email);
     if (existingUser) {
       return res.status(409).json({ msg: "Este correo ya está registrado" });
