@@ -15,11 +15,14 @@ import imgRoutes from "./routes/img.routes.js";
 <<<<<<< HEAD
 import listaRoutes from "./routes/listaDeseos.routes.js";
 import carritoRoutes from "./routes/carrito.routes.js";
+<<<<<<< HEAD
 =======
 >>>>>>> 8e190a4 (Añadidas funciones de los productos, graficas e imagenes)
 =======
 import listaRoutes from "./routes/listaDeseos.routes.js";
 >>>>>>> ac88a46 (Arreglo de errores y funciones de lista de deseos)
+=======
+>>>>>>> 9184ba9 (Arreglo de errores y añadidas funciones del carrito de compra)
 import extraRoutes from "./routes/extras.routes.js";
 import connection from "./database/db.js";
 import { verifyToken } from "./middleware/verifyToken.js";
@@ -44,11 +47,14 @@ app.use("/api/extras", extraRoutes);
 <<<<<<< HEAD
 app.use("/api/listaDeseos", listaRoutes);
 app.use("/api/carritoCompra", carritoRoutes);
+<<<<<<< HEAD
 =======
 >>>>>>> 8e190a4 (Añadidas funciones de los productos, graficas e imagenes)
 =======
 app.use("/api/listaDeseos", listaRoutes);
 >>>>>>> ac88a46 (Arreglo de errores y funciones de lista de deseos)
+=======
+>>>>>>> 9184ba9 (Arreglo de errores y añadidas funciones del carrito de compra)
 
 // Ruta normal para usuarios con login
 app.get("/api/perfil", verifyToken, (req, res) => {

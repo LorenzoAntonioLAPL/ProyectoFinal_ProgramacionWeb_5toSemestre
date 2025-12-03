@@ -5,10 +5,13 @@ import { añadirLista,
 import { verifyToken } from "../middleware/verifyToken.js";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 idProducto
 
 >>>>>>> ac88a46 (Arreglo de errores y funciones de lista de deseos)
+=======
+>>>>>>> 9184ba9 (Arreglo de errores y añadidas funciones del carrito de compra)
 const router = Router();
 
 router.put('/añadirProducto/:idProducto', verifyToken, añadirLista);
