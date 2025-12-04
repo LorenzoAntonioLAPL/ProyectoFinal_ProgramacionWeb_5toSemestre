@@ -17,8 +17,11 @@
     <script src="./js/collapsible.js" defer></script>
     <script src="./js/grafica.js" defer></script>
     <script src="./js/admin.js" defer></script>
+
+    <!-- Scripts Externos -->
     <script src="https://kit.fontawesome.com/d420dccc9b.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <!-- Navbar -->
@@ -75,13 +78,13 @@
                             <textarea type="text" id="addDesc" class="a-product-input input-resize" placeholder="Descripción del Producto"></textarea>
 
                             <label for="addPrecio">Precio:</label>
-                            <input type="number" id="addPrecio" class="a-product-input" min="0" step="any" placeholder="${data.precio}">
+                            <input type="number" id="addPrecio" class="a-product-input" min="0" step="any" placeholder="Precio del producto (0.00)">
 
                             <label for="addExist">Existencias:</label>
-                            <input type="number" id="addExist" class="a-product-input" name="quantity" min="0" placeholder="${data.existencia}">
+                            <input type="number" id="addExist" class="a-product-input" name="quantity" min="0" placeholder="Existencias del producto">
 
                             <label for="addCateg">Categ:</label>
-                            <input type="number" id="addCateg" class="a-product-input" name="quantity" min="1" max="3" step="1" placeholder="${data.categoria}">
+                            <input type="number" id="addCateg" class="a-product-input" name="quantity" min="1" max="3" step="1" placeholder="Dona = 1, Bebida = 2, Souvenir = 3">
                                                 
                             <label for="addImagen">Imagen:</label>
                             <input type="file" id="addImagen" accept="image/png, image/gif, image/jpeg" name="prodImagen">
@@ -89,7 +92,6 @@
                             <br><br>
                                                 
                             <input type="submit" class="btn-modify" value="Agregar">
-                            <input type="reset" class="btn-modify" value="Reset">
                         </form>
                     </div>
                 </div>
@@ -103,7 +105,46 @@
                     <input type="submit" value="Buscar">
                 </form>
                 <div id="search-container">
-                    
+                    <div class="a-product-card">
+                        <img src="imagenes/donas.jpg" alt="">
+                        <div class="a-product-desc">
+                            <h2>Nombre</h2>
+                            <h3>ID: ???</h3>
+                            <h4>Categoria: ??? | Precio: ??? | Existencias: ??? | Ventas: ???</h4>
+                            <hr>
+                            <p>Descripción</p>
+                        </div>
+                        <button id="btn-elim" type="button" class="a-product-button btn-eliminar" title="Eliminar" disabled><i class="fa-solid fa-trash"></i></button>
+                        <div class="a-product-modify">
+                            <hr>
+                            <form id="formModProduct">
+                                <label for="modNom">Nombre:</label>
+                                <input type="text" id="modNom" class="a-product-input" placeholder="Nombre">
+
+                                <label for="modDesc">Descripción:</label>
+                                <textarea type="text" id="modDesc" class="a-product-input input-resize" placeholder="Descripción"></textarea>
+
+                                <label for="modPrecio">Precio:</label>
+                                <input type="number" id="modPrecio" class="a-product-input" min="0" step="any" placeholder="00.00">
+
+                                <label for="modVentas">Ventas:</label>
+                                <input type="number" id="modVentas" class="a-product-input" min="0" step="any" placeholder="00.00">
+
+                                <label for="modExist">Existencias:</label>
+                                <input type="number" id="modExist" class="a-product-input" name="quantity" min="0" placeholder="0">
+
+                                <label for="modCateg">Categ:</label>
+                                <input type="number" id="modCateg" class="a-product-input" name="quantity" min="1" max="3" step="1" placeholder="1">
+                                                    
+                                <label for="modImagen">Imagen:</label>
+                                <input type="file" id="modImagen" accept="image/png, image/gif, image/jpeg" name="prodImagen">
+
+                                <br><br>
+                                                    
+                                <input id="btn-modify" type="submit" class="btn-modify" value="Modificar" disabled>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- Mostrar todos los productos-->
@@ -132,34 +173,34 @@
     
     <!-- Modal de Login / Registro -->
     <div id="loginModal" class="modal">
-    <div class="modal-content">
-        <span class="close" id="closeModal">&times;</span>
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
 
-        <h2 id="modalTitle">Iniciar Sesión</h2>
+            <h2 id="modalTitle">Iniciar Sesión</h2>
 
-        <form id="formLogin">
+            <form id="formLogin">
 
-        <!-- Solo aparece en modo REGISTRO -->
-        <input 
-            type="text" 
-            id="nombre" 
-            placeholder="Nombre completo"
-            style="display:none;"
-        >
+            <!-- Solo aparece en modo REGISTRO -->
+            <input 
+                type="text" 
+                id="nombre" 
+                placeholder="Nombre completo"
+                style="display:none;"
+            >
 
-        <input 
-            type="text" 
-            id="login" 
-            placeholder="Correo electrónico" 
-            required
-        >
+            <input 
+                type="text" 
+                id="login" 
+                placeholder="Correo electrónico" 
+                required
+            >
 
-        <input 
-            type="password" 
-            id="password" 
-            placeholder="Contraseña" 
-            required
-        >
+            <input 
+                type="password" 
+                id="password" 
+                placeholder="Contraseña" 
+                required
+            >
 
         <input 
             type="password" 
@@ -172,12 +213,12 @@
         <button type="submit" id="submitBtn">Login</button>
         </form>
 
-        <p style="margin-top: 10px; text-align:center;">
-            <span id="toggleText">¿No tienes cuenta?</span>
-            <a href="#" id="toggleForm"> Regístrate</a>
-        </p>
+            <p style="margin-top: 10px; text-align:center;">
+                <span id="toggleText">¿No tienes cuenta?</span>
+                <a href="#" id="toggleForm"> Regístrate</a>
+            </p>
 
-    </div>
+        </div>
     </div>
 
     <!-- Footer -->
