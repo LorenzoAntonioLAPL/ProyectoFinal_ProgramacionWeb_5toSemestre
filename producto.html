@@ -45,16 +45,54 @@
         
     </main>
 
-    <!-- Modal de Login -->
+    <!-- Modal de Login / Registro -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
-        <span class="close" id="closeModal">&times;</span>
-        <h2>Iniciar Sesión</h2>
-        <form id="formLogin">
-            <input type="text" id="login" placeholder="Usuario" required>
-            <input type="password" id="password" placeholder="Contraseña" required>
-            <button type="submit">Enviar</button>
-        </form>
+            <span class="close" id="closeModal">&times;</span>
+
+            <h2 id="modalTitle">Iniciar Sesión</h2>
+
+            <form id="formLogin">
+
+            <!-- Solo aparece en modo REGISTRO -->
+            <input 
+                type="text" 
+                id="nombre" 
+                placeholder="Nombre completo"
+                style="display:none;"
+            >
+
+            <input 
+                type="text" 
+                id="login" 
+                placeholder="Correo electrónico" 
+                required
+            >
+
+            <input 
+                type="password" 
+                id="password" 
+                placeholder="Contraseña" 
+                required
+            >
+
+            <input 
+                type="password" 
+                id="confirmPassword" 
+                placeholder="Confirmar contraseña"
+                style="display:none;"
+            >
+            
+            <div class="g-recaptcha" data-sitekey="6LdTcyAsAAAAAFOkXtlCJ9Fcrgd9An7D5UayW1Pa"></div>
+
+            <button type="submit" id="submitBtn">Login</button>
+            </form>
+
+            <p style="margin-top: 10px; text-align:center;">
+                <span id="toggleText">¿No tienes cuenta?</span>
+                <a href="#" id="toggleForm"> Regístrate</a>
+            </p>
+
         </div>
     </div>
 
