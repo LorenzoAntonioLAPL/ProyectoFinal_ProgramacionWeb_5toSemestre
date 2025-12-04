@@ -202,6 +202,30 @@ main {
     background-color: #fff;   
 }
 
+.g-recaptcha{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+#modalTitle{
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    color: #faf5f1;
+}
+
+#toggleText, #toggleForm {
+    text-align: center;
+    margin-top: 1.2rem;
+    color: #faf5f1;
+}
+
+#toggleForm:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 #submitBtn {
     background: #d2a679;
     border: none;

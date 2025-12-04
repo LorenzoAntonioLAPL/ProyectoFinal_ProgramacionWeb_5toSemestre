@@ -1,6 +1,7 @@
-const fs = require('fs');
-const path = require('path');
+import * as fs from "fs"
+import * as path from "path"
 const RUTA_IMGS = "../imagenes/";
+import * as ProductoModel from "../models/productos.model.js"
 
 export const getImagenes = async (req, res) => { 
   try { 
