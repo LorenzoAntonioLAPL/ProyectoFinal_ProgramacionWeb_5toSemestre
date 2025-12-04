@@ -113,7 +113,7 @@ const deleteProduct = async (req, res) => {
     console.error('Error al eliminar producto:', error); 
     res.status(500).json({ mensaje: 'Error al eliminar producto' }); 
   } 
-}; 
+};
 
 const getProductByCategoria = async (req, res) => { 
   try { 
@@ -129,7 +129,7 @@ const getProductByCategoria = async (req, res) => {
     res.status(500).json({ mensaje: 'Error al obtener producto' }); 
   } 
 };
- 
+
 export {
   getProductos,
   getProductById,
