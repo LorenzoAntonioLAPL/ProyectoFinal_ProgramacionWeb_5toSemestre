@@ -9,7 +9,7 @@
 
     <!-- Estilos -->
     <link rel="stylesheet" href="./CSS/essencial-styles.css">
-    <link rel="stylesheet" href="./CSS/categ-styles.css">
+    <link rel="stylesheet" href="./CSS/categoria-style.css">
 
     <!-- Scripts -->
     <script src="js/login.js" defer></script>
@@ -56,8 +56,18 @@
 
     <!-- Seccion principal, poner toda la información de la página aquí dentro -->
     <main>
-        
+        <section class="container-categ">
+            <h2>Donas</h2>
+            <div id="contenedor-donas" class="featured-grid"></div>
+
+            <h2>Bebidas</h2>
+            <div id="contenedor-bebidas" class="featured-grid"></div>
+
+            <h2>Souvenirs</h2>
+            <div id="contenedor-souvenirs" class="featured-grid"></div>
+        </section>
     </main>
+    <script src="js/categoria.js" defer></script>
 
     <!-- Modal de Login / Registro -->
     <div id="loginModal" class="modal">
