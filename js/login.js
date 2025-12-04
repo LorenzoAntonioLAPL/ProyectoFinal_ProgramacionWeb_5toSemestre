@@ -13,6 +13,8 @@ const emailInput = document.getElementById("login")
 const passwordInput = document.getElementById("password")
 const confirmPasswordInput = document.getElementById("confirmPassword")
 
+const API_BASE_URL = 'https://proyectofinal-programacionweb-5tosemestre.onrender.com';
+
 let isRegister = false
 
 // Abrir modal
@@ -53,45 +55,43 @@ toggleForm.addEventListener("click", (e) => {
 
 // Enviar formulario
 form.addEventListener("submit", async (e) => {
-  e.preventDefault()
+    e.preventDefault()
 
-  const email = emailInput.value
-  const password = passwordInput.value
-  const nombre = nombreInput.value
+    const email = emailInput.value
+    const password = passwordInput.value
+    const nombre = nombreInput.value
 
-  // Obtener token del captcha
-  const captchaToken = grecaptcha.getResponse()
+    // Obtener token del captcha
+    const captchaToken = grecaptcha.getResponse()
 
-  if (!captchaToken) {
-    swal("Error", "Confirma que no eres un robot", "error")
-    return
-  }
-
-  if (isRegister) {
-    const confirmPassword = confirmPasswordInput.value
-
-    if (password !== confirmPassword) {
-      swal("Error", "Las contraseñas no coinciden", "error")
-      return
+    if (!captchaToken) {
+        swal("Error", "Confirma que no eres un robot", "error")
+        return
     }
-  }
 
-  const API = "https://proyectofinal-programacionweb-5tosemestre.onrender.com"
+    if (isRegister) {
+      const confirmPassword = confirmPasswordInput.value
+
+      if (password !== confirmPassword) {
+          swal("Error", "Las contraseñas no coinciden", "error")
+          return
+      }
+    }
 
   const url = isRegister
-    ? `${API}/api/auth/register`
-    : `${API}/api/auth/login`
+      ? `${API_BASE_URL}/api/auth/register`
+      : `${API_BASE_URL}/api/auth/login`
 
   const body = isRegister
     ? { nombre, email, password, captchaToken }
     : { email, password, captchaToken }
 
   try {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body)
-    })
+      const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+      })
 
     const data = await res.json()
 

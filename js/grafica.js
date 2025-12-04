@@ -1,10 +1,15 @@
-const API_BASE_URL = 'https://proyectofinal-programacionweb-5tosemestre.onrender.com';
-
-async function generarGrafica() {
+document.addEventListener('DOMContentLoaded', async () => {
     try {
-        const response = await fetch(`${API_BASE_URL}/api/extras/datosGrafica`);
+        const response = await fetch(`${API_BASE_URL}/api/extras/datosGrafica`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`,
+            }
+        });
         const data = await response.json();
         
+        console.log(data);
+
         if (response.ok) {
             const ctx = document.getElementById("grafica").getContext("2d");
             const titulos = data.datosTitulos;
@@ -33,4 +38,4 @@ async function generarGrafica() {
         console.error('Error: No se pudo conectar con el servidor', error);
         swal("Error", "No se pudo conectar con el servidor", "error");
     }
-}
+});
