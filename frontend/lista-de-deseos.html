@@ -16,11 +16,10 @@
     <script src="js/slider.js" defer></script>
     <script src="https://kit.fontawesome.com/d420dccc9b.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <!-- Navbar -->
-   <nav class="navbar">
+    <nav class="navbar">
         <div id="header-logo">
             <img src="./imagenes/LogoDona.png" alt="Logo">
             <h1><i class="fa-solid fa-donut"></i> PAPA'S DONUTERIA</h1>
@@ -43,6 +42,10 @@
                 <i class="fa-solid fa-cart-shopping"></i>
             </button>
 
+            <button id="loginBtn" class="icon-btn" title="Login">
+                <i class="fa-solid fa-user"></i>
+            </button>
+
             <button id="logoutBtn" class="icon-btn" style="display:none;" title="Cerrar sesión">
                 <i class="fa-solid fa-right-from-bracket"></i>
             </button>
@@ -56,59 +59,57 @@
         
     </main>
 
-    <!-- Modal de Login / Registro -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeModal">&times;</span>
+    
+<!-- Modal de Login / Registro -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeModal">&times;</span>
 
-            <h2 id="modalTitle">Iniciar Sesión</h2>
+    <h2 id="modalTitle">Iniciar Sesión</h2>
 
-            <form id="formLogin">
+    <form id="formLogin">
 
-            <!-- Solo aparece en modo REGISTRO -->
-            <input 
-                type="text" 
-                id="nombre" 
-                placeholder="Nombre completo"
-                style="display:none;"
-            >
+      <!-- Solo aparece en modo REGISTRO -->
+      <input 
+        type="text" 
+        id="nombre" 
+        placeholder="Nombre completo"
+        style="display:none;"
+      >
 
-            <input 
-                type="text" 
-                id="login" 
-                placeholder="Correo electrónico" 
-                required
-            >
+      <input 
+        type="text" 
+        id="login" 
+        placeholder="Correo electrónico" 
+        required
+      >
 
-            <input 
-                type="password" 
-                id="password" 
-                placeholder="Contraseña" 
-                required
-            >
+      <input 
+        type="password" 
+        id="password" 
+        placeholder="Contraseña" 
+        required
+      >
 
-            <input 
-                type="password" 
-                id="confirmPassword" 
-                placeholder="Confirmar contraseña"
-                style="display:none;"
-            >
-            
-            <div class="g-recaptcha" data-sitekey="6LdTcyAsAAAAAFOkXtlCJ9Fcrgd9An7D5UayW1Pa"></div>
+      <input 
+        type="password" 
+        id="confirmPassword" 
+        placeholder="Confirmar contraseña"
+        style="display:none;"
+      >
 
-            <button type="submit" id="submitBtn">Login</button>
-            </form>
+      <button type="submit" id="submitBtn">Login</button>
+    </form>
 
-            <p style="margin-top: 10px; text-align:center;">
-                <span id="toggleText">¿No tienes cuenta?</span>
-                <a href="#" id="toggleForm"> Regístrate</a>
-            </p>
+    <p style="margin-top: 10px; text-align:center;">
+        <span id="toggleText">¿No tienes cuenta?</span>
+        <a href="#" id="toggleForm"> Regístrate</a>
+    </p>
 
-        </div>
-    </div>
+  </div>
+</div>
 
-    <!-- Footer -->
-    <footer>
+   <footer>
     <div class="footer-container">
         
         <h1 class="footer-title"> Papas's Donuteria </h1><br>
