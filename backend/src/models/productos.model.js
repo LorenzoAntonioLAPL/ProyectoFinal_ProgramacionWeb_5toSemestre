@@ -47,12 +47,12 @@ async function getProductByCategoria(categoria) {
     return rows;
 }
 
-module.exports = {
-    getAllProducts,
-    getProductById,
-    createProduct,
-    updateProduct,
-    deleteProduct,
-    updateVentas,
-    getProductByCategoria
-};
+export {
+  getAllProducts,
+  getProductById,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+  updateVentas,
+  getProductByCategoria
+}

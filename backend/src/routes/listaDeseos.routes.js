@@ -4,8 +4,6 @@ import { añadirLista,
     obtenerLista } from "../controllers/listaDeseos.controller.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 
-idProducto
-
 const router = Router();
 
 router.put('/añadirProducto/:idProducto', verifyToken, añadirLista);
