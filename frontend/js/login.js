@@ -46,6 +46,9 @@ toggleForm.addEventListener("click", (e) => {
         confirmPasswordInput.style.display = "none"
     }
 
+    if (typeof grecaptcha !== "undefined") {
+      grecaptcha.reset()
+    }
 })
 
 // Enviar formulario

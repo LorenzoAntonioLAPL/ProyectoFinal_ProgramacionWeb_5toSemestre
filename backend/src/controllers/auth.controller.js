@@ -31,6 +31,10 @@ export const register = async (req, res) => {
 
     const captchaValido = await validarCaptcha(captchaToken);
 
+    if (!captchaValido) {
+      return res.status(400).json({ msg: "Debes completar el captcha correctamente" });
+    }
+
     if (!nombre || !email || !password) {
       return res.status(400).json({ msg: "Todos los campos son obligatorios" });
     }
