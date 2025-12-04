@@ -29,7 +29,7 @@ export const register = async (req, res) => {
       return res.status(400).json({ msg: "Captcha requerido" });
     }
 
-    const captchaValido = await validarCaptcha(captchaToken);
+    let captchaValido = await validarCaptcha(captchaToken);
 
     if (!captchaValido) {
       return res.status(400).json({ msg: "Debes completar el captcha correctamente" });

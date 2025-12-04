@@ -56,6 +56,10 @@ const updateProduct = async (req, res) => {
     //---------------------------------------------
     let { nombre, precio, descripcion, existencia, categoria, imagen, ventas } = req.body; 
 
+    if (!nombre || !precio || !categoria) {
+        return res.status(400).json({ mensaje: 'Los campos nombre, precio y categoría son obligatorios' });
+    }
+
     precio = parseFloat(precio) || 0;
     existencia = parseInt(existencia, 10) || 0;
     categoria = parseInt(categoria, 10) || 0;
