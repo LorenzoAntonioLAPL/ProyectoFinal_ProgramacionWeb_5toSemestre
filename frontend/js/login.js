@@ -50,11 +50,16 @@ toggleForm.addEventListener("click", (e) => {
 
 // Enviar formulario
 form.addEventListener("submit", async (e) => {
-  e.preventDefault()
+    e.preventDefault()
 
-  const email = emailInput.value
-  const password = passwordInput.value
-  const nombre = nombreInput.value
+    const email = emailInput.value
+    const password = passwordInput.value
+    const nombre = nombreInput.value
+
+    if (!email.endsWith("@gmail.com")) {
+      swal("Error", "Solo se permiten correos Gmail", "error")
+      return
+    }
 
     if (isRegister) {
         const confirmPassword = confirmPasswordInput.value
@@ -65,10 +70,12 @@ form.addEventListener("submit", async (e) => {
         }
     }
 
+    const API = "https://proyectofinal-programacionweb-5tosemestre.onrender.com";
 
-  const url = isRegister 
-    ? "http://localhost:4000/api/auth/register"
-    : "http://localhost:4000/api/auth/login"
+    const url = isRegister
+    ? `${API}/api/auth/register`
+    : `${API}/api/auth/login`;
+
 
   const body = isRegister
     ? { nombre, email, password }

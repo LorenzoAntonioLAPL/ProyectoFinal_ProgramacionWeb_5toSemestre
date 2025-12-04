@@ -8,6 +8,22 @@ export const findUserByEmail = async (email) => {
   return rows[0];
 };
 
+export const findUserById = async (id) => {
+  const [rows] = await connection.query(
+    "SELECT * FROM usuarios WHERE id = ?",
+    [id]
+  );
+  return rows[0];
+};
+
+export const findUserByName = async (user) => {
+  const [rows] = await connection.query(
+    "SELECT * FROM usuarios WHERE nombre = ?",
+    [user]
+  );
+  return rows[0];
+};
+
 export const createUser = async (nombre, email, password) => {
   const [result] = await connection.query(
     "INSERT INTO usuarios (nombre, email, password) VALUES (?, ?, ?)",
