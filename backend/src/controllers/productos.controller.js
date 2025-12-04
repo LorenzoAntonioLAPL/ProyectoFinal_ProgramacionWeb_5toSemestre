@@ -1,12 +1,4 @@
-import { 
-  getAllProducts,
-  getProductById,
-  createProduct,
-  updateProduct,
-  deleteProduct,
-  updateVentas,
-  getProductByCategoria
-} from "../models/productos.model.js";
+import * as ProductoModel from "../models/productos.model.js"
 
 const getProductos = async (req, res) => { 
   try { 
@@ -21,7 +13,7 @@ const getProductos = async (req, res) => {
 const getProductById = async (req, res) => { 
   try { 
     const { id } = req.params; 
-    const producto = await getProductById(id); 
+    const producto = await ProductoModel.getProductById(id); 
  
     if (!producto) 
       return res.status(404).json({ mensaje: 'Producto no encontrado' }); 
@@ -49,7 +41,7 @@ const createProduct = async (req, res) => {
  
     console.log("1"); 
     //----------------------------------------------------------------
-    const id_insertado = await createProduct(nombre, precio, descripcion, existencia, categoria, imagen, ventas); 
+    const id_insertado = await ProductoModel.createProduct(nombre, precio, descripcion, existencia, categoria, imagen, ventas); 
     res.status(201).json({ mensaje: 'Producto agregado', id_insertado }); 
     console.log("2"); 
   } catch (error) { 
@@ -70,7 +62,7 @@ const updateProduct = async (req, res) => {
     ventas = parseFloat(ventas) || 0;
  
     //-----------------------------------------------------------
-    const filas = await updateProduct(id, nombre, precio, descripcion, existencia, categoria, imagen, ventas); 
+    const filas = await ProductoModel.updateProduct(id, nombre, precio, descripcion, existencia, categoria, imagen, ventas); 
     if (filas === 0) 
       return res.status(404).json({ mensaje: 'Producto no encontrado' }); 
  
@@ -86,14 +78,14 @@ const updateVentas = async (req, res) => {
     const { id } = req.params; 
     let { ventas } = req.body; 
 
-    const producto = await getProductById(id); 
+    const producto = await ProductoModel.getProductById(id); 
  
     if (!producto) 
       return res.status(404).json({ mensaje: 'Producto no encontrado' }); 
 
     ventas = parseFloat(ventas) || 0;
  
-    const filas = await updateVentas(id, producto.ventas+ventas); 
+    const filas = await ProductoModel.updateVentas(id, producto.ventas+ventas); 
     if (filas === 0) 
       return res.status(404).json({ mensaje: 'Producto no encontrado' }); 
  
@@ -107,7 +99,7 @@ const updateVentas = async (req, res) => {
 const deleteProduct = async (req, res) => { 
   try { 
     const { id } = req.params; 
-    const filas = await deleteProduct(id); 
+    const filas = await ProductoModel.deleteProduct(id); 
  
     if (filas === 0) 
       return res.status(404).json({ mensaje: 'Producto no encontrado' }); 
@@ -122,7 +114,7 @@ const deleteProduct = async (req, res) => {
 const getProductByCategoria = async (req, res) => { 
   try { 
     const { categoria } = req.params; 
-    const productos = await getProductByCategoria(categoria); 
+    const productos = await ProductoModel.getProductByCategoria(categoria); 
  
     if (!productos) 
       return res.status(404).json({ mensaje: 'Producto no encontrado' }); 
