@@ -2,7 +2,7 @@ import * as ProductoModel from "../models/productos.model.js"
 
 const getProductos = async (req, res) => { 
   try { 
-    const productos = await getAllProducts(); 
+    const productos = await ProductoModel.getAllProducts(); 
     res.json(productos); 
   } catch (error) { 
     console.error('Error al obtener productos:', error); 
