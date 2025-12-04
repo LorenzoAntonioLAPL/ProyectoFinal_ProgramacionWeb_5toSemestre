@@ -2,18 +2,17 @@ const searchForm = document.getElementById("searchProduct");
 const searchIdInput = document.getElementById("aSearch");
 
 // Form modificar (como se añade de forma dinámica solo se establece como var)
-var modForm, modNombre, modDesc, modPrecio, modVentas, modExist, modCateg, modImag, btnElim;
+const modForm = document.getElementById("formModProduct");
+const modNombre = document.getElementById("modNom");
+const modDesc = document.getElementById("modDesc");
+const modPrecio = document.getElementById("modPrecio");
+const modVentas = document.getElementById("modVentas");
+const modExist = document.getElementById("modExist");
+const modCateg = document.getElementById("modCateg");
+const modImag = document.getElementById("modImagen");
+const btnElim = document.getElementById("btn-elim");
 
-// Nota de Eli: Tengo problemas al querer agregar los botones de Eliminar y modificaar, estoy trabajando en eso
-
-// // Agregar evento de modificar producto
-// modForm.addEventListener("submit", modificarProd(e));
-
-// // Busca el botón de eliminar producto en la página
-// var btnElim = document.getElementById("btn-elim");
-
-// // Le agrega la función de Eliminar
-// btnElim.addEventListener("click", eliminarProd());
+console.log(btnElim);
 
 // Form agregar
 const addForm = document.getElementById("formAddProduct");
@@ -25,7 +24,43 @@ const addCateg = document.getElementById("addCateg");
 const addImag = document.getElementById("addImagen");
 
 // Mostrar productos al cargar la página
-document.addEventListener('DOMContentLoaded', mostrarTodosProductos());
+document.addEventListener('DOMContentLoaded', async () =>{
+    // Revisar si es administrador
+    try {
+        const res = await fetch(`${API_BASE_URL}/api/`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`,
+            }
+        });
+
+        let data;
+        try {
+            data = await res.json();
+        } catch (parseErr) {
+            console.warn("Respuesta no JSON del servidor", parseErr);
+        }
+
+        if (!res.ok) {
+            location.href = "index.html";
+        } 
+    } catch (err) {
+        console.error("Error al conectar con el servidor:", err);
+        swal("Error", "Error de conexión con el servidor, reenviando a inicio.", "error", {
+            buttons: false,
+            timer: 3500,
+            closeOnClickOutside: false,
+            closeOnEsc: false,
+        });
+        setTimeout(function(){location.href = "index.html"},3000)
+    }
+    
+    try {
+        mostrarTodosProductos();
+    } catch (error) {
+        
+    }
+});
 
 // Funcion para mostrarproductos (es llamada por varias funciones)
 async function mostrarTodosProductos() {
@@ -71,68 +106,35 @@ searchForm.addEventListener("submit", async (e) => {
     try {
         const response = await fetch(`${API_BASE_URL}/api/products/obtenerProducto/${idSearch}`);
         const data = await response.json();
-
-        console.log(data);
         
         if (response.ok) {
-            var searchCont = document.getElementById("search-container");
-            
-            // Agrega el objeto encontrado al HTML
-            searchCont.innerHTML =
-                `<div class="a-product-card">
-                    <img src="imagenes/donas.jpg" alt="">
-                    <div class="a-product-desc">
-                        <h2>${data.nombre}</h2>
-                        <h3>ID: ${data.id}</h3>
-                        <h4>Categoria: ${data.categoria} | Precio: ${data.precio} | Existencias: ${data.existencia} | Ventas: ${data.ventas}</h4>
-                        <hr>
-                        <p>${data.descripcion}</p>
-                    </div>
-                    <button id="btn-elim" type="button" class="a-product-button btn-eliminar" title="Eliminar"><i class="fa-solid fa-trash"></i></button>
-                    <div class="a-product-modify">
-                        <hr>
-                        <form id="formModProduct">
-                            <label for="modNom">Nombre:</label>
-                            <input type="text" id="modNom" class="a-product-input" placeholder="${data.nombre}">
-
-                            <label for="modDesc">Descripción:</label>
-                            <textarea type="text" id="modDesc" class="a-product-input input-resize" placeholder="${data.descripcion}"></textarea>
-
-                            <label for="modPrecio">Precio:</label>
-                            <input type="number" id="modPrecio" class="a-product-input" min="0" step="any" placeholder="${data.precio}">
-
-                            <label for="modVentas">Precio:</label>
-                            <input type="number" id="modVentas" class="a-product-input" min="0" step="any" placeholder="${data.ventas}">
-
-                            <label for="modExist">Existencias:</label>
-                            <input type="number" id="modExist" class="a-product-input" name="quantity" min="0" placeholder="${data.existencia}">
-
-                            <label for="modCateg">Categ:</label>
-                            <input type="number" id="modCateg" class="a-product-input" name="quantity" min="1" max="3" step="1" placeholder="${data.categoria}">
-                                                
-                            <label for="modImagen">Imagen:</label>
-                            <input type="file" id="modImagen" accept="image/png, image/gif, image/jpeg" name="prodImagen">
-
-                            <br><br>
-                                                
-                            <input type="submit" class="btn-modify" value="Modificar">
-                            <input type="reset" class="btn-modify" value="Reset">
-                        </form>
-                    </div>
-                </div>
-                `;
+            const searchCont = document.getElementById("search-container");
 
             // Configura el form
-            modForm = document.getElementById("formModProduct");
-            modNombre = document.getElementById("modNom");
-            modDesc = document.getElementById("modDesc");
-            modPrecio = document.getElementById("modPrecio");
-            modVentas = document.getElementById("modVentas");
-            modExist = document.getElementById("modExist");
-            modCateg = document.getElementById("modCateg");
-            modImag = document.getElementById("modImagen");
+            var setName = searchCont.getElementsByTagName("h2")[0];
+            var setId = searchCont.getElementsByTagName("h3")[0];
+            var setInfo = searchCont.getElementsByTagName("h4")[0];
+            var setDesc = searchCont.getElementsByTagName("p")[0];
 
-            console.log(searchCont);
+            setName.innerHTML = `${data.nombre}`;
+            setId.innerHTML = `ID: ${data.id}`;
+            setInfo.innerHTML = `Categoria: ${data.categoria} | Precio: ${data.precio} | Existencias: ${data.existencia} | Ventas: ${data.ventas}`;
+            setDesc.innerHTML = `${data.descripcion}`;
+
+            // Inputs
+            modNombre.setAttribute("placeholder",`${data.nombre}`);
+            modDesc.setAttribute("placeholder",`${data.descripcion}`);
+            modPrecio.setAttribute("placeholder",`${data.precio}`);
+            modVentas.setAttribute("placeholder",`${data.ventas}`);
+            modExist.setAttribute("placeholder",`${data.existencia}`);
+            modCateg.setAttribute("placeholder",`${data.categoria}`);
+            
+            // Activar botones
+            btnElim.removeAttribute("disabled");
+            const btnModify = document.getElementById("btn-modify");
+            btnModify.removeAttribute("disabled");
+            const btnReset = document.getElementById("btn-modify");
+            btnReset.removeAttribute("disabled");
         } else {
             swal("Error", data.msg || "Hubo un error al cargar los productos", "error");
         }
@@ -143,7 +145,7 @@ searchForm.addEventListener("submit", async (e) => {
 });
 
 // Modificar un producto en específico
-async function modificarProd(e){
+modForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     // Obtiene el ID del elemento a
@@ -166,13 +168,13 @@ async function modificarProd(e){
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                nombre,
-                precio,
-                descripcion,
-                existencia,
-                categoria,
-                imagen,
-                ventas
+                nombre: nomProd,
+                precio: precioProd,
+                descripcion: descProd,
+                existencia: existProd,
+                categoria: categProd,
+                imagen: imgProd,
+                ventas: ventasProd
             })
         });
         const data = await response.json();
@@ -186,11 +188,37 @@ async function modificarProd(e){
     } catch (error) {
         console.error('Error: No se pudo conectar con el servidor', error);
         swal("Error", "No se pudo conectar con el servidor", "error");
+    } finally {
+        // Restablecer el form
+        var setName = searchCont.getElementsByTagName("h2")[0];
+        var setId = searchCont.getElementsByTagName("h3")[0];
+        var setInfo = searchCont.getElementsByTagName("h4")[0];
+        var setDesc = searchCont.getElementsByTagName("p")[0];
+
+        setName.innerHTML = `Nombre`;
+        setId.innerHTML = `ID: ???`;
+        setInfo.innerHTML = `Categoria: ??? | Precio: ??? | Existencias: ??? | Ventas: ???`;
+        setDesc.innerHTML = `Descripción`;
+
+        // Inputs
+        modNombre.setAttribute("placeholder",`Nombre`);
+        modDesc.setAttribute("placeholder",`Descripción`);
+        modPrecio.setAttribute("placeholder",`00.00`);
+        modVentas.setAttribute("placeholder",`00.00`);
+        modExist.setAttribute("placeholder",`00.00`);
+        modCateg.setAttribute("placeholder",`1`);
+            
+        // Desactivar botones
+        btnElim.setAttribute("disabled");
+        const btnModify = document.getElementById("btn-modify");
+        btnModify.setAttribute("disabled");
+        const btnReset = document.getElementById("btn-modify");
+        btnReset.setAttribute("disabled");
     }
-}
+});
 
 // Eliminar un producto en específico
-async function eliminarProd() {
+btnElim.addEventListener("click", async () => {
     const searchCont = document.getElementById("search-container");
     let idElim = searchCont.getElementsByTagName("h3")[0].innerText.substring(4);
 
@@ -213,11 +241,37 @@ async function eliminarProd() {
     } catch (error) {
         console.error(error)
         swal("Error", "No se pudo conectar al servidor", "error")
+    } finally {
+        // Restablecer el form
+        var setName = searchCont.getElementsByTagName("h2")[0];
+        var setId = searchCont.getElementsByTagName("h3")[0];
+        var setInfo = searchCont.getElementsByTagName("h4")[0];
+        var setDesc = searchCont.getElementsByTagName("p")[0];
+
+        setName.innerHTML = `Nombre`;
+        setId.innerHTML = `ID: ???`;
+        setInfo.innerHTML = `Categoria: ??? | Precio: ??? | Existencias: ??? | Ventas: ???`;
+        setDesc.innerHTML = `Descripción`;
+
+        // Inputs
+        modNombre.setAttribute("placeholder",`Nombre`);
+        modDesc.setAttribute("placeholder",`Descripción`);
+        modPrecio.setAttribute("placeholder",`00.00`);
+        modVentas.setAttribute("placeholder",`00.00`);
+        modExist.setAttribute("placeholder",`00.00`);
+        modCateg.setAttribute("placeholder",`1`);
+            
+        // Desactivar botones
+        btnElim.setAttribute("disabled");
+        const btnModify = document.getElementById("btn-modify");
+        btnModify.setAttribute("disabled");
+        const btnReset = document.getElementById("btn-modify");
+        btnReset.setAttribute("disabled");
     }
-}
+});
 
 // Agregar un nuevo producto a la base de datos
-async function agregarProd(e) {
+addForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const nomProd = addNombre.value;
@@ -225,10 +279,10 @@ async function agregarProd(e) {
     const descProd = addDesc.value;
     const existProd = addExist.value;
     const categProd = addCateg.value;
-    const imgProd = addImag.files;
+    const imgProd = /*addImag.files*/ "dona.jpg";
 
     try {
-        const response = await fetch(`${API_BASE_URL}/api/products/actualizarProducto/${idSearch}`, {
+        const response = await fetch(`${API_BASE_URL}/api/products/registrarProducto`, {
             method: "POST",
                 headers: {
                 "Authorization": `Bearer ${localStorage.getItem('token')}`,
@@ -255,4 +309,4 @@ async function agregarProd(e) {
         console.error('Error: No se pudo conectar con el servidor', error);
         swal("Error", "No se pudo conectar con el servidor", "error");
     }
-}
+});
