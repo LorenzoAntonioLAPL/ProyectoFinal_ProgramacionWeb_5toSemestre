@@ -46,3 +46,14 @@ export const inventarioCategoria = async (req, res) => {
     res.status(500).json({ mensaje: 'Error al obtener el inventario' }); 
   } 
 }; 
+
+export const esAdmin = async (req, res) => { 
+  try { 
+    res.status(200).json({
+        message: "El usuario es un Administrador"
+    });
+  } catch (error) { 
+    console.error('Error: error al comprobar administrador', error); 
+    res.status(500).json({ mensaje: 'Error al comprobar administrador' }); 
+  } 
+}; 

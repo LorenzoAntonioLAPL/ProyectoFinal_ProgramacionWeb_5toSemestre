@@ -16,6 +16,9 @@
     <!-- Scripts -->
     <script src="js/login.js" defer></script>
     <script src="js/slider.js" defer></script>
+    <script src="./js/header.js" defer></script>
+
+    <!-- Scripts Externos -->
     <script src="https://kit.fontawesome.com/d420dccc9b.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -25,55 +28,37 @@
     <nav class="navbar">
         <div id="header-logo">
             <img src="./imagenes/LogoDona.png" alt="Logo">
-            <h1><i class="fa-solid fa-donut"></i> PAPA'S DONUTERIA</h1>
-            <img src="./imagenes/LogoDona.png" alt="Logo">
-            <h1><i class="fa-solid fa-donut"></i> PAPA'S DONUTERIA</h1>
+            <h1>PAPA'S DONUTERIA</h1>
         </div>
 
-
         <div id="header-right">
-
 
             <div id="header-navigation">
                 <a href="./index.html">INICIO</a>
                 <a href="./categoria.html">PRODUCTOS</a>
                 <a href="./contacto.html">CONTACTO</a>
                 <a href="./nosotros.html">NOSOTROS</a>
-                <a href="./categoria.html">PRODUCTOS</a>
-                <a href="./contacto.html">CONTACTO</a>
-                <a href="./nosotros.html">NOSOTROS</a>
             </div>
 
-            <button class="icon-btn" title="Lista de deseos">
+            <button id="deseosBtn" class="icon-btn" title="Lista de deseos">
                 <i class="fa-regular fa-heart"></i>
             </button>
 
-            <button class="icon-btn" title="Carrito">
-                <i class="fa-solid fa-cart-shopping"></i>
-            </button>
-
-
-            <button class="icon-btn" title="Lista de deseos" onclick="location.href='lista-de-deseos.html'">
-                <i class="fa-regular fa-heart"></i>
-            </button>
-
-            <button class="icon-btn" title="Carrito" onclick="location.href='carrito.html'">
+            <button id="carritoBtn" class="icon-btn" title="Carrito">
                 <i class="fa-solid fa-cart-shopping"></i>
             </button>
 
             <button id="loginBtn" class="icon-btn" title="Login">
                 <i class="fa-solid fa-user"></i>
-                <i class="fa-solid fa-user"></i>
+            </button>
+
+            <button id="adminBtn" class="icon-btn" style="display:none;" title="Administrador" disabled>
+                <i class="fa-solid fa-user-tie"></i>
             </button>
 
             <button id="logoutBtn" class="icon-btn" style="display:none;" title="Cerrar sesión">
                 <i class="fa-solid fa-right-from-bracket"></i>
-
-            <button id="logoutBtn" class="icon-btn" style="display:none;" title="Cerrar sesión">
-                <i class="fa-solid fa-right-from-bracket"></i>
             </button>
-
-            <span id="userName" class="user-name"></span>
 
             <span id="userName" class="user-name"></span>
         </div>
@@ -84,7 +69,7 @@
         
     </main>
 
-    <!-- Modal de Login / Registro -->
+        <!-- Modal de Login / Registro -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close" id="closeModal">&times;</span>
