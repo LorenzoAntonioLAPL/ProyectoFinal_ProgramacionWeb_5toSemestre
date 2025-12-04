@@ -29,7 +29,7 @@ export const register = async (req, res) => {
       return res.status(400).json({ msg: "Captcha requerido" });
     }
 
-    const captchaValido = await validarCaptcha(captchaTOken);
+    const captchaValido = await validarCaptcha(captchaToken);
 
     if (!nombre || !email || !password) {
       return res.status(400).json({ msg: "Todos los campos son obligatorios" });
@@ -54,6 +54,7 @@ export const register = async (req, res) => {
     console.error(error);
     res.status(500).json({ msg: "Error al registrar usuario" });
   }
+
 };
 
 // LOGIN
@@ -67,7 +68,7 @@ export const login = async (req, res) => {
       return res.status(400).json({ msg: "Captcha requerido" });
     }
 
-    const captchaValido = await validarCaptcha(captcha);
+    const captchaValido = await validarCaptcha(captchaToken);
 
     if (!captchaValido) {
       return res.status(400).json({ msg: "Debes completar el captcha correctamente" });
