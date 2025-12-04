@@ -12,8 +12,6 @@ const modCateg = document.getElementById("modCateg");
 const modImag = document.getElementById("modImagen");
 const btnElim = document.getElementById("btn-elim");
 
-console.log(btnElim);
-
 // Form agregar
 const addForm = document.getElementById("formAddProduct");
 const addNombre = document.getElementById("addNom");
@@ -26,34 +24,34 @@ const addImag = document.getElementById("addImagen");
 // Mostrar productos al cargar la página
 document.addEventListener('DOMContentLoaded', async () =>{
     // Revisar si es administrador
-    try {
-        const res = await fetch(`${API_BASE_URL}/api/`, {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem('token')}`,
-            }
-        });
+    // try {
+    //     const res = await fetch(`${API_BASE_URL}/api/`, {
+    //         method: "POST",
+    //         headers: {
+    //             "Authorization": `Bearer ${localStorage.getItem('token')}`,
+    //         }
+    //     });
 
-        let data;
-        try {
-            data = await res.json();
-        } catch (parseErr) {
-            console.warn("Respuesta no JSON del servidor", parseErr);
-        }
+    //     let data;
+    //     try {
+    //         data = await res.json();
+    //     } catch (parseErr) {
+    //         console.warn("Respuesta no JSON del servidor", parseErr);
+    //     }
 
-        if (!res.ok) {
-            location.href = "index.html";
-        } 
-    } catch (err) {
-        console.error("Error al conectar con el servidor:", err);
-        swal("Error", "Error de conexión con el servidor, reenviando a inicio.", "error", {
-            buttons: false,
-            timer: 3500,
-            closeOnClickOutside: false,
-            closeOnEsc: false,
-        });
-        setTimeout(function(){location.href = "index.html"},3000)
-    }
+    //     if (!res.ok) {
+    //         location.href = "index.html";
+    //     } 
+    // } catch (err) {
+    //     console.error("Error al conectar con el servidor:", err);
+    //     swal("Error", "Error de conexión con el servidor, reenviando a inicio.", "error", {
+    //         buttons: false,
+    //         timer: 3500,
+    //         closeOnClickOutside: false,
+    //         closeOnEsc: false,
+    //     });
+    //     setTimeout(function(){location.href = "index.html"},3000)
+    // }
     
     try {
         mostrarTodosProductos();
@@ -274,13 +272,49 @@ btnElim.addEventListener("click", async () => {
 addForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    alert("click Agregar");
+
     const nomProd = addNombre.value;
     const precioProd = addPrecio.value;
     const descProd = addDesc.value;
     const existProd = addExist.value;
     const categProd = addCateg.value;
-    const imgProd = /*addImag.files*/ "dona.jpg";
+    const imgName = addImag.value.split(/(\\|\/)/g).pop();
 
+    // Guardar imagen en backend
+    const imgProd = addImag.files[0];
+
+    let base64String = "";
+    const reader = new FileReader();
+
+    reader.onload = async () => {
+        base64String = reader.result.replace("data:", "").replace(/^.+,/, "");
+    
+        try {
+            const response = await fetch(`${API_BASE_URL}/api/imagenes/guardarImagen`, {
+                method: "POST",
+                    headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    imagenBase64: base64String,
+                    nombre: imgName
+                })
+            });
+            const data = await response.json();
+
+            if(!response.ok){
+                swal("Error", data.msg || "Hubo un error al agregar la imagen", "error");
+            }
+        } catch (error) {
+            console.error('Error: No se pudo conectar con el servidor', error);
+            swal("Error", "No se pudo conectar con el servidor", "error");
+        }
+    }
+    reader.readAsDataURL(imgProd);
+
+    // Guardar nuevo producto
     try {
         const response = await fetch(`${API_BASE_URL}/api/products/registrarProducto`, {
             method: "POST",
@@ -294,7 +328,7 @@ addForm.addEventListener("submit", async (e) => {
                 descripcion: descProd,
                 existencia: existProd,
                 categoria: categProd,
-                imagen: imgProd
+                imagen: imgName
             })
         });
         const data = await response.json();
