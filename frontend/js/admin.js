@@ -24,7 +24,43 @@ const addCateg = document.getElementById("addCateg");
 const addImag = document.getElementById("addImagen");
 
 // Mostrar productos al cargar la página
-document.addEventListener('DOMContentLoaded', mostrarTodosProductos());
+document.addEventListener('DOMContentLoaded', async () =>{
+    // Revisar si es administrador
+    try {
+        const res = await fetch(`${API_BASE_URL}/api/`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`,
+            }
+        });
+
+        let data;
+        try {
+            data = await res.json();
+        } catch (parseErr) {
+            console.warn("Respuesta no JSON del servidor", parseErr);
+        }
+
+        if (!res.ok) {
+            location.href = "index.html";
+        } 
+    } catch (err) {
+        console.error("Error al conectar con el servidor:", err);
+        swal("Error", "Error de conexión con el servidor, reenviando a inicio.", "error", {
+            buttons: false,
+            timer: 3500,
+            closeOnClickOutside: false,
+            closeOnEsc: false,
+        });
+        setTimeout(function(){location.href = "index.html"},3000)
+    }
+    
+    try {
+        mostrarTodosProductos();
+    } catch (error) {
+        
+    }
+});
 
 // Funcion para mostrarproductos (es llamada por varias funciones)
 async function mostrarTodosProductos() {
