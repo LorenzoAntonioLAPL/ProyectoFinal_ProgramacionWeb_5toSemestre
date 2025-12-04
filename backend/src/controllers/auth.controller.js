@@ -1,21 +1,44 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import fetch from "node-fetch";
 import { 
   findUserByEmail, 
   createUser, 
   updateAttempts 
 } from "../models/user.model.js";
 
+const validarCaptcha = async (token) => {
+    const secret = process.env.RECAPTCHA_SECRET;
+    const response = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `secret=${secret}&response=${token}`
+    });
+
+    const data = await response.json();
+    return data.success;
+};
 
 // REGISTRO
 export const register = async (req, res) => {
   try {
-    const { nombre, email, password } = req.body;
+
+    const { nombre, email, password, captchaToken } = req.body;
+
+    if (!captchaToken) {
+      return res.status(400).json({ msg: "Captcha requerido" });
+    }
+
+    const captchaValido = await validarCaptcha(captchaTOken);
 
     if (!nombre || !email || !password) {
       return res.status(400).json({ msg: "Todos los campos son obligatorios" });
     }
 
+    if (!email.endsWith("@gmail.com")) {
+      return res.status(400).json({ msg: "Solo se permiten correos Gmail" })
+    }
+    
     const existingUser = await findUserByEmail(email);
     if (existingUser) {
       return res.status(409).json({ msg: "Este correo ya está registrado" });
@@ -35,10 +58,20 @@ export const register = async (req, res) => {
 
 // LOGIN
 export const login = async (req, res) => {
-  const { email, password } = req.body
+  const { email, password, captchaToken } = req.body;
 
   try {
     const user = await findUserByEmail(email)
+
+    if (!captchaToken) {
+      return res.status(400).json({ msg: "Captcha requerido" });
+    }
+
+    const captchaValido = await validarCaptcha(captcha);
+
+    if (!captchaValido) {
+      return res.status(400).json({ msg: "Debes completar el captcha correctamente" });
+    }
 
     if (!user) {
       return res.status(400).json({ msg: "Credenciales incorrectas" })

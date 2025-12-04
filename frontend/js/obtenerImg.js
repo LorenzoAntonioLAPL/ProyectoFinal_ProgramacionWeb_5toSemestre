@@ -1,8 +1,8 @@
-const API_BASE_URL = 'http://localhost:3000/api/prueba';
+const API_BASE_URL = 'https://proyectofinal-programacionweb-5tosemestre.onrender.com';
 
 async function cargarImagenes() {
     try {
-        const response = await fetch(`${API_BASE_URL}/imagenes`);
+        const response = await fetch(`${API_BASE_URL}/api/imagenes/obtenerImagenes`);
         const data = await response.json();
         
         if (response.ok) {
@@ -15,10 +15,10 @@ async function cargarImagenes() {
                 divCont.appendChild(img);
             });
         } else {
-            alert("ERROR 3");
+            swal("Error", data.msg || "Hubo un error al cargar las imagenes", "error");
         }
     } catch (error) {
-        console.error('Error:', error);
-        alert("ERROR 4");
+        console.error('Error: No se pudo conectar con el servidor', error);
+        swal("Error", "No se pudo conectar con el servidor", "error");
     }
 }

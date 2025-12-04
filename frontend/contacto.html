@@ -6,9 +6,11 @@
     <title>Papa's Donuteria</title>
 
     <link rel="icon" type="image/x-icon" href="./imagenes/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="./imagenes/favicon.ico">
 
     <!-- Estilos -->
     <link rel="stylesheet" href="./CSS/essencial-styles.css">
+    <link rel="stylesheet" href="./CSS/contacto-style.css">
     <link rel="stylesheet" href="./CSS/contacto-style.css">
 
     <!-- Scripts -->
@@ -18,43 +20,71 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 
+
 <body>
     <!-- Navbar -->
     <nav class="navbar">
         <div id="header-logo">
             <img src="./imagenes/LogoDona.png" alt="Logo">
             <h1><i class="fa-solid fa-donut"></i> DONUTERIA</h1>
+            <img src="./imagenes/LogoDona.png" alt="Logo">
+            <h1><i class="fa-solid fa-donut"></i> DONUTERIA</h1>
         </div>
 
+
         <div id="header-right">
+
 
             <div id="header-navigation">
                 <a href="./index.html">INICIO</a>
                 <a href="./categoria.html">PRODUCTOS</a>
                 <a href="./contacto.html">CONTACTO</a>
                 <a href="./nosotros.html">NOSOTROS</a>
+                <a href="./categoria.html">PRODUCTOS</a>
+                <a href="./contacto.html">CONTACTO</a>
+                <a href="./nosotros.html">NOSOTROS</a>
             </div>
 
-            <button class="icon-btn" title="Lista de deseos">
+            <button class="icon-btn" title="Lista de deseos" onclick="location.href='lista-de-deseos.html'">
                 <i class="fa-regular fa-heart"></i>
             </button>
 
-            <button class="icon-btn" title="Carrito">
+            <button class="icon-btn" title="Carrito" onclick="location.href='carrito.html'">
                 <i class="fa-solid fa-cart-shopping"></i>
             </button>
 
             <button id="loginBtn" class="icon-btn" title="Login">
                 <i class="fa-solid fa-user"></i>
+                <i class="fa-solid fa-user"></i>
             </button>
+
+            <button id="logoutBtn" class="icon-btn" style="display:none;" title="Cerrar sesión">
+                <i class="fa-solid fa-right-from-bracket"></i>
 
             <button id="logoutBtn" class="icon-btn" style="display:none;" title="Cerrar sesión">
                 <i class="fa-solid fa-right-from-bracket"></i>
             </button>
 
             <span id="userName" class="user-name"></span>
+
+            <span id="userName" class="user-name"></span>
         </div>
     </nav>
 
+    <!-- Seccion principal -->
+   <main>
+    <section class="contact-wrapper">
+
+        <div class="contact-container">
+
+            <div class="contact-left">
+                <h2>Contáctanos</h2>
+                <p>¿Tienes dudas o comentarios? ¡Estamos aquí para ayudarte!</p>
+
+                <div class="contact-info">
+                    <p><i class="fa-solid fa-envelope"></i> contacto@donuteria.com</p>
+                    <p><i class="fa-solid fa-phone"></i> +52 465 955 6808</p>
+                    <p><i class="fa-brands fa-instagram"></i> @donuteria</p>
     <!-- Seccion principal -->
    <main>
     <section class="contact-wrapper">
@@ -82,7 +112,72 @@
 
                     <button type="submit" class="btn-enviar">Enviar mensaje</button>
                 </form>
+
+            <div class="contact-right">
+                <h2>Envíanos un mensaje</h2>
+
+                <form>
+                    <input type="text" placeholder="Tu nombre" required>
+                    <input type="email" placeholder="Tu correo electrónico" required>
+                    <textarea placeholder="Escribe tu mensaje..." required></textarea>
+
+                    <button type="submit" class="btn-enviar">Enviar mensaje</button>
+                </form>
             </div>
+
+        </div>
+
+    </section>
+</main>
+  
+<!-- Modal de Login / Registro -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeModal">&times;</span>
+
+    <h2 id="modalTitle">Iniciar Sesión</h2>
+
+    <form id="formLogin">
+
+      <!-- Solo aparece en modo REGISTRO -->
+      <input 
+        type="text" 
+        id="nombre" 
+        placeholder="Nombre completo"
+        style="display:none;"
+      >
+
+      <input 
+        type="text" 
+        id="login" 
+        placeholder="Correo electrónico" 
+        required
+      >
+
+      <input 
+        type="password" 
+        id="password" 
+        placeholder="Contraseña" 
+        required
+      >
+
+      <input 
+        type="password" 
+        id="confirmPassword" 
+        placeholder="Confirmar contraseña"
+        style="display:none;"
+      >
+
+      <button type="submit" id="submitBtn">Login</button>
+    </form>
+
+    <p style="margin-top: 10px; text-align:center;">
+        <span id="toggleText">¿No tienes cuenta?</span>
+        <a href="#" id="toggleForm"> Regístrate</a>
+    </p>
+
+  </div>
+</div>
 
         </div>
 

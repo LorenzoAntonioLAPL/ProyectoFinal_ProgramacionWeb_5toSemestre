@@ -402,3 +402,9 @@ footer {
   transition: max-height 0.2s ease-out;
   background-color: #faf5f1;
 }
+
+/* Active: Cuando un elemento en especifico se encuentra en focus */
+.active {
+    box-shadow: 18px rgb(255, 255, 255);
+    margin: 2vh 0;
+}

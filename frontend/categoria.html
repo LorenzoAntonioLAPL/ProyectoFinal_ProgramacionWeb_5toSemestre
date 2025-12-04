@@ -6,9 +6,11 @@
     <title>Papa's Donuteria</title>
 
     <link rel="icon" type="image/x-icon" href="./imagenes/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="./imagenes/favicon.ico">
 
     <!-- Estilos -->
     <link rel="stylesheet" href="./CSS/essencial-styles.css">
+    <link rel="stylesheet" href="./CSS/categ-styles.css">
     <link rel="stylesheet" href="./CSS/categ-styles.css">
 
     <!-- Scripts -->
@@ -23,12 +25,19 @@
         <div id="header-logo">
             <img src="./imagenes/LogoDona.png" alt="Logo">
             <h1><i class="fa-solid fa-donut"></i> PAPA'S DONUTERIA</h1>
+            <img src="./imagenes/LogoDona.png" alt="Logo">
+            <h1><i class="fa-solid fa-donut"></i> PAPA'S DONUTERIA</h1>
         </div>
+
 
         <div id="header-right">
 
+
             <div id="header-navigation">
                 <a href="./index.html">INICIO</a>
+                <a href="./categoria.html">PRODUCTOS</a>
+                <a href="./contacto.html">CONTACTO</a>
+                <a href="./nosotros.html">NOSOTROS</a>
                 <a href="./categoria.html">PRODUCTOS</a>
                 <a href="./contacto.html">CONTACTO</a>
                 <a href="./nosotros.html">NOSOTROS</a>
@@ -42,13 +51,28 @@
                 <i class="fa-solid fa-cart-shopping"></i>
             </button>
 
+
+            <button class="icon-btn" title="Lista de deseos" onclick="location.href='lista-de-deseos.html'">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+
+            <button class="icon-btn" title="Carrito" onclick="location.href='carrito.html'">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+
             <button id="loginBtn" class="icon-btn" title="Login">
+                <i class="fa-solid fa-user"></i>
                 <i class="fa-solid fa-user"></i>
             </button>
 
             <button id="logoutBtn" class="icon-btn" style="display:none;" title="Cerrar sesión">
                 <i class="fa-solid fa-right-from-bracket"></i>
+
+            <button id="logoutBtn" class="icon-btn" style="display:none;" title="Cerrar sesión">
+                <i class="fa-solid fa-right-from-bracket"></i>
             </button>
+
+            <span id="userName" class="user-name"></span>
 
             <span id="userName" class="user-name"></span>
         </div>
@@ -60,8 +84,43 @@
     </main>
 
     <!-- Modal de Login / Registro -->
+    <!-- Modal de Login / Registro -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2 id="modalTitle">Iniciar Sesión</h2>
+            <form id="formLogin">
+                <!-- Solo aparece en modo REGISTRO -->
+                <input 
+                    type="text" 
+                    id="nombre" 
+                    placeholder="Nombre completo"
+                    style="display:none;"
+                >
+                <input 
+                    type="text" 
+                    id="login" 
+                    placeholder="Correo electrónico" 
+                    required
+                >
+                <input 
+                    type="password" 
+                    id="password" 
+                    placeholder="Contraseña" 
+                    required
+                >
+                <input 
+                    type="password" 
+                    id="confirmPassword" 
+                    placeholder="Confirmar contraseña"
+                    style="display:none;"
+                >
+                <button type="submit" id="submitBtn">Login</button>
+            </form>
+            <p style="margin-top: 10px; text-align:center;">
+                <span id="toggleText">¿No tienes cuenta?</span>
+                <a href="#" id="toggleForm"> Regístrate</a>
+            </p>
             <span class="close" id="closeModal">&times;</span>
             <h2 id="modalTitle">Iniciar Sesión</h2>
             <form id="formLogin">
@@ -107,13 +166,29 @@
         <div class="footer-links">
             <a href="contacto.html">Contáctanos</a>
             <a href="nosotros.html">Sobre nosotros</a>
+    <footer>
+    <div class="footer-container">
+        <h1 class="footer-title"> Papas's Donuteria </h1><br>
+        <p class="footer-tagline">El sabor perfecto para tu día</p>
+        <div class="footer-links">
+            <a href="contacto.html">Contáctanos</a>
+            <a href="nosotros.html">Sobre nosotros</a>
         </div>
 
         <div class="footer-social">
             <a href="https://instagram.com" target="_blank">
                 <i class="fa-brands fa-instagram"></i>
             </a>
+
+        <div class="footer-social">
+            <a href="https://instagram.com" target="_blank">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
         </div>
+        <p class="footer-rights">© 2025 Papa's Donuteria — Todos los derechos reservados.</p>
+        <hr class="footer-divider">
+        <p class="footer-rights">Nota: Esto es un proyecto escolar sin el objetivo de ser una tienda real</p>
+    </div>
         <p class="footer-rights">© 2025 Papa's Donuteria — Todos los derechos reservados.</p>
         <hr class="footer-divider">
         <p class="footer-rights">Nota: Esto es un proyecto escolar sin el objetivo de ser una tienda real</p>
