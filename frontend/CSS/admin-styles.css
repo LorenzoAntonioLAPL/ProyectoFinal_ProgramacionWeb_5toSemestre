@@ -19,7 +19,7 @@ main {
 
 /* Como se ven los productos para Admin */
 .a-product-card {
-    width: 90vw;
+    width: 100%;
     margin: 2vh 0;
     padding: 1rem;
 
@@ -121,18 +121,16 @@ main {
 
 /* Graficas */
 
-#graph-container {
-    display: flex;
-    justify-content: space-between;
-}
-
 #grafica {
     margin-top: 2vh;
     width: 50vw;
     height: 60vh;
 }
 
-#graph-data {
-    flex: 1;
-    margin-top: 2vh;
+#searchProduct {
+    margin: 2vh 0;
+}
+
+#search-container {
+    min-height: 75vh;
 }
