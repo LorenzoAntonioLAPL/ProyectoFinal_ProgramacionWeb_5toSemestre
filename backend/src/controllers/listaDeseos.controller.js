@@ -1,4 +1,4 @@
-import * as ListaModel from "../models/productos.model.js"
+import * as ListaModel from '../models/listaDeseos.model.js'; 
 
 export const añadirLista = async (req, res) => { 
   try { 

@@ -129,13 +129,3 @@ export const getProductByCategoria = async (req, res) => {
     res.status(500).json({ mensaje: 'Error al obtener producto' }); 
   } 
 };
-
-export {
-  getProductos,
-  getProductById,
-  createProduct,
-  updateProduct,
-  deleteProduct,
-  updateVentas,
-  getProductByCategoria
-}
