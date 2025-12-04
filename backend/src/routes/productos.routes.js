@@ -22,4 +22,4 @@ router.put("/actualizarVentas/:id", verifyToken, updateVentas)
 router.delete("/borrarProducto/:id", verifyToken, isAdmin, deleteProduct)
 router.get("/obtenerProductoCategoria/:categoria", getProductByCategoria)
 
-export default router
+export default router;

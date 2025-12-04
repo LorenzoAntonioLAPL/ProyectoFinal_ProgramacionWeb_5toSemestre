@@ -7,4 +7,4 @@ const router = Router();
 
 router.get('/datosGrafica', verifyToken, isAdmin, getDatos);
 
-module.exports = router;
+export default router;

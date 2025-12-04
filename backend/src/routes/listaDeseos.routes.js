@@ -10,4 +10,4 @@ router.put('/añadirProducto/:idProducto', verifyToken, añadirLista);
 router.put('/eliminarProducto/:idProducto', verifyToken, eliminarLista);
 router.get("/obtenerLista", verifyToken, obtenerLista);
 
-module.exports = router;
+export default router;

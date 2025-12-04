@@ -8,4 +8,4 @@ const router = Router();
 router.get("/obtenerImagenes", getImagenes);
 router.post('/guardarImagen', verifyToken, isAdmin, guardarImagenes);
 
-module.exports = router;
+export default router;
