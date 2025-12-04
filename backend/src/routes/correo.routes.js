@@ -1,6 +1,8 @@
 import { Router } from "express";
-import { Email } from "../controllers/nodemailer.controller.js";
+import { sendMail } from "../controllers/nodemailer.controller.js";
 
 const router = Router();
 
-router.post("/formulario")
+router.post("/correo", sendMail);
+
+export default router;

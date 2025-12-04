@@ -1,29 +1,26 @@
-const nodemailer = require('nodemailer'); 
+import nodemailer from "nodemailer"; 
 
 //Transportador para direccionar los correos al destinatario
-const transporter = nodemailer.createTransport({
+export const transporter = nodemailer.createTransport({
       service: 'gmail',
       port: 465,
       secure: true,
       auth: {
         user: "lacomunidaddeltropiezoxd@gmail.com",
         pass: "SindicatoHG2025",
-        clientId: process.env.OAUTH_CLIENTID,
-        clientSecret: process.env.OAUTH_CLIENT_SECRET,
-        refreshToken: process.env.OAUTH_REFRESH_TOKEN
     }
 });
 
-const sendMail = async (req, res) => {
+export const sendMail = async (req, res) => {
 
   const {nombre, correo, asunto, mensaje} = req.params;
 
   try {
     const email = await transporter.sendMail({
-      from: process.env.MAIL_USERNAME,
-      to: correo,
-      subject: asunto,
-      text: mensaje
+      from: "lacomunidaddeltropiezoxd@gmail.com",
+      to: "fernandodava203@gmail.com",
+      subject: "ejemplo",
+      text: "ejemplo"
     });
 
     console.log("Correo enviado: ", email)
@@ -33,5 +30,3 @@ const sendMail = async (req, res) => {
     res.status(500).json({ mensaje: 'Error al obtener penviar el correo'}); 
   }
 }
-
-module.exports = transporter;

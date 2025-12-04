@@ -10,7 +10,7 @@ import express from "express";
 import cors from "cors";
 import authRoutes from "./routes/auth.routes.js";
 import productRoutes from "./routes/productos.routes.js";
-import correoRoutes from "./routes/correo.routes.js;"
+import correoRoutes from "./routes/correo.routes.js";
 import imgRoutes from "./routes/img.routes.js";
 import listaRoutes from "./routes/listaDeseos.routes.js";
 import carritoRoutes from "./routes/carrito.routes.js";
