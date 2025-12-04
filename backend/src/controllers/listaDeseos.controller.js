@@ -1,6 +1,4 @@
-const ProductoModel = require('../models/productos.model.js'); 
-const UserModel = require('../models/user.model.js'); 
-const ListaModel = require('../models/listaDeseos.model.js'); 
+import * as ListaModel from "../models/productos.model.js"
 
 const añadirLista = async (req, res) => { 
   try { 
@@ -101,7 +99,7 @@ const obtenerLista = async (req, res) => {
   } 
 }; 
 
-module.exports = {
+export {
   añadirLista,
   eliminarLista,
   obtenerLista

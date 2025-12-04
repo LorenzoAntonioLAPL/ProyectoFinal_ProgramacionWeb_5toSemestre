@@ -1,6 +1,4 @@
-const ProductoModel = require('../models/productos.model.js'); 
-const UserModel = require('../models/user.model.js'); 
-const CarritoModel = require('../models/carrito.model.js'); 
+import * as CarritoModel from "../models/carrito.model.js"
 
 const añadirCarrito = async (req, res) => { 
   try { 
@@ -121,7 +119,7 @@ const obtenerCarrito = async (req, res) => {
   } 
 }; 
 
-module.exports = {
+export {
   añadirCarrito,
   eliminarCarrito,
   obtenerCarrito
