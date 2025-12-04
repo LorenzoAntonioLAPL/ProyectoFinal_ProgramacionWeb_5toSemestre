@@ -12,6 +12,8 @@ const modCateg = document.getElementById("modCateg");
 const modImag = document.getElementById("modImagen");
 const btnElim = document.getElementById("btn-elim");
 
+console.log(btnElim);
+
 // Form agregar
 const addForm = document.getElementById("formAddProduct");
 const addNombre = document.getElementById("addNom");
@@ -91,7 +93,12 @@ searchForm.addEventListener("submit", async (e) => {
             modExist.setAttribute("placeholder",`${data.existencia}`);
             modCateg.setAttribute("placeholder",`${data.categoria}`);
             
-
+            // Activar botones
+            btnElim.removeAttribute("disabled");
+            const btnModify = document.getElementById("btn-modify");
+            btnModify.removeAttribute("disabled");
+            const btnReset = document.getElementById("btn-modify");
+            btnReset.removeAttribute("disabled");
         } else {
             swal("Error", data.msg || "Hubo un error al cargar los productos", "error");
         }
@@ -145,11 +152,37 @@ modForm.addEventListener("submit", async (e) => {
     } catch (error) {
         console.error('Error: No se pudo conectar con el servidor', error);
         swal("Error", "No se pudo conectar con el servidor", "error");
+    } finally {
+        // Restablecer el form
+        var setName = searchCont.getElementsByTagName("h2")[0];
+        var setId = searchCont.getElementsByTagName("h3")[0];
+        var setInfo = searchCont.getElementsByTagName("h4")[0];
+        var setDesc = searchCont.getElementsByTagName("p")[0];
+
+        setName.innerHTML = `Nombre`;
+        setId.innerHTML = `ID: ???`;
+        setInfo.innerHTML = `Categoria: ??? | Precio: ??? | Existencias: ??? | Ventas: ???`;
+        setDesc.innerHTML = `Descripción`;
+
+        // Inputs
+        modNombre.setAttribute("placeholder",`Nombre`);
+        modDesc.setAttribute("placeholder",`Descripción`);
+        modPrecio.setAttribute("placeholder",`00.00`);
+        modVentas.setAttribute("placeholder",`00.00`);
+        modExist.setAttribute("placeholder",`00.00`);
+        modCateg.setAttribute("placeholder",`1`);
+            
+        // Desactivar botones
+        btnElim.setAttribute("disabled");
+        const btnModify = document.getElementById("btn-modify");
+        btnModify.setAttribute("disabled");
+        const btnReset = document.getElementById("btn-modify");
+        btnReset.setAttribute("disabled");
     }
 });
 
 // Eliminar un producto en específico
-btnElim.addEventListener("click", async (e) => {
+btnElim.addEventListener("click", async () => {
     const searchCont = document.getElementById("search-container");
     let idElim = searchCont.getElementsByTagName("h3")[0].innerText.substring(4);
 
@@ -172,6 +205,32 @@ btnElim.addEventListener("click", async (e) => {
     } catch (error) {
         console.error(error)
         swal("Error", "No se pudo conectar al servidor", "error")
+    } finally {
+        // Restablecer el form
+        var setName = searchCont.getElementsByTagName("h2")[0];
+        var setId = searchCont.getElementsByTagName("h3")[0];
+        var setInfo = searchCont.getElementsByTagName("h4")[0];
+        var setDesc = searchCont.getElementsByTagName("p")[0];
+
+        setName.innerHTML = `Nombre`;
+        setId.innerHTML = `ID: ???`;
+        setInfo.innerHTML = `Categoria: ??? | Precio: ??? | Existencias: ??? | Ventas: ???`;
+        setDesc.innerHTML = `Descripción`;
+
+        // Inputs
+        modNombre.setAttribute("placeholder",`Nombre`);
+        modDesc.setAttribute("placeholder",`Descripción`);
+        modPrecio.setAttribute("placeholder",`00.00`);
+        modVentas.setAttribute("placeholder",`00.00`);
+        modExist.setAttribute("placeholder",`00.00`);
+        modCateg.setAttribute("placeholder",`1`);
+            
+        // Desactivar botones
+        btnElim.setAttribute("disabled");
+        const btnModify = document.getElementById("btn-modify");
+        btnModify.setAttribute("disabled");
+        const btnReset = document.getElementById("btn-modify");
+        btnReset.setAttribute("disabled");
     }
 });
 
@@ -184,10 +243,10 @@ addForm.addEventListener("submit", async (e) => {
     const descProd = addDesc.value;
     const existProd = addExist.value;
     const categProd = addCateg.value;
-    const imgProd = addImag.files;
+    const imgProd = /*addImag.files*/ "dona.jpg";
 
     try {
-        const response = await fetch(`${API_BASE_URL}/api/products/actualizarProducto/${idSearch}`, {
+        const response = await fetch(`${API_BASE_URL}/api/products/registrarProducto`, {
             method: "POST",
                 headers: {
                 "Authorization": `Bearer ${localStorage.getItem('token')}`,

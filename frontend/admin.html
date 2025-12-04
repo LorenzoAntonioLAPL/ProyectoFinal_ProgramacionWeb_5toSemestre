@@ -78,13 +78,13 @@
                             <textarea type="text" id="addDesc" class="a-product-input input-resize" placeholder="Descripción del Producto"></textarea>
 
                             <label for="addPrecio">Precio:</label>
-                            <input type="number" id="addPrecio" class="a-product-input" min="0" step="any" placeholder="${data.precio}">
+                            <input type="number" id="addPrecio" class="a-product-input" min="0" step="any" placeholder="Precio del producto (0.00)">
 
                             <label for="addExist">Existencias:</label>
-                            <input type="number" id="addExist" class="a-product-input" name="quantity" min="0" placeholder="${data.existencia}">
+                            <input type="number" id="addExist" class="a-product-input" name="quantity" min="0" placeholder="Existencias del producto">
 
                             <label for="addCateg">Categ:</label>
-                            <input type="number" id="addCateg" class="a-product-input" name="quantity" min="1" max="3" step="1" placeholder="${data.categoria}">
+                            <input type="number" id="addCateg" class="a-product-input" name="quantity" min="1" max="3" step="1" placeholder="Dona = 1, Bebida = 2, Souvenir = 3">
                                                 
                             <label for="addImagen">Imagen:</label>
                             <input type="file" id="addImagen" accept="image/png, image/gif, image/jpeg" name="prodImagen">
@@ -92,7 +92,6 @@
                             <br><br>
                                                 
                             <input type="submit" class="btn-modify" value="Agregar">
-                            <input type="reset" class="btn-modify" value="Reset">
                         </form>
                     </div>
                 </div>
@@ -120,7 +119,7 @@
                             <hr>
                             <form id="formModProduct">
                                 <label for="modNom">Nombre:</label>
-                                <input type="text" id="modNom" class="a-product-input" placeholder="Nombre de Producto">
+                                <input type="text" id="modNom" class="a-product-input" placeholder="Nombre">
 
                                 <label for="modDesc">Descripción:</label>
                                 <textarea type="text" id="modDesc" class="a-product-input input-resize" placeholder="Descripción"></textarea>
@@ -142,8 +141,7 @@
 
                                 <br><br>
                                                     
-                                <input type="submit" class="btn-modify" value="Modificar" disabled>
-                                <input type="reset" class="btn-modify" value="Reset" disabled>
+                                <input id="btn-modify" type="submit" class="btn-modify" value="Modificar" disabled>
                             </form>
                         </div>
                     </div>
