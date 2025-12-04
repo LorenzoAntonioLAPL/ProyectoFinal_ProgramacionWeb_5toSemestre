@@ -3,6 +3,7 @@ import { sendMail } from "../controllers/nodemailer.controller.js";
 
 const router = Router();
 
-router.post("/correo", sendMail);
+router.post("/subscripcion", sendMail);
+
 
 export default router;

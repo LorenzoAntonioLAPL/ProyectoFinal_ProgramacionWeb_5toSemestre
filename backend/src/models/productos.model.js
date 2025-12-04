@@ -46,13 +46,3 @@ export async function getProductByCategoria(categoria) {
     const [rows] = await connection.query('SELECT * FROM productos WHERE categoria = ?', [categoria]);
     return rows;
 }
-
-export {
-  getAllProducts,
-  getProductById,
-  createProduct,
-  updateProduct,
-  deleteProduct,
-  updateVentas,
-  getProductByCategoria
-}
