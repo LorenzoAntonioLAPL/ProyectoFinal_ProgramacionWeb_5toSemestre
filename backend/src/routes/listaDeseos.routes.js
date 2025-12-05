@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { añadirLista,
+import { agregarLista,
     eliminarLista,
     obtenerLista } from "../controllers/listaDeseos.controller.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 
 const router = Router();
 
-router.put('/añadirProducto/:idProducto', verifyToken, añadirLista);
+router.put('/agregarProducto/:idProducto', verifyToken, agregarLista);
 router.put('/eliminarProducto/:idProducto', verifyToken, eliminarLista);
 router.get("/obtenerLista", verifyToken, obtenerLista);
 

@@ -1,6 +1,6 @@
 import * as ListaModel from '../models/listaDeseos.model.js'; 
 
-export const añadirLista = async (req, res) => { 
+export const agregarLista = async (req, res) => { 
   try { 
     const { user } = req.user.id;
     const { idProducto } = req.params;

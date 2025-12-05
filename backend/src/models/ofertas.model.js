@@ -6,6 +6,6 @@ export async function getAllProducts() {
 }
 
 export async function getProductById(id) {
-    const [rows] = await connection.query('SELECT * FROM ofertas WHERE id = ?', [id]);
+    const [rows] = await connection.query('SELECT * FROM ofertas WHERE producto_id = ?', [id]);
     return rows[0];
 }
