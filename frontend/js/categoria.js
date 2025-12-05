@@ -1,3 +1,5 @@
+const API_BASE_URL = 'https://proyectofinal-programacionweb-5tosemestre.onrender.com';
+
 document.addEventListener("DOMContentLoaded", () => {
     cargarProductos();
 });
@@ -82,18 +84,108 @@ function crearTarjeta(prod, imagen) {
 function activarBotones() {
     // Botones de deseos
     document.querySelectorAll(".btn-deseo").forEach(btn => {
-        btn.addEventListener("click", () => {
+        const primerClicDeseo = async () => {
             const prod = JSON.parse(btn.getAttribute("data-producto"));
-            enviarA("deseos", prod);
-        });
+            //enviarA("deseos", prod);
+            const response = await fetch(`${API_BASE_URL}/api/listaDeseos/añadirProducto/${prod.id}`, {
+                method: "PUT",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                    "Content-Type": "application/json"
+                }
+            });
+            const data = await response.json();
+
+            if(response.ok){
+                swal("Éxito", data.mensaje || "Se añadio el producto a la lista de deseos", "success");
+                btn.removeEventListener("click", primerClicDeseo);
+                btn.addEventListener("click", segundoClicDeseo);
+            } else {
+                swal("Error", data.mensaje || "Hubo un error al añadir el producto a la lista de deseos", "error");
+            }
+        };
+
+        const segundoClicDeseo = async () => {
+            const prod = JSON.parse(btn.getAttribute("data-producto"));
+            //enviarA("deseos", prod);
+            const response = await fetch(`${API_BASE_URL}/api/listaDeseos/eliminarProducto/${prod.id}`, {
+                method: "PUT",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                    "Content-Type": "application/json"
+                }
+            });
+            const data = await response.json();
+
+            if(response.ok){
+                swal("Éxito", data.mensaje || "Se elimino el producto a la lista de deseos", "success");
+                btn.removeEventListener("click", segundoClicDeseo);
+                btn.addEventListener("click", primerClicDeseo);
+            } else {
+                swal("Error", data.mensaje || "Hubo un error al eliminar el producto a la lista de deseos", "error");
+            }
+        };
+
+        btn.addEventListener("click", primerClicDeseo);
     });
 
     // Botones del carrito
     document.querySelectorAll(".btn-carrito").forEach(btn => {
-        btn.addEventListener("click", () => {
+        const primerClicCarrito = async () => {
             const prod = JSON.parse(btn.getAttribute("data-producto"));
-            enviarA("carrito", prod);
-        });
+            //enviarA("carrito", prod);
+            const input = document.getElementById(`nombre${prod.nombre}`);
+            const total = Number(input.value);
+
+            const response = await fetch(`${API_BASE_URL}/api/carritoCompra/añadirProducto/${prod.id}`, {
+                method: "PUT",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    cantidad: total
+                })
+            });
+            const data = await response.json();
+
+            if(response.ok){
+                swal("Éxito", data.mensaje || "Se añadio el producto al carrito", "success");
+                btn.removeEventListener("click", primerClicCarrito);
+                btn.addEventListener("click", segundoClicCarrito);
+            } else {
+                swal("Error", data.mensaje || "Hubo un error al añadir el producto al carrito", "error");
+            }
+        };
+
+        const segundoClicCarrito = async () => {
+            const prod = JSON.parse(btn.getAttribute("data-producto"));
+            //enviarA("carrito", prod);
+            const input = document.getElementById(`nombre${prod.nombre}`);
+            const total = Number(input.value);
+
+            const response = await fetch(`${API_BASE_URL}/api/carritoCompra/eliminarProducto/${prod.id}`, {
+                method: "PUT",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    cantidad: total
+                })
+            });
+            const data = await response.json();
+
+            if(response.ok){
+                swal("Éxito", data.mensaje || "Se quito el producto del carrito", "success");
+                btn.removeEventListener("click", segundoClicCarrito);
+                btn.addEventListener("click", primerClicCarrito);
+            } else {
+                swal("Error", data.mensaje || "Hubo un error al quitar el producto del carrito", "error");
+            }
+        };
+
+        btn.addEventListener("click", primerClicCarrito);
     });
 }
 
