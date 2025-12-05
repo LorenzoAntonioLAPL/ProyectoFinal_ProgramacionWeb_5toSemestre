@@ -2,7 +2,9 @@ const prodSect = document.getElementById("pago-product");
 
 // Metodos de pago
 const metSect = document.getElementById("pago-metodo");
-
+const pagoCard = document.getElementById("pago-card");
+const pagoTrans = document.getElementById("pago-trans");
+const pagoOxxo = document.getElementById("pago-oxxo");
 // Envio
 const envSect = document.getElementById("pago-envio");
 const envNomInput = document.getElementById("envNom");
