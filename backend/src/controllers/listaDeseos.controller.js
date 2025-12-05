@@ -54,7 +54,7 @@ export const eliminarLista = async (req, res) => {
     if (!usuario) 
       return res.status(404).json({ mensaje: 'Usuario no encontrado' });
 
-    const listaDeseos = usuario.product_ids.split(",");
+    let listaDeseos = usuario.product_ids.split(",");
     if(listaDeseos[listaDeseos.length - 1] === "") listaDeseos.pop();
 
     //buscar en la lista de usuarios

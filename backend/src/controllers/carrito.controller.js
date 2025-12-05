@@ -62,9 +62,9 @@ export const eliminarCarrito = async (req, res) => {
     if (!usuario) 
       return res.status(404).json({ mensaje: 'Usuario no encontrado' });
 
-    const carrito = usuario.product_ids.split(",");
+    let carrito = usuario.product_ids.split(",");
     if(carrito[carrito.length - 1] === "") carrito.pop();
-    const listaCantidad = usuario.product_num.split(",");
+    let listaCantidad = usuario.product_num.split(",");
     if(listaCantidad[listaCantidad.length - 1] === "") listaCantidad.pop();
 
     if(!carrito.includes(String(idProducto))){
