@@ -95,13 +95,15 @@ function activarBotones() {
 function enviarA(tipo, producto) {
     let lista = JSON.parse(localStorage.getItem(tipo)) || [];
 
-    lista.push(producto);
-    localStorage.setItem(tipo, JSON.stringify(lista));
+    // Si el producto ya existe, aumentar cantidad
+    const index = lista.findIndex(p => p.id === producto.id);
 
-    if (tipo === "deseos") {
-        window.location.href = "lista-de-deseos.html";
+    if (index >= 0) {
+        lista[index].cantidad += 1;
+    } else {
+        producto.cantidad = 1;
+        lista.push(producto);
     }
-    if (tipo === "carrito") {
-        window.location.href = "carrito.html";
-    }
+
+    localStorage.setItem(tipo, JSON.stringify(lista));
 }
