@@ -108,7 +108,7 @@ export const calcularPrecio = async (req, res) => {
         }
 
         let envio = 100 * (1+pais.impuesto);
-        precioTotal = precioSubTotal*pais.impuesto;
+        precioTotal = precioSubTotal*(1+pais.impuesto);
         precioTotal += envio;
         
 
