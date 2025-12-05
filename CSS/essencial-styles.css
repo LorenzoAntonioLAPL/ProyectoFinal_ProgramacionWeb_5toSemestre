@@ -480,7 +480,7 @@ footer {
 }
 
 /* Agrega color de fondo al boton cuando se le hace hover o está activo */
-.active, .collapsible:hover {
+.collapsible:hover {
     background-color: var(--collapsible-hover);
 }
 
