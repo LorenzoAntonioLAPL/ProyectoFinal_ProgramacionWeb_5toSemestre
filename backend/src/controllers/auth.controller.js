@@ -1,6 +1,8 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import fetch from "node-fetch";
+import crypto from "crypto";
+import { sendEmail } from "../utils/sendEmail.js";
 import { 
   findUserByEmail, 
   createUser, 
@@ -130,5 +132,73 @@ export const login = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ msg: "Error en login" });
+  }
+};
+
+export const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const user = await findUserByEmail(email);
+
+    if (!user) {
+      return res.status(404).json({ msg: "Este correo no existe" });
+    }
+
+    // Crear token
+    const resetToken = crypto.randomBytes(32).toString("hex");
+    const expires = new Date(Date.now() + 15 * 60 * 1000); // 15 min
+
+    // Guardar token en DB
+    await connection.query(
+      "UPDATE usuarios SET reset_token = ?, reset_expires = ? WHERE id = ?",
+      [resetToken, expires, user.id]
+    );
+
+    const resetLink = `https://lorenzoantioniolapl.github.io/ProyectoFinal_ProgramacionWeb_5toSemestre/reset-password.html?token=${resetToken}`;
+
+    const html = `
+      <h2>Recuperar contraseña</h2>
+      <p>Haz clic en el enlace para cambiar tu contraseña:</p>
+      <a href="${resetLink}">${resetLink}</a>
+      <p>Este enlace expira en 15 minutos.</p>
+    `;
+
+    await sendEmail(email, "Recuperación de Contraseña", html);
+
+    res.json({ msg: "Correo enviado. Revisa tu bandeja" });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Error al enviar correo" });
+  }
+};
+
+export const resetPassword = async (req, res) => {
+  try {
+    const { token, newPassword } = req.body;
+
+    const [rows] = await connection.query(
+      "SELECT * FROM usuarios WHERE reset_token = ? AND reset_expires > NOW()",
+      [token]
+    );
+
+    if (rows.length === 0) {
+      return res.status(400).json({ msg: "Token inválido o expirado" });
+    }
+
+    const user = rows[0];
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    await connection.query(
+      "UPDATE usuarios SET password = ?, reset_token = NULL, reset_expires = NULL WHERE id = ?",
+      [hashedPassword, user.id]
+    );
+
+    res.json({ msg: "Contraseña actualizada correctamente" });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Error al cambiar contraseña" });
   }
 };
