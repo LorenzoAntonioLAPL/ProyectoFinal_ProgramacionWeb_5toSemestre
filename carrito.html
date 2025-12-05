@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Papa's Donuteria</title>
+    <title>Carrito - Papa's Donuteria</title>
 
     <link rel="icon" type="image/x-icon" href="./imagenes/favicon.ico">
 
@@ -17,6 +17,7 @@
     <script src="./js/header.js" defer></script>
     <script src="./js/theme.js" defer></script>
     <script src="./js/carrito.js" defer></script>
+    <script src="./js/font.js" defer></script>
 
     <!-- Scripts Externos -->
     <script src="https://kit.fontawesome.com/d420dccc9b.js" crossorigin="anonymous"></script>
@@ -76,11 +77,10 @@
         </div>
 
         <div id="contenedor-carrito" class="contenedor-general"></div>
-        <script src="carrito.js"></script>
     </main>
 
     
-        <!-- Modal de Login / Registro -->
+    <!-- Modal de Login / Registro -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close" id="closeModal">&times;</span>
@@ -136,25 +136,33 @@
 
    <footer>
     <div class="footer-container">
-        
-        <h1 class="footer-title"> Papas's Donuteria </h1><br>
-        <p class="footer-tagline">Donut worry, be happy</p>
+            
+            <h1 class="footer-title"> Papas's Donuteria </h1><br>
+            <p class="footer-tagline">Donut worry, be happy</p>
+            <p class="footer-tagline"><i class="fa-solid fa-universal-access"></i> Sitio Web Accesible</p><br>
 
-        <div class="footer-links">
-            <a href="contacto.html">Contáctanos</a>
-            <a href="nosotros.html">Sobre nosotros</a>
+            <div class="footer-links">
+                <a href="contacto.html">Contáctanos</a>
+                <a href="nosotros.html">Sobre nosotros</a>
+            </div>
+
+            <div class="footer-social">
+                <a href="https://www.instagram.com/papasdonuteria_pd/" target="_blank">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+            </div>
+
+            <p class="footer-rights">© 2025 Papa's Donuteria — Todos los derechos reservados.</p>
+            <hr class="footer-divider">
+            <p class="footer-rights">Nota: Esto es un proyecto escolar sin el objetivo de ser una tienda real</p>
         </div>
+    </footer>
 
-        <div class="footer-social">
-            <a href="https://instagram.com" target="_blank">
-                <i class="fa-brands fa-instagram"></i>
-            </a>
-        </div>
-
-        <p class="footer-rights">© 2025 Papa's Donuteria — Todos los derechos reservados.</p>
-        <hr class="footer-divider">
-        <p class="footer-rights">Nota: Esto es un proyecto escolar sin el objetivo de ser una tienda real</p>
+    <!--Botones de control de tamaño-->
+    <div class="font-controls">
+        <button id="font-decrease">A-</button>
+        <button id="font-reset">A</button>
+        <button id="font-increase">A+</button>
     </div>
-</footer>
 </body>
 </html>

@@ -66,8 +66,22 @@ async function mostrarTodosProductos() {
     try {
         const response = await fetch(`${API_BASE_URL}/api/products/obtenerProductos`);
         const data = await response.json();
+        let img;
         
         if (response.ok) {
+            // Obtener imagenes
+            try{
+                const response = await fetch(`${API_BASE_URL}/api/imagenes/obtenerImagenes`);
+                img = await response.json();
+
+                if(!response.ok){
+                    swal("Error", data.msg || "Hubo un error al cargar los productos", "error");
+                }
+            } catch {
+                console.error('Error: No se pudo conectar con el servidor', error);
+                swal("Error", "No se pudo conectar con el servidor", "error");
+            }
+
             var prodCont = document.getElementById("prod-container");
             // Limpiar el contenedor de los productos
             prodCont.innerHTML= "";
@@ -76,7 +90,7 @@ async function mostrarTodosProductos() {
             for(var i=0; i<data.length;i++){
                 prodCont.innerHTML +=
                 `<div class="a-product-card">
-                    <img src="imagenes/donas.jpg" alt="">
+                    <img src="${img.vectorImg.find(j => j.nombre === data[i].imagen).data}" alt="">
                     <div class="a-product-desc">
                         <h2>${data[i].nombre}</h2>
                         <h3>ID: ${data[i].id}</h3>
@@ -245,16 +259,32 @@ searchForm.addEventListener("submit", async (e) => {
     try {
         const response = await fetch(`${API_BASE_URL}/api/products/obtenerProducto/${idSearch}`);
         const data = await response.json();
+        let img;
+
+        // Obtener imagenes
+        try{
+            const response = await fetch(`${API_BASE_URL}/api/imagenes/obtenerImagenes`);
+            img = await response.json();
+
+            if(!response.ok){
+                swal("Error", data.msg || "Hubo un error al cargar los productos", "error");
+            }
+        } catch {
+            console.error('Error: No se pudo conectar con el servidor', error);
+            swal("Error", "No se pudo conectar con el servidor", "error");
+        }
         
         if (response.ok) {
             const searchCont = document.getElementById("search-container");
 
             // Configura el form
+            var setImg = searchCont.getElementsByTagName("img")[0];
             var setName = searchCont.getElementsByTagName("h2")[0];
             var setId = searchCont.getElementsByTagName("h3")[0];
             var setInfo = searchCont.getElementsByTagName("h4")[0];
             var setDesc = searchCont.getElementsByTagName("p")[0];
 
+            setImg.innerHTML = `${img.vectorImg.find(i => i.nombre === data.imagen).data}`;
             setName.innerHTML = `${data.nombre}`;
             setId.innerHTML = `ID: ${data.id}`;
             setInfo.innerHTML = `Categoria: ${data.categoria} | Precio: ${data.precio} | Existencias: ${data.existencia} | Ventas: ${data.ventas}`;
