@@ -44,15 +44,24 @@ async function mostrarCarrito() {
     }
 }
 
-function crearTarjeta(prod, imagen) {
+function crearTarjeta(prod, imagen, cantidadTotal) {
     const card = document.createElement("div");
     card.classList.add("product-card");
+    let nomCard;
+    if(prod.existencia){
+        nomCard = prod.nombre;
+    }
+    else{
+        nomCard = "No hay existencias";
+    }
 
     card.innerHTML = `
-        <img src="${imagen}" alt="${prod.imagen}">
-        <h3>${prod.nombre}</h3>
+        <img src="${imagen}" alt="${prod.imagen}" id="imagen${prod.nombre}">
+        <h3>${nomCard}</h3>
+        <p>Cantidad: ${cantidadTotal}</p>
         <p>Precio: $${prod.precio}</p>
         <p>Existencia: ${prod.existencia}</p>
+        <p>${prod.descripcion}</p>
 
         <div class="card-icons">
             <i class="fa-regular fa-heart btn-deseo" 
@@ -67,6 +76,9 @@ function crearTarjeta(prod, imagen) {
             <input type="number" id='nombre${prod.nombre}' min="1">
         </div>
     `;
+    if(prod.existencia){
+        document.getElementById(`imagen${prod.nombre}`).style.filter = grayscale(1);
+    }
 
     return card;
 }
@@ -175,6 +187,6 @@ function activarBotones() {
             }
         };
 
-        btn.addEventListener("click", primerClicCarrito);
+        btn.addEventListener("click", segundoClicCarrito);
     });
 }

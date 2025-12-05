@@ -45,12 +45,20 @@ async function mostrarDeseos() {
 function crearTarjeta(prod, imagen) {
     const card = document.createElement("div");
     card.classList.add("product-card");
+    let nomCard;
+    if(prod.existencia){
+        nomCard = prod.nombre;
+    }
+    else{
+        nomCard = "No hay existencias";
+    }
 
     card.innerHTML = `
-        <img src="${imagen}" alt="${prod.imagen}">
-        <h3>${prod.nombre}</h3>
+        <img src="${imagen}" alt="${prod.imagen}" id="imagen${prod.nombre}">
+        <h3>${nomCard}</h3>
         <p>Precio: $${prod.precio}</p>
         <p>Existencia: ${prod.existencia}</p>
+        <p>${prod.descripcion}</p>
 
         <div class="card-icons">
             <i class="fa-regular fa-heart btn-deseo" 
@@ -65,6 +73,9 @@ function crearTarjeta(prod, imagen) {
             <input type="number" id='nombre${prod.nombre}' min="1">
         </div>
     `;
+    if(prod.existencia){
+        document.getElementById(`imagen${prod.nombre}`).style.filter = grayscale(1);
+    }
 
     return card;
 }
@@ -72,27 +83,6 @@ function crearTarjeta(prod, imagen) {
 function activarBotones() {
     // Botones de deseos
     document.querySelectorAll(".btn-deseo").forEach(btn => {
-        const primerClicDeseo = async () => {
-            const prod = JSON.parse(btn.getAttribute("data-producto"));
-            //enviarA("deseos", prod);
-            const response = await fetch(`${API_BASE_URL}/api/listaDeseos/añadirProducto/${prod.id}`, {
-                method: "PUT",
-                headers: {
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
-                    "Content-Type": "application/json"
-                }
-            });
-            const data = await response.json();
-
-            if(response.ok){
-                swal("Éxito", data.mensaje || "Se añadio el producto a la lista de deseos", "success");
-                btn.removeEventListener("click", primerClicDeseo);
-                btn.addEventListener("click", segundoClicDeseo);
-            } else {
-                swal("Error", data.mensaje || "Hubo un error al añadir el producto a la lista de deseos", "error");
-            }
-        };
-
         const segundoClicDeseo = async () => {
             const prod = JSON.parse(btn.getAttribute("data-producto"));
             //enviarA("deseos", prod);
@@ -107,14 +97,12 @@ function activarBotones() {
 
             if(response.ok){
                 swal("Éxito", data.mensaje || "Se elimino el producto a la lista de deseos", "success");
-                btn.removeEventListener("click", segundoClicDeseo);
-                btn.addEventListener("click", primerClicDeseo);
             } else {
                 swal("Error", data.mensaje || "Hubo un error al eliminar el producto a la lista de deseos", "error");
             }
         };
 
-        btn.addEventListener("click", primerClicDeseo);
+        btn.addEventListener("click", segundoClicDeseo);
     });
 
     // Botones del carrito
