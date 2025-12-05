@@ -162,9 +162,7 @@ forgotPasswordLink.addEventListener("click", async (e) => {
   }
 
   try {
-    const API = "https://proyectofinal-programacionweb-5tosemestre.onrender.com";
-
-    const res = await fetch(`${API}/api/auth/forgot-password`, {
+    const res = await fetch(`${API_BASE_URL}/api/auth/forgot-password`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email })
