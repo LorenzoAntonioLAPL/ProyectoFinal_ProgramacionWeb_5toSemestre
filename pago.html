@@ -3,19 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Papa's Donuteria</title>
+    <title>Pago - Papa's Donuteria</title>
 
     <link rel="icon" type="image/x-icon" href="./imagenes/favicon.ico">
 
     <!-- Estilos -->
     <link rel="stylesheet" href="./CSS/essencial-styles.css">
-    <link rel="stylesheet" href="./CSS/index-styles.css">
+    <link rel="stylesheet" href="./CSS/admin-styles.css">
+    <link rel="stylesheet" href="./CSS/pago-styles.css">
 
     <!-- Scripts -->
     <script src="js/login.js" defer></script>
     <script src="js/slider.js" defer></script>
     <script src="./js/header.js" defer></script>
     <script src="./js/theme.js" defer></script>
+    <script src="./js/pago.js" defer></script>
 
     <!-- Scripts Externos -->
     <script src="https://kit.fontawesome.com/d420dccc9b.js" crossorigin="anonymous"></script>
@@ -24,7 +26,7 @@
 </head>
 <body>
     <!-- Navbar -->
-   <nav class="navbar">
+    <nav class="navbar">
         <div id="header-logo">
             <img src="./imagenes/LogoDona.png" alt="Logo">
             <h1>PAPA'S DONUTERIA</h1>
@@ -69,14 +71,58 @@
 
     <!-- Seccion principal, poner toda la información de la página aquí dentro -->
     <main>
-        
+        <section class="admin-section">
+            <div id="pago-product">
+                
+            </div>
+            <hr>
+            <p id="p-subtotal">Subtotal: </p>
+            <hr>
+            <p id="p-total">Total: </p>
+        </section>
+        <section id="pago-metodo" class="admin-section">
+            <hr>
+            <h1 class="admin-title">Método de Pago</h1>
+            <div id="met-btn">
+                <button id="pago-card" class="a-product-button">Tarjeta</button>
+                <button id="pago-trans" class="a-product-button">Transferencia</button>
+                <button id="pago-oxxo" class="a-product-button">Oxxo</button>
+            </div>
+        </section>
+        <section id="pago-envio" class="admin-section">
+            <hr>
+            <h1 class="admin-title">Formulario de Envio</h1>
+            <form id="formEnviar" class="a-product-card">
+                <label for="envNom">Nombre:</label>
+                <input type="text" id="envNom" class="a-product-input" placeholder="Nombre">
+
+                <label for="envDir">Dirección:</label>
+                <input type="text" id="envDir" class="a-product-input" placeholder="Dirección">
+
+                <label for="envCity">Ciudad:</label>
+                <input type="text" id="envCity" class="a-product-input" placeholder="Ciudad">
+
+                <label for="envPost">Código postal:</label>
+                <input type="number" id="envPost" class="a-product-input" pattern="[0-9]{5}" min="10000" max="99999" placeholder="00000">
+
+                <label for="envTel">Teléfono:</label>
+                <input type="tel" id="envTel" class="a-product-input" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="000-000-0000">
+            </form>
+            <hr>
+        </section>
+        <section id="pago-btns" class="admin-section">
+            <form id="opt-pais">
+                <!-- <input type="radio" id="pais1" name="fav_language" value="">
+                <label for="pais1"></label><br> -->
+            </form>
+            <button class="btn-modify">Comprar</button>
+        </section>
     </main>
 
         <!-- Modal de Login / Registro -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close" id="closeModal">&times;</span>
-
             <h2 id="modalTitle">Iniciar Sesión</h2>
 
             <form id="formLogin">

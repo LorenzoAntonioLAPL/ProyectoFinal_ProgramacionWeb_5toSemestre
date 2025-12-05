@@ -97,8 +97,8 @@ hr {
 
 .a-product-button{
     align-self: center;
-    height: 10vh;
-    width: 10vh;
+    min-height: 10vh;
+    min-width: 10vh;
 
     margin: 1vh;
     padding: 1vh;
@@ -134,6 +134,10 @@ hr {
     background-color: var(--input);
     color: var(--title);
     border-radius: 0.5rem;
+}
+
+.a-product-input::placeholder{
+    color: var(--title);
 }
 
 .input-resize{
