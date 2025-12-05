@@ -5,7 +5,8 @@ import { completarVenta,
     confirmarPedido,
     pagoTarjeta,
     pagoTransferencia,
-    pagoOxxo  } from "../controllers/ventas.controller.js";
+    pagoOxxo,
+    calcularSubTotal } from "../controllers/ventas.controller.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 
 const router = Router();
@@ -17,5 +18,6 @@ router.get("/confirmarPedido", verifyToken, confirmarPedido);
 router.post("/pagoTarjeta", verifyToken, pagoTarjeta);
 router.post("/pagoTransferencia", verifyToken, pagoTransferencia);
 router.post("/pagoOxxo", verifyToken, pagoOxxo);
+router.get("/obtenerSubTotal", verifyToken, calcularSubTotal);
 
 export default router;

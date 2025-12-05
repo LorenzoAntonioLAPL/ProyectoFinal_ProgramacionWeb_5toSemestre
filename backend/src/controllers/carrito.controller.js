@@ -119,8 +119,30 @@ const obtenerCarrito = async (req, res) => {
   } 
 }; 
 
+const obtenerTotalCarrito = async (req, res) => { 
+  try { 
+    const { user } = req.user.id;
+
+    const usuario = await CarritoModel.findUserById(user); 
+    if (!usuario) 
+      return res.status(404).json({ mensaje: 'Usuario no encontrado' });
+
+    const listaCantidad = usuario.product_num.split(",");
+    if(listaCantidad[listaCantidad.length - 1] === "") listaCantidad.pop();
+
+    res.status(200).json({
+        message: "Datos Listos",
+        totalProductos: listaCantidad.length
+    });
+  } catch (error) { 
+    console.error('Error al obtener el carrito de compra:', error); 
+    res.status(500).json({ mensaje: 'Error al obtener el carrito de compra' }); 
+  } 
+}; 
+
 export {
   añadirCarrito,
   eliminarCarrito,
-  obtenerCarrito
+  obtenerCarrito,
+  obtenerTotalCarrito
 };

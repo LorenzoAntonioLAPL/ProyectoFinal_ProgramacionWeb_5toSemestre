@@ -1,6 +1,7 @@
 import * as productos from "../models/productos.model.js";
 import * as CarritoModel from "../models/carrito.model.js";
 import * as PaisModel from "../models/pais.model.js";
+import * as OfertasModel from "../models/ofertas.model.js"
 
 export const completarVenta = async (req,res) => {
     try {
@@ -85,18 +86,28 @@ export const calcularPrecio = async (req, res) => {
           
         //Crea un arreglo de productos basado en el carrito
         const listaProd = [];
+        const listaOferta = [];
         let precioTotal = 0;
         let precioSubTotal = 0;
 
         carrito.forEach(async index => {
             listaProd.push(await productos.getProductById(parseInt(index)));
+            listaOferta.push(await OfertasModel.getProductById(parseInt(index)));
         });
 
+        let prodOferta;
+
         for(let i = 0; i<listaProd.length; i++){
-            precioSubTotal += listaProd[i].precio * parseInt(listaCantidad[i]);
+            prodOferta = listaOferta.find(p => p.id === listaProd[i].id);
+            if(!prodOferta){
+                precioSubTotal += listaProd[i].precio * parseInt(listaCantidad[i]);
+            }
+            else{
+                precioSubTotal += (listaProd[i].precio * (1 - prodOferta.descuento)) * parseInt(listaCantidad[i]);
+            }
         }
 
-        let envio = 100 * pais.impuesto;
+        let envio = 100 * (1+pais.impuesto);
         precioTotal = precioSubTotal*pais.impuesto;
         precioTotal += envio;
         
@@ -213,5 +224,56 @@ export const pagoOxxo = async (req, res) => {
     } catch (error) {
         console.error('Error al realizar el pago por oxxo:', error); 
         res.status(500).json({ mensaje: 'Error al realizar el pago por oxxo' });
+    }
+}
+
+export const calcularSubTotal = async (req, res) => {
+    try { 
+        const { user } = req.user.id;
+
+        const usuario = await CarritoModel.findUserById(user); 
+        if (!usuario) 
+            return res.status(404).json({ mensaje: 'Usuario no encontrado' });
+        
+        const carrito = usuario.product_ids.split(",");
+        if(carrito[carrito.length - 1] === "") carrito.pop();
+        const listaCantidad = usuario.product_num.split(",");
+        if(listaCantidad[listaCantidad.length - 1] === "") listaCantidad.pop();
+
+        if(carrito.length <= 0){
+            return res.status(400).json({mensaje: "No hay productos en el carrito"})
+        }
+          
+        //Crea un arreglo de productos basado en el carrito
+        const listaProd = [];
+        const listaOferta = [];
+        let precioTotal = 0;
+        let precioSubTotal = 0;
+
+        carrito.forEach(async index => {
+            listaProd.push(await productos.getProductById(parseInt(index)));
+            listaOferta.push(await OfertasModel.getProductById(parseInt(index)));
+        });
+
+        let prodOferta;
+
+        for(let i = 0; i<listaProd.length; i++){
+            prodOferta = listaOferta.find(p => p.id === listaProd[i].id);
+            if(!prodOferta){
+                precioSubTotal += listaProd[i].precio * parseInt(listaCantidad[i]);
+            }
+            else{
+                precioSubTotal += (listaProd[i].precio * (1 - prodOferta.descuento)) * parseInt(listaCantidad[i]);
+            }
+        }
+        
+
+        res.status(200).json({
+            message: "Datos Listos",
+            subtotal: precioSubTotal
+        });
+    } catch (error) {
+        console.error('Error al calcular el precio:', error); 
+        res.status(500).json({ mensaje: 'Error al calcular el precio' });
     }
 }
