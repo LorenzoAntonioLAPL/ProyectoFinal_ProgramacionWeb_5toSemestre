@@ -211,3 +211,7 @@ main {
 .faq-item.active .arrow {
     transform: rotate(180deg);
 }
+
+.active {
+    background-color: rgba(0, 0, 0, 0);
+}
