@@ -12,6 +12,9 @@ const nombreInput = document.getElementById("nombre")
 const emailInput = document.getElementById("login")
 const passwordInput = document.getElementById("password")
 const confirmPasswordInput = document.getElementById("confirmPassword")
+const forgotPasswordLink = document.getElementById("forgotPasswordLink");
+
+const API_BASE_URL = 'https://proyectofinal-programacionweb-5tosemestre.onrender.com';
 
 let isRegister = false
 
@@ -46,47 +49,56 @@ toggleForm.addEventListener("click", (e) => {
         confirmPasswordInput.style.display = "none"
     }
 
+    if (typeof grecaptcha !== "undefined") {
+      grecaptcha.reset()
+    }
 })
 
 // Enviar formulario
 form.addEventListener("submit", async (e) => {
-  e.preventDefault()
+    e.preventDefault()
 
-  const email = emailInput.value
-  const password = passwordInput.value
-  const nombre = nombreInput.value
+    const email = emailInput.value
+    const password = passwordInput.value
+    const nombre = nombreInput.value
 
-    if (isRegister) {
-        const confirmPassword = confirmPasswordInput.value
+    // Obtener token del captcha
+    const captchaToken = grecaptcha.getResponse()
 
-        if (password !== confirmPassword) {
-            swal("Error", "Las contraseñas no coinciden", "error")
-            return
-        }
+    if (!captchaToken) {
+        swal("Error", "Confirma que no eres un robot", "error")
+        return
     }
 
-    const API = "https://proyectofinal-programacionweb-5tosemestre.onrender.com";
+    if (isRegister) {
+      const confirmPassword = confirmPasswordInput.value
 
-    const url = isRegister
-    ? `${API}/api/auth/register`
-    : `${API}/api/auth/login`;
+      if (password !== confirmPassword) {
+          swal("Error", "Las contraseñas no coinciden", "error")
+          return
+      }
+    }
 
+  const url = isRegister
+      ? `${API_BASE_URL}/api/auth/register`
+      : `${API_BASE_URL}/api/auth/login`
 
   const body = isRegister
-    ? { nombre, email, password }
-    : { email, password }
+    ? { nombre, email, password, captchaToken }
+    : { email, password, captchaToken }
 
   try {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body)
-    })
+      const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+      })
 
     const data = await res.json()
 
     if (!res.ok) {
       swal("Error", data.msg || "Algo salió mal", "error")
+      grecaptcha.reset() // reinicia captcha al fallar
       return
     }
 
@@ -98,16 +110,18 @@ form.addEventListener("submit", async (e) => {
 
     swal("¡Listo!", isRegister ? "Usuario registrado" : "Sesión iniciada", "success")
     .then(() => {
-    modal.style.display = "none"
-    location.reload()
+      grecaptcha.reset()
+      modal.style.display = "none"
+      location.reload()
     })
-
 
   } catch (error) {
     console.error(error)
     swal("Error", "No se pudo conectar al servidor", "error")
+    grecaptcha.reset()
   }
 })
+
 
 // Mostrar usuario si ya está logueado
 const userNameSpan = document.getElementById("userName");
@@ -134,4 +148,36 @@ logoutBtn.addEventListener("click", () => {
   localStorage.removeItem("token");
   localStorage.removeItem("usuario");
   location.reload();
+});
+
+forgotPasswordLink.addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  const email = emailInput.value;
+
+  if (!email) {
+    swal("Error", "Escribe tu correo primero", "error");
+    return;
+  }
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/auth/forgot-password`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      swal("Error", data.msg || "No se pudo enviar el correo", "error");
+      return;
+    }
+
+    swal("Listo", "Revisa tu correo para recuperar tu contraseña", "success");
+
+  } catch (error) {
+    console.error(error);
+    swal("Error", "No se pudo conectar al servidor", "error");
+  }
 });

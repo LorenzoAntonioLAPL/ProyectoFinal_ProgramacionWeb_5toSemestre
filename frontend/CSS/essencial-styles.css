@@ -1,5 +1,13 @@
+/*
+COLORES DE LA PAGINA EN GENERAL (Del mas claro al mas oscuro)
+    - #faf5f1
+    - #f0ddd0
+    - #d4b9aa
+    - #694440
+    - #361715
+*/
 :root {
-    --bg-main: #fff7f0;
+    --bg-main: #faf5f1;
     --bg-navbar: #d3c2ad;
     --bg-card: #fff7f0;
     --bg-modal: #fffaf5;
@@ -18,6 +26,10 @@
     --modal-a: #c47b59;
     --modal-p: #5a4039;
     --modal-c: #7a5f54;
+
+    --collapsible: #694440;
+    --collapsible-hover: #361715;
+    --collapse-cont: #f0ddd0;
 }
 
 [data-theme="dark"] {
@@ -40,7 +52,12 @@
     --modal-a: #e4a67b;          
     --modal-p: #d6b6a3;        
     --modal-c: #e2c3b3;
+
+    --collapsible: #29201a;
+    --collapsible-hover: #1d140f;
+    --collapse-cont: #423631;
 }
+
 #theme-toggle {
   background: none;
   border: none;
@@ -249,6 +266,28 @@ main {
     background-color: #fff;   
 }
 
+.g-recaptcha{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+#modalTitle{
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+}
+
+#toggleText, #toggleForm {
+    text-align: center;
+    margin-top: 1.2rem;
+}
+
+#toggleForm:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 #submitBtn {
     background: var(--modal-c);
     border: none;
@@ -426,6 +465,7 @@ footer {
     transform: scale(1.1);
 }
 
+<<<<<<< HEAD
 .font-controls {
     position: fixed;
     bottom: 20px;
@@ -458,3 +498,27 @@ footer {
 }
 
 
+=======
+/* Contenido colapsable: Basicamente hacer pestañas */
+/* Encabezado/boton del contenido a colapsar */
+.collapsible {
+    background-color: var(--collapsible);
+    color: #faf5f1;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+/* Estilo del contenido colapsable. Nota: Escondido por default */
+.collapse-content {
+  padding: 0 2vh;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: var(--collapse-cont);
+}
+>>>>>>> dev

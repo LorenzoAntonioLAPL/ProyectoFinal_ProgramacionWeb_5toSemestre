@@ -3,27 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Papa's Donuteria</title>
+    <title>Pago - Papa's Donuteria</title>
 
-    <link rel="icon" type="image/x-icon" href="./imagenes/logo.png">
+    <link rel="icon" type="image/x-icon" href="./imagenes/favicon.ico">
 
     <!-- Estilos -->
     <link rel="stylesheet" href="./CSS/essencial-styles.css">
-    <link rel="stylesheet" href="./CSS/index-styles.css">
+    <link rel="stylesheet" href="./CSS/admin-styles.css">
+    <link rel="stylesheet" href="./CSS/pago-styles.css">
 
     <!-- Scripts -->
     <script src="js/login.js" defer></script>
     <script src="js/slider.js" defer></script>
+    <script src="./js/header.js" defer></script>
+    <script src="./js/theme.js" defer></script>
+    <script src="./js/pago.js" defer></script>
+
+    <!-- Scripts Externos -->
     <script src="https://kit.fontawesome.com/d420dccc9b.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        <script src="js/font.js" defer></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <!-- Navbar -->
-   <nav class="navbar">
+    <nav class="navbar">
         <div id="header-logo">
-            <img src="./imagenes/logo.png" alt="Logo">
-            <h1><i class="fa-solid fa-donut"></i> PAPA'S DONUTERIA</h1>
+            <img src="./imagenes/LogoDona.png" alt="Logo">
+            <h1>PAPA'S DONUTERIA</h1>
         </div>
 
         <div id="header-right">
@@ -35,11 +41,11 @@
                 <a href="./nosotros.html">NOSOTROS</a>
             </div>
 
-            <button class="icon-btn" title="Lista de deseos">
+            <button id="deseosBtn" class="icon-btn" title="Lista de deseos">
                 <i class="fa-regular fa-heart"></i>
             </button>
 
-            <button class="icon-btn" title="Carrito">
+            <button id="carritoBtn" class="icon-btn" title="Carrito">
                 <i class="fa-solid fa-cart-shopping"></i>
             </button>
 
@@ -47,75 +53,131 @@
                 <i class="fa-solid fa-user"></i>
             </button>
 
+            <button id="adminBtn" class="icon-btn" style="display:none;" title="Administrador" disabled>
+                <i class="fa-solid fa-user-tie"></i>
+            </button>
+
             <button id="logoutBtn" class="icon-btn" style="display:none;" title="Cerrar sesión">
                 <i class="fa-solid fa-right-from-bracket"></i>
             </button>
 
             <span id="userName" class="user-name"></span>
+
+            <button id="theme-toggle" class="icon-btn" title="Cambiar tema">
+                <i id="theme-icon" class="fa-solid fa-moon"></i>
+            </button>
         </div>
     </nav>
 
     <!-- Seccion principal, poner toda la información de la página aquí dentro -->
     <main>
-        
+        <section class="admin-section">
+            <div id="pago-product">
+                
+            </div>
+            <hr>
+            <p id="p-subtotal">Subtotal: </p>
+            <hr>
+            <p id="p-total">Total: </p>
+        </section>
+        <section id="pago-metodo" class="admin-section">
+            <hr>
+            <h1 class="admin-title">Método de Pago</h1>
+            <div id="met-btn">
+                <button id="pago-card" class="a-product-button">Tarjeta</button>
+                <button id="pago-trans" class="a-product-button">Transferencia</button>
+                <button id="pago-oxxo" class="a-product-button">Oxxo</button>
+            </div>
+        </section>
+        <section id="pago-envio" class="admin-section">
+            <hr>
+            <h1 class="admin-title">Formulario de Envio</h1>
+            <form id="formEnviar" class="a-product-card">
+                <label for="envNom">Nombre:</label>
+                <input type="text" id="envNom" class="a-product-input" placeholder="Nombre">
+
+                <label for="envDir">Dirección:</label>
+                <input type="text" id="envDir" class="a-product-input" placeholder="Dirección">
+
+                <label for="envCity">Ciudad:</label>
+                <input type="text" id="envCity" class="a-product-input" placeholder="Ciudad">
+
+                <label for="envPost">Código postal:</label>
+                <input type="number" id="envPost" class="a-product-input" pattern="[0-9]{5}" min="10000" max="99999" placeholder="00000">
+
+                <label for="envTel">Teléfono:</label>
+                <input type="tel" id="envTel" class="a-product-input" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="000-000-0000">
+            </form>
+            <hr>
+        </section>
+        <section id="pago-btns" class="admin-section">
+            <form id="opt-pais">
+                <!-- <input type="radio" id="pais1" name="fav_language" value="">
+                <label for="pais1"></label><br> -->
+            </form>
+            <button class="btn-modify">Comprar</button>
+        </section>
     </main>
 
-    
-<!-- Modal de Login / Registro -->
-<div id="loginModal" class="modal">
-  <div class="modal-content">
-    <span class="close" id="closeModal">&times;</span>
+        <!-- Modal de Login / Registro -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2 id="modalTitle">Iniciar Sesión</h2>
 
-    <h2 id="modalTitle">Iniciar Sesión</h2>
+            <form id="formLogin">
 
-    <form id="formLogin">
+            <input 
+                type="text" 
+                id="nombre" 
+                placeholder="Nombre completo"
+                style="display:none;"
+            >
 
-      <!-- Solo aparece en modo REGISTRO -->
-      <input 
-        type="text" 
-        id="nombre" 
-        placeholder="Nombre completo"
-        style="display:none;"
-      >
+            <input 
+                type="text" 
+                id="login" 
+                placeholder="Correo electrónico" 
+                required
+            >
 
-      <input 
-        type="text" 
-        id="login" 
-        placeholder="Correo electrónico" 
-        required
-      >
+            <input 
+                type="password" 
+                id="password" 
+                placeholder="Contraseña" 
+                required
+            >
 
-      <input 
-        type="password" 
-        id="password" 
-        placeholder="Contraseña" 
-        required
-      >
+            <input 
+                type="password" 
+                id="confirmPassword" 
+                placeholder="Confirmar contraseña"
+                style="display:none;"
+            >
 
-      <input 
-        type="password" 
-        id="confirmPassword" 
-        placeholder="Confirmar contraseña"
-        style="display:none;"
-      >
+            <div class="g-recaptcha" data-sitekey="6LdTcyAsAAAAAFOkXtlCJ9Fcrgd9An7D5UayW1Pa"></div>
 
-      <button type="submit" id="submitBtn">Login</button>
-    </form>
+            <button type="submit" id="submitBtn">Login</button>
+            </form>
 
-    <p style="margin-top: 10px; text-align:center;">
-        <span id="toggleText">¿No tienes cuenta?</span>
-        <a href="#" id="toggleForm"> Regístrate</a>
-    </p>
+            <p style="text-align:center; margin-top:8px;">
+            <a href="#" id="forgotPassword">¿Olvidaste tu contraseña?</a>
+            </p>
 
-  </div>
-</div>
+            <p style="margin-top: 10px; text-align:center;">
+            <span id="toggleText">¿No tienes cuenta?</span>
+            <a href="#" id="toggleForm"> Regístrate</a>
+            </p>
+
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>
     <div class="footer-container">
         
         <h1 class="footer-title"> Papas's Donuteria </h1><br>
-        <p class="footer-tagline">El sabor perfecto para tu día</p>
+        <p class="footer-tagline">Donut worry, be happy</p>
 
         <div class="footer-links">
             <a href="contacto.html">Contáctanos</a>
