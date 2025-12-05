@@ -9,20 +9,25 @@
 
     <!-- Estilos -->
     <link rel="stylesheet" href="./CSS/essencial-styles.css">
-    <link rel="stylesheet" href="./CSS/index-styles.css">
+    <link rel="stylesheet" href="./CSS/nosotros-styles.css">
 
     <!-- Scripts -->
     <script src="js/login.js" defer></script>
     <script src="js/slider.js" defer></script>
+    <script src="./js/header.js" defer></script>
+    <script src="./js/theme.js" defer></script>
+
+    <!-- Script -->
     <script src="https://kit.fontawesome.com/d420dccc9b.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar">
         <div id="header-logo">
             <img src="./imagenes/LogoDona.png" alt="Logo">
-            <h1><i class="fa-solid fa-donut"></i> PAPA'S DONUTERIA</h1>
+            <h1>PAPA'S DONUTERIA</h1>
         </div>
 
         <div id="header-right">
@@ -34,11 +39,11 @@
                 <a href="./nosotros.html">NOSOTROS</a>
             </div>
 
-            <button class="icon-btn" title="Lista de deseos" onclick="location.href='lista-de-deseos.html'">
+            <button id="deseosBtn" class="icon-btn" title="Lista de deseos">
                 <i class="fa-regular fa-heart"></i>
             </button>
 
-            <button class="icon-btn" title="Carrito" onclick="location.href='carrito.html'">
+            <button id="carritoBtn" class="icon-btn" title="Carrito">
                 <i class="fa-solid fa-cart-shopping"></i>
             </button>
 
@@ -46,91 +51,166 @@
                 <i class="fa-solid fa-user"></i>
             </button>
 
+            <button id="adminBtn" class="icon-btn" style="display:none;" title="Administrador" disabled>
+                <i class="fa-solid fa-user-tie"></i>
+            </button>
+
             <button id="logoutBtn" class="icon-btn" style="display:none;" title="Cerrar sesión">
                 <i class="fa-solid fa-right-from-bracket"></i>
             </button>
 
             <span id="userName" class="user-name"></span>
+
+            <button id="theme-toggle" class="icon-btn" title="Cambiar tema">
+                <i id="theme-icon" class="fa-solid fa-moon"></i>
+            </button>
         </div>
     </nav>
 
-    <!-- Seccion principal, poner toda la información de la página aquí dentro -->
+    <!-- Seccion principal -->
     <main>
-        
+        <section class="about-section">
+            <div class="about-content">
+                <div class="about-img">
+                    <img src="imagenes/lugar.jpeg" alt="Papa's Donuteria - Local">
+                </div>
+
+                <div class="about-text">
+                    <h2>Bienvenido a Papa’s Donuteria</h2>
+                    <p>
+                        En Papa’s Donuteria creemos que cada día merece empezar (o terminar) con algo dulce. 
+                        Desde nuestros inicios, nos hemos dedicado a crear donas artesanales que combinan sabores 
+                        tradicionales con toques innovadores, siempre elaboradas con ingredientes frescos y de la mejor calidad. 
+                        Pero nuestra pasión por la repostería no se queda ahí: también ofrecemos una amplia variedad de productos.
+                    </p> 
+                    <p> Nuestro espacio esta pensado para que disfrutes cada visita. Desde el aroma a pan recién horneado 
+                        hasta el ambiente cálido y amigable, todo está diseñado para que vivas una experiencia única. 
+                        Ya sea que busques un lugar para relajarte, convivir con amigos o simplemente consentirte, en Papa’s Donuteria 
+                        siempre encontrarás algo especial que disfrutar.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CARDS DE INTEGRANTES -->
+        <section class="team-section">
+            <h2 class="team-title">Nuestro Equipo</h2>
+
+            <div class="team-container">
+
+                <div class="team-card">
+                    <img src="imagenes/u6.jpg" alt="Integrante">
+                    <h3>Adriano Elijah Dominguez Estrada</h3>
+                    <p>Descripcion</p>
+                </div>
+
+                <div class="team-card">
+                    <img src="imagenes/u5.jpg" alt="Integrante">
+                    <h3>Angel Oziel Carrillo Díaz de Leon</h3>
+                    <p>Descripcion</p>
+                </div>
+
+                <div class="team-card">
+                    <img src="imagenes/u4.jpg" alt="Integrante">
+                    <h3>Fernando Davalos Gutierrez</h3>
+                    <p>Descripcion</p>
+                </div>
+
+                <div class="team-card">
+                    <img src="imagenes/u3.jpg" alt="Integrante">
+                    <h3>Diego Emilio Venegas Flores</h3>
+                    <p>Descripcion</p>
+                </div>
+
+                <div class="team-card">
+                    <img src="imagenes/u2.jpg" alt="Integrante">
+                    <h3>Lorenzo Antonio Pacheco Leyva</h3>
+                    <p>Descripcion</p>
+                </div>
+
+                <div class="team-card">
+                    <img src="imagenes/u1.jpg" alt="Integrante">
+                    <h3>Tania Paola García Meza</h3>
+                    <p>Descripcion</p>
+                </div>
+
+            </div>
+        </section>
     </main>
 
-    
-<!-- Modal de Login / Registro -->
-<div id="loginModal" class="modal">
-  <div class="modal-content">
-    <span class="close" id="closeModal">&times;</span>
+       <!-- Modal de Login / Registro -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
 
-    <h2 id="modalTitle">Iniciar Sesión</h2>
+            <h2 id="modalTitle">Iniciar Sesión</h2>
 
-    <form id="formLogin">
+            <form id="formLogin">
 
-      <!-- Solo aparece en modo REGISTRO -->
-      <input 
-        type="text" 
-        id="nombre" 
-        placeholder="Nombre completo"
-        style="display:none;"
-      >
+            <!-- Solo aparece en modo REGISTRO -->
+            <input 
+                type="text" 
+                id="nombre" 
+                placeholder="Nombre completo"
+                style="display:none;"
+            >
 
-      <input 
-        type="text" 
-        id="login" 
-        placeholder="Correo electrónico" 
-        required
-      >
+            <input 
+                type="text" 
+                id="login" 
+                placeholder="Correo electrónico" 
+                required
+            >
 
-      <input 
-        type="password" 
-        id="password" 
-        placeholder="Contraseña" 
-        required
-      >
+            <input 
+                type="password" 
+                id="password" 
+                placeholder="Contraseña" 
+                required
+            >
 
-      <input 
-        type="password" 
-        id="confirmPassword" 
-        placeholder="Confirmar contraseña"
-        style="display:none;"
-      >
+            <input 
+                type="password" 
+                id="confirmPassword" 
+                placeholder="Confirmar contraseña"
+                style="display:none;"
+            >
+            
+            <div class="g-recaptcha" data-sitekey="6LdTcyAsAAAAAFOkXtlCJ9Fcrgd9An7D5UayW1Pa"></div>
 
-      <button type="submit" id="submitBtn">Login</button>
-    </form>
+            <button type="submit" id="submitBtn">Login</button>
+            </form>
 
-    <p style="margin-top: 10px; text-align:center;">
-        <span id="toggleText">¿No tienes cuenta?</span>
-        <a href="#" id="toggleForm"> Regístrate</a>
-    </p>
+            <p style="margin-top: 10px; text-align:center;">
+                <span id="toggleText">¿No tienes cuenta?</span>
+                <a href="#" id="toggleForm"> Regístrate</a>
+            </p>
 
-  </div>
-</div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer>
-    <div class="footer-container">
-        
-        <h1 class="footer-title"> Papas's Donuteria </h1><br>
-        <p class="footer-tagline">El sabor perfecto para tu día</p>
+        <div class="footer-container">
+            
+            <h1 class="footer-title"> Papas's Donuteria </h1><br>
+            <p class="footer-tagline">El sabor perfecto para tu día</p>
 
-        <div class="footer-links">
-            <a href="contacto.html">Contáctanos</a>
-            <a href="nosotros.html">Sobre nosotros</a>
+            <div class="footer-links">
+                <a href="contacto.html">Contáctanos</a>
+                <a href="nosotros.html">Sobre nosotros</a>
+            </div>
+
+            <div class="footer-social">
+                <a href="https://www.instagram.com/papasdonuteria_pd/ target="_blank">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+            </div>
+
+            <p class="footer-rights">© 2025 Papa's Donuteria — Todos los derechos reservados.</p>
+            <hr class="footer-divider">
+            <p class="footer-rights">Nota: Esto es un proyecto escolar sin el objetivo de ser una tienda real</p>
         </div>
-
-        <div class="footer-social">
-            <a href="https://instagram.com" target="_blank">
-                <i class="fa-brands fa-instagram"></i>
-            </a>
-        </div>
-
-        <p class="footer-rights">© 2025 Papa's Donuteria — Todos los derechos reservados.</p>
-        <hr class="footer-divider">
-        <p class="footer-rights">Nota: Esto es un proyecto escolar sin el objetivo de ser una tienda real</p>
-    </div>
-</footer>
+    </footer>
 </body>
 </html>

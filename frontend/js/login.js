@@ -13,6 +13,8 @@ const emailInput = document.getElementById("login")
 const passwordInput = document.getElementById("password")
 const confirmPasswordInput = document.getElementById("confirmPassword")
 
+const API_BASE_URL = 'https://proyectofinal-programacionweb-5tosemestre.onrender.com';
+
 let isRegister = false
 
 // Abrir modal
@@ -46,6 +48,9 @@ toggleForm.addEventListener("click", (e) => {
         confirmPasswordInput.style.display = "none"
     }
 
+    if (typeof grecaptcha !== "undefined") {
+      grecaptcha.reset()
+    }
 })
 
 // Enviar formulario
@@ -56,42 +61,43 @@ form.addEventListener("submit", async (e) => {
     const password = passwordInput.value
     const nombre = nombreInput.value
 
-    if (!email.endsWith("@gmail.com")) {
-      swal("Error", "Solo se permiten correos Gmail", "error")
-      return
+    // Obtener token del captcha
+    const captchaToken = grecaptcha.getResponse()
+
+    if (!captchaToken) {
+        swal("Error", "Confirma que no eres un robot", "error")
+        return
     }
 
     if (isRegister) {
-        const confirmPassword = confirmPasswordInput.value
+      const confirmPassword = confirmPasswordInput.value
 
-        if (password !== confirmPassword) {
-            swal("Error", "Las contraseñas no coinciden", "error")
-            return
-        }
+      if (password !== confirmPassword) {
+          swal("Error", "Las contraseñas no coinciden", "error")
+          return
+      }
     }
 
-    const API = "https://proyectofinal-programacionweb-5tosemestre.onrender.com";
-
-    const url = isRegister
-    ? `${API}/api/auth/register`
-    : `${API}/api/auth/login`;
-
+  const url = isRegister
+      ? `${API_BASE_URL}/api/auth/register`
+      : `${API_BASE_URL}/api/auth/login`
 
   const body = isRegister
-    ? { nombre, email, password }
-    : { email, password }
+    ? { nombre, email, password, captchaToken }
+    : { email, password, captchaToken }
 
   try {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body)
-    })
+      const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+      })
 
     const data = await res.json()
 
     if (!res.ok) {
       swal("Error", data.msg || "Algo salió mal", "error")
+      grecaptcha.reset() // reinicia captcha al fallar
       return
     }
 
@@ -103,16 +109,18 @@ form.addEventListener("submit", async (e) => {
 
     swal("¡Listo!", isRegister ? "Usuario registrado" : "Sesión iniciada", "success")
     .then(() => {
-    modal.style.display = "none"
-    location.reload()
+      grecaptcha.reset()
+      modal.style.display = "none"
+      location.reload()
     })
-
 
   } catch (error) {
     console.error(error)
     swal("Error", "No se pudo conectar al servidor", "error")
+    grecaptcha.reset()
   }
 })
+
 
 // Mostrar usuario si ya está logueado
 const userNameSpan = document.getElementById("userName");

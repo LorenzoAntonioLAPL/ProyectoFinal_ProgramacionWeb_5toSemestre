@@ -1,4 +1,4 @@
-const ProductoModel = require('../models/productos.model.js'); 
+import * as ProductoModel from "../models/productos.model.js"
 
 const getProductos = async (req, res) => { 
   try { 
@@ -8,7 +8,7 @@ const getProductos = async (req, res) => {
     console.error('Error al obtener productos:', error); 
     res.status(500).json({ mensaje: 'Error al obtener productos' }); 
   } 
-}; 
+};
 
 const getProductById = async (req, res) => { 
   try { 
@@ -30,7 +30,7 @@ const createProduct = async (req, res) => {
     console.log(req.body); 
 
     //---------------------------------------------------------------
-    const { nombre, precio, descripcion, existencia, categoria, imagen, ventas } = req.body; 
+    let { nombre, precio, descripcion, existencia, categoria, imagen, ventas } = req.body; 
     if (!nombre || !precio || !categoria || !imagen || !descripcion ) 
       return res.status(400).json({ mensaje: 'Faltan datos obligatorios' }); 
 
@@ -54,7 +54,11 @@ const updateProduct = async (req, res) => {
   try { 
     const { id } = req.params; 
     //---------------------------------------------
-    const { nombre, precio, descripcion, existencia, categoria, imagen, ventas } = req.body; 
+    let { nombre, precio, descripcion, existencia, categoria, imagen, ventas } = req.body; 
+
+    if (!nombre || !precio || !categoria) {
+        return res.status(400).json({ mensaje: 'Los campos nombre, precio y categoría son obligatorios' });
+    }
 
     precio = parseFloat(precio) || 0;
     existencia = parseInt(existencia, 10) || 0;
@@ -76,7 +80,7 @@ const updateProduct = async (req, res) => {
 const updateVentas = async (req, res) => { 
   try { 
     const { id } = req.params; 
-    const { ventas } = req.body; 
+    let { ventas } = req.body; 
 
     const producto = await ProductoModel.getProductById(id); 
  
@@ -109,7 +113,7 @@ const deleteProduct = async (req, res) => {
     console.error('Error al eliminar producto:', error); 
     res.status(500).json({ mensaje: 'Error al eliminar producto' }); 
   } 
-}; 
+};
 
 const getProductByCategoria = async (req, res) => { 
   try { 
@@ -125,13 +129,13 @@ const getProductByCategoria = async (req, res) => {
     res.status(500).json({ mensaje: 'Error al obtener producto' }); 
   } 
 };
- 
-module.exports = { 
-  getProductos, 
-  getProductById, 
-  createProduct, 
-  updateProduct, 
+
+export {
+  getProductos,
+  getProductById,
+  createProduct,
+  updateProduct,
   deleteProduct,
   updateVentas,
   getProductByCategoria
-}; 
+}

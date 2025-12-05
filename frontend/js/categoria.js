@@ -1,9 +1,6 @@
-const API_BASE_URL = 'https://proyectofinal-programacionweb-5tosemestre.onrender.com';
-
 document.addEventListener("DOMContentLoaded", () => {
     cargarProductos();
 });
-
 
 // Mapeo de categorías NUMÉRICAS → TEXTO
 const categoriasMap = {
@@ -12,10 +9,9 @@ const categoriasMap = {
     3: "souvenir"
 };
 
-
 async function cargarProductos() {
     try {
-        const resp = await fetch(`${API_BASE_URL}/api/productos`);
+        const resp = await fetch(`${API_BASE_URL}/api/products/obtenerProductos`);
         const productos = await resp.json();
 
         if (!resp.ok) {

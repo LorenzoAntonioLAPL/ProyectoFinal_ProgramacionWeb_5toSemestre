@@ -1,0 +1,34 @@
+:root {
+    --base: #361715;
+}
+
+[data-theme="dark"] {
+    --base: #f0ddd0;  
+}
+
+.a-product-button{
+    height: 20vh;
+    width: 30vh;
+}
+
+main{
+    margin-bottom: 2vh;
+}
+
+hr {
+    background-color: var(--base);
+}
+
+#p-subtotal, #p-total {
+    color: var(--base);
+}
+
+#pago-metodo, #pago-btns{
+    width: 90vw;
+}
+
+#met-btn {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
