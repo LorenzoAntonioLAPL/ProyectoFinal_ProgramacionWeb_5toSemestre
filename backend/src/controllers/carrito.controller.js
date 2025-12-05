@@ -119,7 +119,7 @@ export const obtenerCarrito = async (req, res) => {
   } 
 }; 
 
-const obtenerTotalCarrito = async (req, res) => { 
+export const obtenerTotalCarrito = async (req, res) => { 
   try { 
     const { user } = req.user.id;
 
@@ -139,10 +139,3 @@ const obtenerTotalCarrito = async (req, res) => {
     res.status(500).json({ mensaje: 'Error al obtener el carrito de compra' }); 
   } 
 }; 
-
-export {
-  agregarCarrito,
-  eliminarCarrito,
-  obtenerCarrito,
-  obtenerTotalCarrito
-};
