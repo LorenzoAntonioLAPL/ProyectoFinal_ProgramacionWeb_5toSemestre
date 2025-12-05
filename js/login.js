@@ -12,7 +12,7 @@ const nombreInput = document.getElementById("nombre")
 const emailInput = document.getElementById("login")
 const passwordInput = document.getElementById("password")
 const confirmPasswordInput = document.getElementById("confirmPassword")
-const forgotPasswordLink = document.getElementById("forgotPassword")
+const forgotPasswordLink = document.getElementById("forgotPasswordLink");
 
 
 const API_BASE_URL = 'https://proyectofinal-programacionweb-5tosemestre.onrender.com';
@@ -152,37 +152,35 @@ logoutBtn.addEventListener("click", () => {
 });
 
 forgotPasswordLink.addEventListener("click", async (e) => {
-  e.preventDefault()
-  
-  const email = emailInput.value.trim()
+  e.preventDefault();
+
+  const email = emailInput.value;
 
   if (!email) {
-    swal("Error", "Escribe tu correo para recuperar la contraseña", "error")
-    return
+    swal("Error", "Escribe tu correo primero", "error");
+    return;
   }
 
   try {
-    const res = await fetch("https://proyectofinal-programacionweb-5tosemestre.onrender.com/api/auth/forgot-password", {
+    const API = "https://proyectofinal-programacionweb-5tosemestre.onrender.com";
+
+    const res = await fetch(`${API}/api/auth/forgot-password`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email })
-    })
+    });
 
-    const data = await res.json()
+    const data = await res.json();
 
     if (!res.ok) {
-      swal("Error", data.msg || "Algo salió mal", "error")
-      return
+      swal("Error", data.msg || "No se pudo enviar el correo", "error");
+      return;
     }
 
-    swal(
-      "Listo ✅",
-      "Se envió un enlace de recuperación a tu correo",
-      "success"
-    )
+    swal("Listo", "Revisa tu correo para recuperar tu contraseña", "success");
 
   } catch (error) {
-    console.error(error)
-    swal("Error", "No se pudo conectar al servidor", "error")
+    console.error(error);
+    swal("Error", "No se pudo conectar al servidor", "error");
   }
-})
+});
