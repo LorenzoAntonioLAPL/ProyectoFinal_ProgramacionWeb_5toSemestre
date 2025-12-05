@@ -29,7 +29,7 @@ export const getImagenes = async (req, res) => {
 
     if (NOM_IMAGENES.length === 0) {
       throw new Error('Error al obtener las imagenes');
-   }
+  }
     
     const imagenes = [];
 
