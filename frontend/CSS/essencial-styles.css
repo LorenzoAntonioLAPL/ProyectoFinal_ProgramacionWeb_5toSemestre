@@ -1,4 +1,3 @@
-
 /*
 COLORES DE LA PAGINA EN GENERAL (Del mas claro al mas oscuro)
     - #faf5f1
@@ -50,6 +49,7 @@ COLORES DE LA PAGINA EN GENERAL (Del mas claro al mas oscuro)
     --modal-p: #d6b6a3;        
     --modal-c: #e2c3b3;
 }
+
 #theme-toggle {
   background: none;
   border: none;
