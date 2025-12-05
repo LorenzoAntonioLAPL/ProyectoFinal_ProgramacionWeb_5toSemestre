@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +20,9 @@
     <script src="https://kit.fontawesome.com/d420dccc9b.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="js/theme.js" defer></script>
 </head>
+
 <body>
     <!-- Navbar -->
     <nav class="navbar">
@@ -63,50 +65,89 @@
     </nav>
 
     <!-- Seccion principal -->
-   <main>
-    <section class="contact-wrapper">
+    <main>
+        <section class="contact-wrapper">
+            <div class="contact-container">
+                <div class="contact-left">
+                    <h2>Contáctanos</h2>
+                    <p>¿Tienes dudas o comentarios? ¡Estamos aquí para ayudarte!</p>
 
-        <div class="contact-container">
+                    <div class="contact-info">
+                        <p><i class="fa-solid fa-envelope"></i> contacto@donuteria.com</p>
+                        <p><i class="fa-solid fa-phone"></i> +52 465 955 6808</p>
+                        <p><i class="fa-brands fa-instagram"></i> @papasdonuteria_pd</p>
+                    </div>
+                </div>
 
-            <div class="contact-left">
-                <h2>Contáctanos</h2>
-                <p>¿Tienes dudas o comentarios? ¡Estamos aquí para ayudarte!</p>
+                <div class="contact-right">
+                    <h2>Envíanos un mensaje</h2>
 
-                <div class="contact-info">
-                    <p><i class="fa-solid fa-envelope"></i> contacto@donuteria.com</p>
-                    <p><i class="fa-solid fa-phone"></i> +52 465 955 6808</p>
-                    <p><i class="fa-brands fa-instagram"></i> @donuteria</p>
-    <!-- Seccion principal -->
-   <main>
-    <section class="contact-wrapper">
+                    <form>
+                        <input type="text" placeholder="Tu nombre" required>
+                        <input type="email" placeholder="Tu correo electrónico" required>
+                        <textarea placeholder="Escribe tu mensaje..." required></textarea>
 
-        <div class="contact-container">
+                        <button type="submit" class="btn-enviar">Enviar mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </section>
 
-            <div class="contact-left">
-                <h2>Contáctanos</h2>
-                <p>¿Tienes dudas o comentarios? ¡Estamos aquí para ayudarte!</p>
-
-                <div class="contact-info">
-                    <p><i class="fa-solid fa-envelope"></i> contacto@donuteria.com</p>
-                    <p><i class="fa-solid fa-phone"></i> +52 465 955 6808</p>
-                    <p><i class="fa-brands fa-instagram"></i> @donuteria</p>
+        <!--Preguntas Frecuentes-->
+        <section class="faq-section">
+            <h2 class="faq-title">Preguntas Frecuentes</h2>
+            <div class="faq-item">
+                <button class="faq-question">
+                    ¿Cómo puedo hacer un pedido?
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    Puedes hacer pedidos directamente desde nuestra página de contacto o enviándonos mensaje por Instagram.
                 </div>
             </div>
 
-            <div class="contact-right">
-                <h2>Envíanos un mensaje</h2>
+            <div class="faq-item">
+                <button class="faq-question">
+                    ¿Hacen entregas a domicilio?
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    Sí, contamos con servicio a domicilio dentro de la ciudad con un costo adicional.
+                </div>
+            </div>
 
-                <form>
-                    <input type="text" placeholder="Tu nombre" required>
-                    <input type="email" placeholder="Tu correo electrónico" required>
-                    <textarea placeholder="Escribe tu mensaje..." required></textarea>
+            <div class="faq-item">
+                <button class="faq-question">
+                    ¿Puedo personalizar mis donas?
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    Por supuesto, puedes elegir glaseado, toppings y rellenos disponibles en temporada.
+                </div>
+            </div>
 
-                    <button type="submit" class="btn-enviar">Enviar mensaje</button>
-                </form>
-        </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    ¿Puedo cambiar mi pedido?
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    Los cambios son posibles si nos contactas antes de que el pedido se comience a realizar. Contactanos lo antes posible.
+                </div>
+            </div>
 
-    </section>
-</main>
+            <div class="faq-item">
+                <button class="faq-question">
+                    ¿Qué otros productos venden?
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    Contamos con una gran variedad de bebidas y muchas otras opciones de postres.
+                </div>
+            </div>
+
+        </section>
+    </main>
   
 <!-- Modal de Login / Registro -->
 <div id="loginModal" class="modal">
@@ -157,62 +198,6 @@
   </div>
 </div>
 
-        </div>
-
-    </section>
-</main>
-  
-    <!-- Modal de Login / Registro -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeModal">&times;</span>
-
-            <h2 id="modalTitle">Iniciar Sesión</h2>
-
-            <form id="formLogin">
-
-            <!-- Solo aparece en modo REGISTRO -->
-            <input 
-                type="text" 
-                id="nombre" 
-                placeholder="Nombre completo"
-                style="display:none;"
-            >
-
-            <input 
-                type="text" 
-                id="login" 
-                placeholder="Correo electrónico" 
-                required
-            >
-
-            <input 
-                type="password" 
-                id="password" 
-                placeholder="Contraseña" 
-                required
-            >
-
-            <input 
-                type="password" 
-                id="confirmPassword" 
-                placeholder="Confirmar contraseña"
-                style="display:none;"
-            >
-            
-            <div class="g-recaptcha" data-sitekey="6LdTcyAsAAAAAFOkXtlCJ9Fcrgd9An7D5UayW1Pa"></div>
-
-            <button type="submit" id="submitBtn">Login</button>
-            </form>
-
-            <p style="margin-top: 10px; text-align:center;">
-                <span id="toggleText">¿No tienes cuenta?</span>
-                <a href="#" id="toggleForm"> Regístrate</a>
-            </p>
-
-        </div>
-    </div>
-
     <footer>
     <div class="footer-container">
         
@@ -225,7 +210,7 @@
         </div>
 
         <div class="footer-social">
-            <a href="https://instagram.com" target="_blank">
+            <a href="https://www.instagram.com/papasdonuteria_pd/" target="_blank">
                 <i class="fa-brands fa-instagram"></i>
             </a>
         </div>
@@ -235,5 +220,6 @@
         <p class="footer-rights">Nota: Esto es un proyecto escolar sin el objetivo de ser una tienda real</p>
     </div>
 </footer>
+<script src="js/faq.js" defer></script>
 </body>
 </html>
