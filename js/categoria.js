@@ -38,9 +38,14 @@ async function cargarProductos() {
             if (categoria === "dona") contDona.appendChild(card);
             else if (categoria === "bebida") contBebida.appendChild(card);
             else if (categoria === "souvenir") contSouvenir.appendChild(card);
+
+            if(prod.existencia <= 0){
+                document.getElementById(`imagen${prod.nombre}`).style.filter = "grayscale(1)";
+            }
         });
 
     //Activamos los botones DESPUÉS de cargar las tarjetas
+        if(productos.length > 0)
         activarBotones();
 
     } catch (error) {
@@ -52,17 +57,28 @@ async function cargarProductos() {
 function crearTarjeta(prod, imagen) {
     const card = document.createElement("div");
     card.classList.add("product-card");
+    let nomCard;
+    if(prod.existencia > 0){
+        nomCard = prod.nombre;
+    }
+    else{
+        nomCard = "No hay existencias";
+    }
 
     card.innerHTML = `
-        <img src="${imagen}" alt="${prod.imagen}">
-        <h3>${prod.nombre}</h3>
-        <p>Precio: $${prod.precio}</p>
-        <p>Existencia: ${prod.existencia}</p>
+        <img src="${imagen}" alt="${prod.imagen}" id="imagen${prod.nombre}">
+        <h3>${nomCard}</h3>
+        <div class="divPreEx">
+            <p>Precio: $${prod.precio}</p>
+            <p>Existencia: ${prod.existencia}</p>
+        </div>
+        <p>${prod.descripcion}</p>
+        <br>
 
         <div class="card-icons">
             <i class="fa-regular fa-heart btn-deseo" 
                data-producto='${JSON.stringify(prod)}' 
-               title="Añadir a deseos">
+               title="Añadir a deseos" id="icono${prod.nombre}">
             </i>
 
             <i class="fa-solid fa-cart-plus btn-carrito" 
@@ -94,6 +110,9 @@ function activarBotones() {
 
             if(response.ok){
                 swal("Éxito", data.mensaje || "Se añadio el producto a la lista de deseos", "success");
+                let varIcono = document.getElementById(`icono${prod.nombre}`);
+                varIcono.classList.remove("fa-regular");
+                varIcono.classList.add("fa-solid");
                 btn.removeEventListener("click", primerClicDeseo);
                 btn.addEventListener("click", segundoClicDeseo);
             } else {
@@ -115,6 +134,9 @@ function activarBotones() {
 
             if(response.ok){
                 swal("Éxito", data.mensaje || "Se elimino el producto a la lista de deseos", "success");
+                let varIcono = document.getElementById(`icono${prod.nombre}`);
+                varIcono.classList.remove("fa-solid");
+                varIcono.classList.add("fa-regular");
                 btn.removeEventListener("click", segundoClicDeseo);
                 btn.addEventListener("click", primerClicDeseo);
             } else {
