@@ -12,7 +12,7 @@ const nombreInput = document.getElementById("nombre")
 const emailInput = document.getElementById("login")
 const passwordInput = document.getElementById("password")
 const confirmPasswordInput = document.getElementById("confirmPassword")
-const forgotPasswordLink = document.getElementById("forgotPassword")
+const forgotBtn = document.getElementById("forgotBtn")
 
 
 const API_BASE_URL = 'https://proyectofinal-programacionweb-5tosemestre.onrender.com';
@@ -151,38 +151,23 @@ logoutBtn.addEventListener("click", () => {
   location.reload();
 });
 
-forgotPasswordLink.addEventListener("click", async (e) => {
-  e.preventDefault()
-  
-  const email = emailInput.value.trim()
+forgotBtn.addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  const email = emailInput.value;
 
   if (!email) {
-    swal("Error", "Escribe tu correo para recuperar la contraseña", "error")
-    return
+    swal("Error", "Escribe tu correo primero", "error");
+    return;
   }
 
-  try {
-    const res = await fetch("https://proyectofinal-programacionweb-5tosemestre.onrender.com/api/auth/forgot-password", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email })
-    })
+  const res = await fetch("https://proyectofinal-programacionweb-5tosemestre.onrender.com/api/auth/forgot-password", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email })
+  });
 
-    const data = await res.json()
+  const data = await res.json();
 
-    if (!res.ok) {
-      swal("Error", data.msg || "Algo salió mal", "error")
-      return
-    }
-
-    swal(
-      "Listo ✅",
-      "Se envió un enlace de recuperación a tu correo",
-      "success"
-    )
-
-  } catch (error) {
-    console.error(error)
-    swal("Error", "No se pudo conectar al servidor", "error")
-  }
-})
+  swal("Listo", data.msg, "success");
+});
