@@ -160,12 +160,20 @@ main{
     flex: 0 0 calc(25% - 7.5px); 
     box-sizing: border-box;      
     text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.divPreEx{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
 }
 
 .product-card input{
     width: 40px;
 }
-=======
+
 .container-categ{
     margin-top: 15vh;
 }
@@ -255,4 +263,3 @@ main{
 .card-icons i:hover {
     color: #361715;
 }
->>>>>>> origin

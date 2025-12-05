@@ -31,9 +31,14 @@ async function mostrarDeseos() {
             const card = crearTarjeta(productos.find(p => p.id === parseInt(prod)), data.vectorImg.find(i => i.nombre === prod.imagen).data);
             const contenedor = document.getElementById("contenedor-deseos");
             contenedor.appendChild(card);
+
+            if(productos.find(p => p.id === parseInt(prod)).existencia){
+                document.getElementById(`imagen${productos.find(p => p.id === parseInt(prod)).nombre}`).style.filter = grayscale(1);
+            }
         });
 
     //Activamos los botones DESPUÉS de cargar las tarjetas
+        if(productosLista.length > 0)
         activarBotones();
 
     } catch (error) {
@@ -46,7 +51,7 @@ function crearTarjeta(prod, imagen) {
     const card = document.createElement("div");
     card.classList.add("product-card");
     let nomCard;
-    if(prod.existencia){
+    if(prod.existencia > 0){
         nomCard = prod.nombre;
     }
     else{
@@ -56,14 +61,17 @@ function crearTarjeta(prod, imagen) {
     card.innerHTML = `
         <img src="${imagen}" alt="${prod.imagen}" id="imagen${prod.nombre}">
         <h3>${nomCard}</h3>
-        <p>Precio: $${prod.precio}</p>
-        <p>Existencia: ${prod.existencia}</p>
+        <div class="divPreEx">
+            <p>Precio: $${prod.precio}</p>
+            <p>Existencia: ${prod.existencia}</p>
+        </div>
         <p>${prod.descripcion}</p>
+        <br>
 
         <div class="card-icons">
-            <i class="fa-regular fa-heart btn-deseo" 
+            <i class="fa-solid fa-heart btn-deseo" 
                data-producto='${JSON.stringify(prod)}' 
-               title="Añadir a deseos">
+               title="Añadir a deseos" id="icono${prod.nombre}">
             </i>
 
             <i class="fa-solid fa-cart-plus btn-carrito" 
@@ -73,9 +81,6 @@ function crearTarjeta(prod, imagen) {
             <input type="number" id='nombre${prod.nombre}' min="1">
         </div>
     `;
-    if(prod.existencia){
-        document.getElementById(`imagen${prod.nombre}`).style.filter = grayscale(1);
-    }
 
     return card;
 }
@@ -97,6 +102,9 @@ function activarBotones() {
 
             if(response.ok){
                 swal("Éxito", data.mensaje || "Se elimino el producto a la lista de deseos", "success");
+                let varIcono = document.getElementById(`icono${prod.nombre}`);
+                varIcono.classList.remove("fa-solid");
+                varIcono.classList.add("fa-regular");
             } else {
                 swal("Error", data.mensaje || "Hubo un error al eliminar el producto a la lista de deseos", "error");
             }
