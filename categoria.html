@@ -24,21 +24,14 @@
     <!-- Navbar -->
     <nav class="navbar">
         <div id="header-logo">
-            <img src="./imagenes/LogoDona.png" alt="Logo">
-            <h1><i class="fa-solid fa-donut"></i> PAPA'S DONUTERIA</h1>
-            <img src="./imagenes/LogoDona.png" alt="Logo">
+            <img src="./imagenes/logo.png" alt="Logo">
             <h1><i class="fa-solid fa-donut"></i> PAPA'S DONUTERIA</h1>
         </div>
 
-
         <div id="header-right">
-
 
             <div id="header-navigation">
                 <a href="./index.html">INICIO</a>
-                <a href="./categoria.html">PRODUCTOS</a>
-                <a href="./contacto.html">CONTACTO</a>
-                <a href="./nosotros.html">NOSOTROS</a>
                 <a href="./categoria.html">PRODUCTOS</a>
                 <a href="./contacto.html">CONTACTO</a>
                 <a href="./nosotros.html">NOSOTROS</a>
@@ -84,7 +77,7 @@
         
     </main>
 
-        <!-- Modal de Login / Registro -->
+    <!-- Modal de Login / Registro -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close" id="closeModal">&times;</span>
@@ -93,7 +86,6 @@
 
             <form id="formLogin">
 
-            <!-- Solo aparece en modo REGISTRO -->
             <input 
                 type="text" 
                 id="nombre" 
@@ -121,15 +113,19 @@
                 placeholder="Confirmar contraseña"
                 style="display:none;"
             >
-            
+
             <div class="g-recaptcha" data-sitekey="6LdTcyAsAAAAAFOkXtlCJ9Fcrgd9An7D5UayW1Pa"></div>
 
             <button type="submit" id="submitBtn">Login</button>
             </form>
 
+            <p style="text-align:center; margin-top:8px;">
+            <a href="#" id="forgotPassword">¿Olvidaste tu contraseña?</a>
+            </p>
+
             <p style="margin-top: 10px; text-align:center;">
-                <span id="toggleText">¿No tienes cuenta?</span>
-                <a href="#" id="toggleForm"> Regístrate</a>
+            <span id="toggleText">¿No tienes cuenta?</span>
+            <a href="#" id="toggleForm"> Regístrate</a>
             </p>
 
         </div>
@@ -153,23 +149,15 @@
         </div>
 
         <div class="footer-social">
-            <a href="https://instagram.com" target="_blank">
-                <i class="fa-brands fa-instagram"></i>
-            </a>
-
-        <div class="footer-social">
-            <a href="https://instagram.com" target="_blank">
+            <a href="https://www.instagram.com/papasdonuteria_pd/" target="_blank">
                 <i class="fa-brands fa-instagram"></i>
             </a>
         </div>
+
         <p class="footer-rights">© 2025 Papa's Donuteria — Todos los derechos reservados.</p>
         <hr class="footer-divider">
         <p class="footer-rights">Nota: Esto es un proyecto escolar sin el objetivo de ser una tienda real</p>
     </div>
-        <p class="footer-rights">© 2025 Papa's Donuteria — Todos los derechos reservados.</p>
-        <hr class="footer-divider">
-        <p class="footer-rights">Nota: Esto es un proyecto escolar sin el objetivo de ser una tienda real</p>
-    </div>
-    </footer>
+</footer>
 </body>
 </html>
