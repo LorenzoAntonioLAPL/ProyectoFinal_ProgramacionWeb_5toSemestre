@@ -3,8 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 async function mostrarCarrito() {
-    const contenedor = document.getElementById("contenedor-carrito");
-    const lista = JSON.parse(localStorage.getItem("carrito")) || [];
+    try{
+        const contenedor = document.getElementById("contenedor-carrito");
+        const lista = JSON.parse(localStorage.getItem("carrito")) || [];
 
         if (!resp.ok) {
             swal("Error", "No se pudieron cargar los productos", "error");
