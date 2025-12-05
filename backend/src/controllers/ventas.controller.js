@@ -96,8 +96,10 @@ export const calcularPrecio = async (req, res) => {
             precioSubTotal += listaProd[i].precio * parseInt(listaCantidad[i]);
         }
 
-        precioTotal = precioSubTotal*pais.impuesto;
         let envio = 100 * pais.impuesto;
+        precioTotal = precioSubTotal*pais.impuesto;
+        precioTotal += envio;
+        
 
         res.status(200).json({
             message: "Datos Listos",
