@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto - Papa's Donuteria</title>
+    <title>Papa's Donuteria</title>
 
     <link rel="icon" type="image/x-icon" href="./imagenes/favicon.ico">
 
@@ -12,12 +12,11 @@
     <link rel="stylesheet" href="./CSS/contacto-style.css">
 
     <!-- Scripts -->
-    <script src="./js/login.js" defer></script>
-    <script src="./js/slider.js" defer></script>
+    <script src="js/login.js" defer></script>
+    <script src="js/slider.js" defer></script>
     <script src="./js/header.js" defer></script>
     <script src="./js/theme.js" defer></script>
-    <script src="./js/faq.js" defer></script>
-    <script src="./js/font.js" defer></script>
+    <script src="js/faq.js" defer></script>
 
     <!-- Scripts Externos -->
     <script src="https://kit.fontawesome.com/d420dccc9b.js" crossorigin="anonymous"></script>
@@ -87,13 +86,12 @@
                 <div class="contact-right">
                     <h2>Envíanos un mensaje</h2>
 
-                    <form id="formContact">
-                        <input type="text" id="nombre" placeholder="Tu nombre" required>
-                        <input type="email" id="email" placeholder="Tu correo electrónico" required>
-                        <input type="text" id="asunto" placeholder="Asunto">
-                        <textarea id="mensaje" placeholder="Escribe tu mensaje..." required></textarea>
+                    <form>
+                        <input type="text" placeholder="Tu nombre" required>
+                        <input type="email" placeholder="Tu correo electrónico" required>
+                        <textarea placeholder="Escribe tu mensaje..." required></textarea>
 
-                        <button type="submit" id="submitCorreoBtn" class="btn-enviar">Enviar mensaje</button>
+                        <button type="submit" class="btn-enviar">Enviar mensaje</button>
                     </form>
                 </div>
             </div>
@@ -209,12 +207,11 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <footer>
         <div class="footer-container">
+            
             <h1 class="footer-title"> Papas's Donuteria </h1><br>
             <p class="footer-tagline">Donut worry, be happy</p>
-            <p class="footer-tagline"><i class="fa-solid fa-universal-access"></i> Sitio Web Accesible</p><br>
 
             <div class="footer-links">
                 <a href="contacto.html">Contáctanos</a>
@@ -232,13 +229,5 @@
             <p class="footer-rights">Nota: Esto es un proyecto escolar sin el objetivo de ser una tienda real</p>
         </div>
     </footer>
-
-    <!--Botones de control de tamaño-->
-    <div class="font-controls">
-        <button id="font-decrease">A-</button>
-        <button id="font-reset">A</button>
-        <button id="font-increase">A+</button>
-    </div>
-
 </body>
 </html>
