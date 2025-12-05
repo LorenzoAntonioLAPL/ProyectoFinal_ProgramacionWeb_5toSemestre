@@ -1,0 +1,105 @@
+:root {
+    --title: #361715;
+    --title-hover: #20110a;
+
+    --card-bg: #faf5f1;
+    --card-border: #d3c2ad;
+}
+
+[data-theme="dark"] {
+    --title: #f0ddd0;  
+    --title-hover: #dbc5b6;
+     
+    --card-bg: #665648;
+    --card-border: #311f14;
+}
+
+main{
+    margin-top: 15vh;
+}
+
+/* CONTENEDOR GENERAL*/
+.featured-container {
+    width: 95%;
+    margin: 0 auto;
+    padding-top: 20px;
+}
+
+/* Títulos de categoría */
+.container-categ, .featured-container h2 {
+    color: var(--title);
+    margin: 30px 0 15px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+
+/*GRID DE TARJETAS*/
+.featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+
+/* TARJETA INDIVIDUAL*/
+.product-card {
+    background-color: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-radius: 14px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(54, 23, 21, 0.1);
+    transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+}
+
+.product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 6px 16px rgba(54, 23, 21, 0.18);
+}
+
+
+/* Imagen del producto */
+.product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    border: 1px solid var(--card-border);
+}
+
+
+/* Nombre y texto */
+.product-card h3 {
+    font-size: 20px;
+    color: var(--title);
+    margin: 10px 0 5px;
+}
+
+.product-card p {
+    margin: 5px 0;
+    color: var(--title);
+    font-size: 16px;
+}
+
+
+/*ICONOS DE TARJETA*/
+.card-icons {
+    margin-top: 12px;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+}
+
+.card-icons i {
+    font-size: 22px;
+    color: var(--title);
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+}
+
+.card-icons i:hover {
+    color: var(--title-hover);
+}

@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Papa's Donuteria</title>
 
-    <link rel="icon" type="image/x-icon" href="./imagenes/favicon.ico">
     <link rel="icon" type="image/x-icon" href="./imagenes/favicon.ico">
 
     <!-- Estilos -->
@@ -15,17 +14,25 @@
     <!-- Scripts -->
     <script src="js/login.js" defer></script>
     <script src="js/slider.js" defer></script>
+    <script src="./js/header.js" defer></script>
+    <script src="./js/theme.js" defer></script>
+    <script src="js/faq.js" defer></script>
+
+    <!-- Scripts Externos -->
     <script src="https://kit.fontawesome.com/d420dccc9b.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
-
 <body>
     <!-- Navbar -->
     <nav class="navbar">
         <div id="header-logo">
             <img src="./imagenes/LogoDona.png" alt="Logo">
+<<<<<<< HEAD
             <h1><i class="fa-solid fa-donut"></i> PAPA'S DONUTERIA</h1>
+=======
+            <h1>PAPA'S DONUTERIA</h1>
+>>>>>>> origin/Eli
         </div>
 
         <div id="header-right">
@@ -37,11 +44,19 @@
                 <a href="./nosotros.html">NOSOTROS</a>
             </div>
 
+<<<<<<< HEAD
             <button class="icon-btn" title="Lista de deseos" onclick="location.href='lista-de-deseos.html'">
                 <i class="fa-regular fa-heart"></i>
             </button>
 
             <button class="icon-btn" title="Carrito" onclick="location.href='carrito.html'">
+=======
+            <button id="deseosBtn" class="icon-btn" title="Lista de deseos">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+
+            <button id="carritoBtn" class="icon-btn" title="Carrito">
+>>>>>>> origin/Eli
                 <i class="fa-solid fa-cart-shopping"></i>
             </button>
 
@@ -49,15 +64,24 @@
                 <i class="fa-solid fa-user"></i>
             </button>
 
+            <button id="adminBtn" class="icon-btn" style="display:none;" title="Administrador" disabled>
+                <i class="fa-solid fa-user-tie"></i>
+            </button>
+
             <button id="logoutBtn" class="icon-btn" style="display:none;" title="Cerrar sesión">
                 <i class="fa-solid fa-right-from-bracket"></i>
             </button>
 
             <span id="userName" class="user-name"></span>
+
+            <button id="theme-toggle" class="icon-btn" title="Cambiar tema">
+                <i id="theme-icon" class="fa-solid fa-moon"></i>
+            </button>
         </div>
     </nav>
 
     <!-- Seccion principal -->
+<<<<<<< HEAD
    <main>
     <section class="contact-wrapper">
 
@@ -85,90 +109,91 @@
                     <p><i class="fa-solid fa-envelope"></i> contacto@donuteria.com</p>
                     <p><i class="fa-solid fa-phone"></i> +52 465 955 6808</p>
                     <p><i class="fa-brands fa-instagram"></i> @donuteria</p>
+=======
+    <main>
+        <section class="contact-wrapper">
+            <div class="contact-container">
+                <div class="contact-left">
+                    <h2>Contáctanos</h2>
+                    <p>¿Tienes dudas o comentarios? ¡Estamos aquí para ayudarte!</p>
+
+                    <div class="contact-info">
+                        <p><i class="fa-solid fa-envelope"></i> contacto@donuteria.com</p>
+                        <p><i class="fa-solid fa-phone"></i> +52 465 955 6808</p>
+                        <p><i class="fa-brands fa-instagram"></i> @papasdonuteria_pd</p>
+                    </div>
+                </div>
+
+                <div class="contact-right">
+                    <h2>Envíanos un mensaje</h2>
+
+                    <form>
+                        <input type="text" placeholder="Tu nombre" required>
+                        <input type="email" placeholder="Tu correo electrónico" required>
+                        <textarea placeholder="Escribe tu mensaje..." required></textarea>
+
+                        <button type="submit" class="btn-enviar">Enviar mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!--Preguntas Frecuentes-->
+        <section class="faq-section">
+            <h2 class="faq-title">Preguntas Frecuentes</h2>
+            <div class="faq-item">
+                <button class="faq-question">
+                    ¿Cómo puedo hacer un pedido?
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    Puedes hacer pedidos directamente desde nuestra página de contacto o enviándonos mensaje por Instagram.
                 </div>
             </div>
 
-            <div class="contact-right">
-                <h2>Envíanos un mensaje</h2>
-
-                <form>
-                    <input type="text" placeholder="Tu nombre" required>
-                    <input type="email" placeholder="Tu correo electrónico" required>
-                    <textarea placeholder="Escribe tu mensaje..." required></textarea>
-
-                    <button type="submit" class="btn-enviar">Enviar mensaje</button>
-                </form>
-
-            <div class="contact-right">
-                <h2>Envíanos un mensaje</h2>
-
-                <form>
-                    <input type="text" placeholder="Tu nombre" required>
-                    <input type="email" placeholder="Tu correo electrónico" required>
-                    <textarea placeholder="Escribe tu mensaje..." required></textarea>
-
-                    <button type="submit" class="btn-enviar">Enviar mensaje</button>
-                </form>
+            <div class="faq-item">
+                <button class="faq-question">
+                    ¿Hacen entregas a domicilio?
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    Sí, contamos con servicio a domicilio dentro de la ciudad con un costo adicional.
+>>>>>>> origin/Eli
+                </div>
             </div>
 
-        </div>
+            <div class="faq-item">
+                <button class="faq-question">
+                    ¿Puedo personalizar mis donas?
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    Por supuesto, puedes elegir glaseado, toppings y rellenos disponibles en temporada.
+                </div>
+            </div>
 
-    </section>
-</main>
-  
-<!-- Modal de Login / Registro -->
-<div id="loginModal" class="modal">
-  <div class="modal-content">
-    <span class="close" id="closeModal">&times;</span>
+            <div class="faq-item">
+                <button class="faq-question">
+                    ¿Puedo cambiar mi pedido?
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    Los cambios son posibles si nos contactas antes de que el pedido se comience a realizar. Contactanos lo antes posible.
+                </div>
+            </div>
 
-    <h2 id="modalTitle">Iniciar Sesión</h2>
+            <div class="faq-item">
+                <button class="faq-question">
+                    ¿Qué otros productos venden?
+                    <span class="arrow">▼</span>
+                </button>
+                <div class="faq-answer">
+                    Contamos con una gran variedad de bebidas y muchas otras opciones de postres.
+                </div>
+            </div>
 
-    <form id="formLogin">
-
-      <!-- Solo aparece en modo REGISTRO -->
-      <input 
-        type="text" 
-        id="nombre" 
-        placeholder="Nombre completo"
-        style="display:none;"
-      >
-
-      <input 
-        type="text" 
-        id="login" 
-        placeholder="Correo electrónico" 
-        required
-      >
-
-      <input 
-        type="password" 
-        id="password" 
-        placeholder="Contraseña" 
-        required
-      >
-
-      <input 
-        type="password" 
-        id="confirmPassword" 
-        placeholder="Confirmar contraseña"
-        style="display:none;"
-      >
-
-      <button type="submit" id="submitBtn">Login</button>
-    </form>
-
-    <p style="margin-top: 10px; text-align:center;">
-        <span id="toggleText">¿No tienes cuenta?</span>
-        <a href="#" id="toggleForm"> Regístrate</a>
-    </p>
-
-  </div>
-</div>
-
-        </div>
-
-    </section>
-</main>
+        </section>
+    </main>
   
         <!-- Modal de Login / Registro -->
     <div id="loginModal" class="modal">
@@ -225,26 +250,26 @@
     </div>
 
     <footer>
-    <div class="footer-container">
-        
-        <h1 class="footer-title"> Papas's Donuteria </h1><br>
-        <p class="footer-tagline">El sabor perfecto para tu día</p>
+        <div class="footer-container">
+            
+            <h1 class="footer-title"> Papas's Donuteria </h1><br>
+            <p class="footer-tagline">El sabor perfecto para tu día</p>
 
-        <div class="footer-links">
-            <a href="contacto.html">Contáctanos</a>
-            <a href="nosotros.html">Sobre nosotros</a>
+            <div class="footer-links">
+                <a href="contacto.html">Contáctanos</a>
+                <a href="nosotros.html">Sobre nosotros</a>
+            </div>
+
+            <div class="footer-social">
+                <a href="https://www.instagram.com/papasdonuteria_pd/" target="_blank">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+            </div>
+
+            <p class="footer-rights">© 2025 Papa's Donuteria — Todos los derechos reservados.</p>
+            <hr class="footer-divider">
+            <p class="footer-rights">Nota: Esto es un proyecto escolar sin el objetivo de ser una tienda real</p>
         </div>
-
-        <div class="footer-social">
-            <a href="https://instagram.com" target="_blank">
-                <i class="fa-brands fa-instagram"></i>
-            </a>
-        </div>
-
-        <p class="footer-rights">© 2025 Papa's Donuteria — Todos los derechos reservados.</p>
-        <hr class="footer-divider">
-        <p class="footer-rights">Nota: Esto es un proyecto escolar sin el objetivo de ser una tienda real</p>
-    </div>
-</footer>
+    </footer>
 </body>
 </html>
