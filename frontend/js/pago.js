@@ -2,6 +2,11 @@ const prodSect = document.getElementById("pago-product");
 
 // Metodos de pago
 const metSect = document.getElementById("pago-metodo");
+const radTarjeta = document.getElementById("radio-tarjeta");
+const radTrans = document.getElementById("radio-trans");
+const radOxxo = document.getElementById("radio-Oxxo");
+
+let contTarjeta = document.getElementById("cont-tarjeta");
 
 // Envio
 const envSect = document.getElementById("pago-emvio");
@@ -51,4 +56,38 @@ document.addEventListener('DOMContentLoaded', async () =>{
     }
 
     // Obtener paises
+});
+
+radTarjeta.addEventListener("change", () => {
+    if (radTarjeta.checked) {
+        let formTar = document.createElement("form");
+
+        formTar.innerHTML =
+            `<label for="tarNom">Nombre de propietario:</label>
+            <input type="text" id="tarNom" class="a-product-input" placeholder="Nombre de Destinatario">
+            
+            <label for="tarNum">Número de tarjeta:</label>
+            <input type="number" id="tarNum" class="a-product-input" pattern="[0-9]{16}" placeholder="0000000000000000">
+            
+            <label for="tarCVC">CVC:</label>
+            <input type="number" id="tarCVC" class="a-product-input" pattern="[0-9]{3-4}" placeholder="000">
+            `;
+        
+        contTarjeta.append(formTar);
+        contTarjeta.classList.add("a-product-card");
+    }
+});
+
+radTrans.addEventListener("change", () => {
+    if (!radTarjeta.checked){
+        contTarjeta.innerHTML = "";
+        contTarjeta.classList.remove("a-product-card");
+    }
+});
+
+radOxxo.addEventListener("change", () => {
+    if (!radTarjeta.checked){
+        contTarjeta.innerHTML = "";
+        contTarjeta.classList.remove("a-product-card");
+    }
 });

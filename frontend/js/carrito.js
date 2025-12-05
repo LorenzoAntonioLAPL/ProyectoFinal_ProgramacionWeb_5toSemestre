@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     mostrarCarrito();
 });
 
-function mostrarCarrito() {
+async function mostrarCarrito() {
     const contenedor = document.getElementById("contenedor-carrito");
     const lista = JSON.parse(localStorage.getItem("carrito")) || [];
 
