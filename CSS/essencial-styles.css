@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/Eli
 /*
 COLORES DE LA PAGINA EN GENERAL (Del mas claro al mas oscuro)
     - #faf5f1
@@ -90,11 +86,7 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
-<<<<<<< HEAD
-    background-color: #faf5f1;
-=======
     background-color: var(--bg-main);
->>>>>>> origin/Eli
 }
 
 main {
@@ -194,11 +186,7 @@ main {
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.55);
-<<<<<<< HEAD
-    z-index: 1000;
-=======
     z-index: 2000;
->>>>>>> origin/Eli
     justify-content: center;
     align-items: center;
     padding: 1rem;
@@ -278,7 +266,6 @@ main {
     background-color: #fff;   
 }
 
-<<<<<<< HEAD
 .g-recaptcha{
     margin-top: 1rem;
     display: flex;
@@ -302,11 +289,7 @@ main {
 }
 
 #submitBtn {
-    background: #d2a679;
-=======
-#submitBtn {
     background: var(--modal-c);
->>>>>>> origin/Eli
     border: none;
     padding: .7rem 0;
     border-radius: 10px;
@@ -318,29 +301,17 @@ main {
 }
 
 #submitBtn:hover {
-<<<<<<< HEAD
-    background: #b4845d;
-=======
     background: var(--accent);
->>>>>>> origin/Eli
 }
 
 .modal-content p {
     margin-top: .5rem;
     font-size: .9rem;
-<<<<<<< HEAD
-    color: #5a4039;
-}
-
-.modal-content a {
-    color: #c47b59;
-=======
     color: var(--modal-p);
 }
 
 .modal-content a {
     color: var(--modal-a) ;
->>>>>>> origin/Eli
     text-decoration: none;
     font-weight: bold;
 }
@@ -351,17 +322,10 @@ main {
 
 /* ====== FOOTER ====== */
 footer {
-<<<<<<< HEAD
-    background: #d3c2ad;
-    padding: 3rem 1rem;
-    color: #5a3725;
-    border-top: 2px solid #d5c2b3;
-=======
     background: var(--bg-navbar);
     padding: 3rem 1rem;
     color: var(--text-primary);
     border-top: 2px solid var(--bg-navbar);
->>>>>>> origin/Eli
 }
 
 .footer-container {
@@ -374,20 +338,12 @@ footer {
     font-size: 2rem;
     font-weight: bold;
     margin-bottom: .3rem;
-<<<<<<< HEAD
-    color: #5a3725;
-=======
     color: var(--text-primary);
->>>>>>> origin/Eli
 }
 
 .footer-tagline {
     font-size: 1.1rem;
-<<<<<<< HEAD
-    color: #7a5b4a;
-=======
     color: var(--text-secondary);
->>>>>>> origin/Eli
     margin-bottom: 1.5rem;
 }
 
@@ -400,11 +356,7 @@ footer {
 
 .footer-links a {
     text-decoration: none;
-<<<<<<< HEAD
-    color: #5a3725;
-=======
     color: var(--text-primary);
->>>>>>> origin/Eli
     font-size: 1rem;
     font-weight: 500;
     transition: .2s ease;
@@ -416,11 +368,7 @@ footer {
 
 .footer-social a {
     font-size: 2rem;
-<<<<<<< HEAD
-    color: #5a3725;
-=======
     color: var(--text-primary);
->>>>>>> origin/Eli
     transition: .2s;
 }
 
@@ -431,11 +379,7 @@ footer {
 .footer-rights {
     margin-top: 2rem;
     font-size: .9rem;
-<<<<<<< HEAD
-    color: #8a6a58;
-=======
     color: var(--text-light);
->>>>>>> origin/Eli
 }
 
 .footer-divider {
@@ -468,11 +412,7 @@ footer {
 
 .product-card {
     width: 300px;
-<<<<<<< HEAD
-    background: #faf5f1;
-=======
     background: var(--bg-card);
->>>>>>> origin/Eli
     padding: 1rem 1rem 4rem; 
     border-radius: 14px;
     position: relative; 
