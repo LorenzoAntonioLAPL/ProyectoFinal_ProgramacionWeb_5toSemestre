@@ -24,16 +24,25 @@ async function cargarProductos() {
         const contBebida = document.getElementById("contenedor-bebidas");
         const contSouvenir = document.getElementById("contenedor-souvenirs");
 
+        const response = await fetch(`${API_BASE_URL}/api/imagenes/obtenerImagenes`);
+        const data = await response.json();
+        
+        if (!response.ok) {
+            swal("Error", data.msg || "Hubo un error al cargar las imagenes", "error");
+        }
+
+        
+
         productos.forEach(prod => {
             const categoria = categoriasMap[prod.categoria];
-            const card = crearTarjeta(prod);
+            const card = crearTarjeta(prod, data.vector.find(i => i.nombre === prod.nombre).data);
 
             if (categoria === "dona") contDona.appendChild(card);
             else if (categoria === "bebida") contBebida.appendChild(card);
             else if (categoria === "souvenir") contSouvenir.appendChild(card);
         });
 
-        // 👇➡️ Activamos los botones DESPUÉS de cargar las tarjetas
+    //Activamos los botones DESPUÉS de cargar las tarjetas
         activarBotones();
 
     } catch (error) {
@@ -42,12 +51,12 @@ async function cargarProductos() {
     }
 }
 
-function crearTarjeta(prod) {
+function crearTarjeta(prod, imagen) {
     const card = document.createElement("div");
     card.classList.add("product-card");
 
     card.innerHTML = `
-        <img src="${prod.imagen}" alt="${prod.nombre}">
+        <img src="${imagen}" alt="${prod.imagen}">
         <h3>${prod.nombre}</h3>
         <p>Precio: $${prod.precio}</p>
         <p>Existencia: ${prod.existencia}</p>
@@ -62,6 +71,7 @@ function crearTarjeta(prod) {
                data-producto='${JSON.stringify(prod)}' 
                title="Añadir al carrito">
             </i>
+            <input type="number" id='nombre${prod.nombre}' min="1">
         </div>
     `;
 
@@ -88,7 +98,7 @@ function activarBotones() {
 }
 
 //Guardar en localStorage y redirigir
-function enviarA(tipo, producto) {
+/*function enviarA(tipo, producto) {
     let lista = JSON.parse(localStorage.getItem(tipo)) || [];
 
     // Si el producto ya existe, aumentar cantidad
@@ -102,4 +112,4 @@ function enviarA(tipo, producto) {
     }
 
     localStorage.setItem(tipo, JSON.stringify(lista));
-}
+}*/
