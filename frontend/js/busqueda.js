@@ -1,13 +1,23 @@
 
-const idBusqueda = document.getElementById("formSearch")
+const idBusqueda = document.getElementById("formSearch");
 
-idBusqueda.addEventListener("submit", () => {
-    const searchedItems = document.getElementById("searched-items");
+idBusqueda.addEventListener("submit", async () => {
+    const searchCateg = document.getElementById("searchCateg").value || 0;
+    const searchRange = document.getElementById("searchaRange");
+    const searchOffer = document.getElementById("SearchOffer");
+
+    const prodTotal = buscar();
+    const prodFiltro = [] = prodTotal;
+
+    prodTotal.forEach(element => {
+        if(element.categoria != prodTotal)
+    });
+
     
+    if(searchCateg != 0){
+        cargarProductosPorCategoria(searchCateg);
+    }
 
-    TituloSouvenirs.stye
-
-    cargarProductos();
 });
 
 // Mapeo de categorías NUMÉRICAS → TEXTO
@@ -39,7 +49,7 @@ async function cargarProductosPorCategoria(cat) {
         }
 
         productos.forEach(prod => {
-            const categoria = categoriasMap[prod.categoria];
+            const categoria = categoriasMap[cat];
             const card = crearTarjeta(prod, data.vectorImg.find(i => i.nombre === prod.imagen).data);
 
             if (categoria === "dona") contCat.appendChild(card);
@@ -81,4 +91,16 @@ function crearTarjeta(prod, imagen) {
     `;
 
     return card;
+}
+
+async function buscar(cat) {
+    try {
+        const resp = await fetch(`${API_BASE_URL}/api/products/obtenerProductos`);
+        const productos = await resp.json();
+
+        return productos;
+    } catch (error) {
+        console.error(error);
+        swal("Error", "No se pudo conectar con el servidor", "error");
+    }
 }

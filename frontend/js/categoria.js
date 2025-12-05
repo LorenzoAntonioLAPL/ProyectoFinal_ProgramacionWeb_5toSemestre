@@ -201,4 +201,3 @@ function activarBotones() {
 
     localStorage.setItem(tipo, JSON.stringify(lista));
 }*/
-
