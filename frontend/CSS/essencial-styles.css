@@ -479,11 +479,6 @@ footer {
     font-size: 15px;
 }
 
-/* Agrega color de fondo al boton cuando se le hace hover o está activo */
-.collapsible:hover {
-    background-color: var(--collapsible-hover);
-}
-
 /* Estilo del contenido colapsable. Nota: Escondido por default */
 .collapse-content {
   padding: 0 2vh;
