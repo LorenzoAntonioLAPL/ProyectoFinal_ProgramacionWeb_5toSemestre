@@ -12,7 +12,12 @@ async function mostrarCarrito() {
             return;
         }
 
-        const respuesta = await fetch(`${API_BASE_URL}/api/carritoCompra/obtenerCarrito`);
+        const respuesta = await fetch(`${API_BASE_URL}/api/carritoCompra/obtenerCarrito`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
+        });
         const productosCarrito = await resp.json();
 
         if (!respuesta.ok) {
@@ -42,6 +47,30 @@ async function mostrarCarrito() {
         if(productosCarrito.length > 0)
         activarBotones();
 
+        const response1 = await fetch(`${API_BASE_URL}/api/ventas/obtenerSubTotal`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        const data1 = await response1.json();
+
+        const response2 = await fetch(`${API_BASE_URL}/api/carritoCompra/obtenerTotalCarrito`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        const data2 = await response2.json();
+
+        //Productos agregados: 0 <br> Total a pagar: $0.00
+        if(!response1 || !response2){
+            swal("Error", data.msg || "Hubo un error al obtener datos del carrito", "error");
+        }
+        else{
+            let divDatosTotales = document.getElementById("total-wrapper");
+            divDatosTotales.innerHTML=`Productos agregados: ${data2.totalProductos} <br> Total a pagar: $${data1.subtotal}`;
+        }
     } catch (error) {
         console.error(error);
         swal("Error", "No se pudo conectar con el servidor", "error");
@@ -98,8 +127,7 @@ function activarBotones() {
             const response = await fetch(`${API_BASE_URL}/api/listaDeseos/agregarProducto/${prod.id}`, {
                 method: "PUT",
                 headers: {
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
-                    "Content-Type": "application/json"
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
                 }
             });
             const data = await response.json();
@@ -122,8 +150,7 @@ function activarBotones() {
             const response = await fetch(`${API_BASE_URL}/api/listaDeseos/eliminarProducto/${prod.id}`, {
                 method: "PUT",
                 headers: {
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
-                    "Content-Type": "application/json"
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
                 }
             });
             const data = await response.json();

@@ -102,8 +102,7 @@ function activarBotones() {
             const response = await fetch(`${API_BASE_URL}/api/listaDeseos/agregarProducto/${prod.id}`, {
                 method: "PUT",
                 headers: {
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
-                    "Content-Type": "application/json"
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
                 }
             });
             const data = await response.json();
@@ -126,8 +125,7 @@ function activarBotones() {
             const response = await fetch(`${API_BASE_URL}/api/listaDeseos/eliminarProducto/${prod.id}`, {
                 method: "PUT",
                 headers: {
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
-                    "Content-Type": "application/json"
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
                 }
             });
             const data = await response.json();
