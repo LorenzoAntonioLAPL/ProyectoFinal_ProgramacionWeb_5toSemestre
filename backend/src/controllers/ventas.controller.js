@@ -88,7 +88,7 @@ export const calcularPrecio = async (req, res) => {
           
         //Crea un arreglo de productos basado en el carrito
         const listaProd = [];
-        const listaOferta = [];
+        let listaOferta = [];
         let precioTotal = 0;
         let precioSubTotal = 0;
 
@@ -253,7 +253,7 @@ export const calcularSubTotal = async (req, res) => {
           
         //Crea un arreglo de productos basado en el carrito
         const listaProd = [];
-        const listaOferta = [];
+        let listaOferta = [];
         let precioTotal = 0;
         let precioSubTotal = 0;
 
