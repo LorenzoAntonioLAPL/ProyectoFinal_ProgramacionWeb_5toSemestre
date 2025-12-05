@@ -1,7 +1,7 @@
-import * as fs from "fs"
-import * as path from "path"
+import fs from 'fs';
+import path from 'path';
 const RUTA_IMGS = "../imagenes/";
-import * as ProductoModel from "../models/productos.model.js"
+import * as ProductoModel from '../models/productos.model.js'; 
 
 export const getImagenes = async (req, res) => { 
   try { 
