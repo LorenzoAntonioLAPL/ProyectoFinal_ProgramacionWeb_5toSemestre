@@ -1,3 +1,19 @@
+:root {
+    --title: #361715;
+    --title-hover: #20110a;
+
+    --card-bg: #faf5f1;
+    --card-border: #d3c2ad;
+}
+
+[data-theme="dark"] {
+    --title: #f0ddd0;  
+    --title-hover: #dbc5b6;
+     
+    --card-bg: #665648;
+    --card-border: #311f14;
+}
+
 main{
     margin-top: 15vh;
 }
@@ -10,8 +26,8 @@ main{
 }
 
 /* Títulos de categoría */
-.featured-container h2 {
-    color: #361715;
+.container-categ, .featured-container h2 {
+    color: var(--title);
     margin: 30px 0 15px;
     font-size: 28px;
     font-weight: bold;
@@ -29,8 +45,8 @@ main{
 
 /* TARJETA INDIVIDUAL*/
 .product-card {
-    background-color: #faf5f1;
-    border: 2px solid #f0ddd0;
+    background-color: var(--card-bg);
+    border: 2px solid var(--card-border);
     border-radius: 14px;
     padding: 15px;
     text-align: center;
@@ -51,20 +67,20 @@ main{
     object-fit: cover;
     border-radius: 10px;
     margin-bottom: 10px;
-    border: 1px solid #d4b9aa;
+    border: 1px solid var(--card-border);
 }
 
 
 /* Nombre y texto */
 .product-card h3 {
     font-size: 20px;
-    color: #361715;
+    color: var(--title);
     margin: 10px 0 5px;
 }
 
 .product-card p {
     margin: 5px 0;
-    color: #694440;
+    color: var(--title);
     font-size: 16px;
 }
 
@@ -79,11 +95,11 @@ main{
 
 .card-icons i {
     font-size: 22px;
-    color: #694440;
+    color: var(--title);
     cursor: pointer;
     transition: color 0.2s ease-in-out;
 }
 
 .card-icons i:hover {
-    color: #361715;
+    color: var(--title-hover);
 }

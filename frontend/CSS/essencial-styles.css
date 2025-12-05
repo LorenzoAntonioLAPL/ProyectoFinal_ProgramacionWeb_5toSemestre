@@ -26,6 +26,10 @@ COLORES DE LA PAGINA EN GENERAL (Del mas claro al mas oscuro)
     --modal-a: #c47b59;
     --modal-p: #5a4039;
     --modal-c: #7a5f54;
+
+    --collapsible: #694440;
+    --collapsible-hover: #361715;
+    --collapse-cont: #f0ddd0;
 }
 
 [data-theme="dark"] {
@@ -48,6 +52,10 @@ COLORES DE LA PAGINA EN GENERAL (Del mas claro al mas oscuro)
     --modal-a: #e4a67b;          
     --modal-p: #d6b6a3;        
     --modal-c: #e2c3b3;
+
+    --collapsible: #29201a;
+    --collapsible-hover: #1d140f;
+    --collapse-cont: #423631;
 }
 
 #theme-toggle {
@@ -438,7 +446,7 @@ footer {
 /* Contenido colapsable: Basicamente hacer pestañas */
 /* Encabezado/boton del contenido a colapsar */
 .collapsible {
-    background-color: #694440;
+    background-color: var(--collapsible);
     color: #faf5f1;
     cursor: pointer;
     padding: 18px;
@@ -451,7 +459,7 @@ footer {
 
 /* Agrega color de fondo al boton cuando se le hace hover o está activo */
 .active, .collapsible:hover {
-    background-color: #361715;
+    background-color: var(--collapsible-hover);
 }
 
 /* Estilo del contenido colapsable. Nota: Escondido por default */
@@ -460,5 +468,5 @@ footer {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.2s ease-out;
-  background-color: #f0ddd0;
+  background-color: var(--collapse-cont);
 }

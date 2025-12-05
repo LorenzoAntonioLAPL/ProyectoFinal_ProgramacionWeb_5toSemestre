@@ -1,5 +1,3 @@
-const API_BASE_URL = 'https://proyectofinal-programacionweb-5tosemestre.onrender.com';
-
 document.addEventListener("DOMContentLoaded", () => {
     cargarProductos();
 });
@@ -15,7 +13,7 @@ const categoriasMap = {
 
 async function cargarProductos() {
     try {
-        const resp = await fetch(`${API_BASE_URL}/api/productos`);
+        const resp = await fetch(`${API_BASE_URL}/api/products/obtenerProductos`);
         const productos = await resp.json();
 
         if (!resp.ok) {
