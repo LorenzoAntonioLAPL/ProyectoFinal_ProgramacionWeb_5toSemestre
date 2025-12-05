@@ -71,6 +71,34 @@
 
     <!-- Seccion principal, poner toda la información de la página aquí dentro -->
     <main>
+        <section id="container-search" class="container-categ">
+            <h2>Búsqueda</h2>
+            <form id="formSearch">
+                <!-- Categoria -->
+                <div>
+                    <label for="searchCateg">Categoría:</label><br>
+                    <select name="searchCateg" id="searchCateg">
+                        <option value="0">Ninguno</option>
+                        <option value="1">Donas</option>
+                        <option value="2">Bebidas</option>
+                        <option value="3">Souvenirs</option>
+                    </select>
+                </div>
+                <!-- Rango de Precios -->
+                <div>
+                    <label for="searchRange">Rango de Precios:</label><br>
+                    <input type="number" name="searchRange-low" min="0" id="searchRange-low" placeholder="Mínimo">
+                    <input type="number" name="searchRange-high" min="0" id="searchRange-high" placeholder="Máximo">
+                </div>
+                <!-- Ofertas -->
+                <div id="checkboxCont">
+                    <input type="checkbox" name="Oferta" id="searchOffer">
+                    <label for="searchOffer">Está en Oferta</label>
+                </div>
+                <input type="submit" value="Buscar" id="searchSubmit">
+            </form>
+            <div id="searched-items"></div>
+        </section>
         <section class="container-categ">
             <h2>Donas</h2>
             <div id="contenedor-donas" class="featured-grid"></div>

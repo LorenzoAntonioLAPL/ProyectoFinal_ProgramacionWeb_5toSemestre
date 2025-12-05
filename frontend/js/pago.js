@@ -149,18 +149,24 @@ async function mostrarSubtotal() {
 }
 
 async function mostrarTotal() {
-    let idPais;
+    let idPais = null;
 
     const contPais = document.getElementById("opt-pais");
-    let btnPais = contPais.getElementsByTagName("input");
+    let btnPais = contPais.getElementsByTagName("input") || null;
 
-    console.log(btnPais);
+    console.log("Botones Radio:",btnPais);
 
     btnPais.forEach(radio => {
         if(radio.checked){
             idPais = radio.getAttribute("id");
         }
     });
+
+    if(idPais == null){
+        idPais = 1;
+    }
+
+    console.log("ID Pais: ",idPais);
 
     // try {
     //     const response = await fetch(`${API_BASE_URL}/api/ventas/obtenerPrecio`, {

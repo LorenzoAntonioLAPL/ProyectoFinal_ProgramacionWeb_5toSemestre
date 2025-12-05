@@ -133,7 +133,7 @@ if (usuarioGuardado && tokenGuardado) {
   const usuario = JSON.parse(usuarioGuardado);
 
   // Muestra el correo del usuario
-  userNameSpan.textContent = usuario.email;
+  userNameSpan.textContent = usuario.nombre;
 
   // Mostrar botón logout
   logoutBtn.style.display = "inline-block";
