@@ -140,6 +140,7 @@ main{
 .product-card input{
     width: 40px;
 }
+
 #formSearch input, #formSearch select {
     border-radius: 0.5rem;
     height: 5vh;
@@ -162,4 +163,16 @@ main{
 
 #searchSubmit {
     width: 10vh;
+}
+
+#contenedor-carrito{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#contenedor-deseos{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
