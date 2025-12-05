@@ -94,7 +94,7 @@ function crearTarjeta(prod, imagen, cantidadTotal, oferta) {
 
     let precioNuevo;
     if(oferta){
-        precioNuevo = prod.precio * oferta.descuento;
+        precioNuevo = prod.precio * (1-oferta.descuento);
     }
     else{
         precioNuevo = prod.precio;
