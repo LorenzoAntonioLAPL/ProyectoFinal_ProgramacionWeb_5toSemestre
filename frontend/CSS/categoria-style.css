@@ -172,3 +172,15 @@ main{
 .product-card input{
     width: 40px;
 }
+
+#contenedor-carrito{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#contenedor-deseos{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
