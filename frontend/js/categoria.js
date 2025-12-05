@@ -31,9 +31,12 @@ async function cargarProductos() {
             swal("Error", data.msg || "Hubo un error al cargar las imagenes", "error");
         }
 
+        const respuestaOf = await fetch(`${API_BASE_URL}/api/extras/obtenerOfertas`);
+        const dataOf = await respuestaOf.json();
+
         productos.forEach(prod => {
             const categoria = categoriasMap[prod.categoria];
-            const card = crearTarjeta(prod, data.vectorImg.find(i => i.nombre === prod.imagen).data);
+            const card = crearTarjeta(prod, data.vectorImg.find(i => i.nombre === prod.imagen).data, dataOf.find(p => p.producto_id === prod.id));
 
             if (categoria === "dona") contDona.appendChild(card);
             else if (categoria === "bebida") contBebida.appendChild(card);
@@ -54,7 +57,7 @@ async function cargarProductos() {
     }
 }
 
-function crearTarjeta(prod, imagen) {
+function crearTarjeta(prod, imagen, oferta) {
     const card = document.createElement("div");
     card.classList.add("product-card");
     let nomCard;
@@ -65,11 +68,19 @@ function crearTarjeta(prod, imagen) {
         nomCard = "No hay existencias";
     }
 
+    let precioNuevo;
+    if(oferta){
+        precioNuevo = prod.precio * oferta.descuento;
+    }
+    else{
+        precioNuevo = prod.precio;
+    }
+
     card.innerHTML = `
         <img src="${imagen}" alt="${prod.imagen}" id="imagen${prod.nombre}">
         <h3>${nomCard}</h3>
         <div class="divPreEx">
-            <p>Precio: $${prod.precio}</p>
+            <p>Precio: $${precioNuevo} </p>
             <p>Existencia: ${prod.existencia}</p>
         </div>
         <p>${prod.descripcion}</p>

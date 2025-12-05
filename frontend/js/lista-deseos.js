@@ -18,7 +18,7 @@ async function mostrarDeseos() {
                 "Authorization": `Bearer ${localStorage.getItem('token')}`
             }
         });
-        const productosLista = await resp.json();
+        const productosLista = await respuesta.json();
 
         if (!respuesta.ok) {
             swal("Error", "No se pudieron cargar los productos", "error");
@@ -32,8 +32,11 @@ async function mostrarDeseos() {
             swal("Error", data.msg || "Hubo un error al cargar las imagenes", "error");
         }
 
+        const respuestaOf = await fetch(`${API_BASE_URL}/api/extras/obtenerOfertas`);
+        const dataOf = await respuestaOf.json();
+
         productosLista.forEach(prod => {
-            const card = crearTarjeta(productos.find(p => p.id === parseInt(prod)), data.vectorImg.find(i => i.nombre === prod.imagen).data);
+            const card = crearTarjeta(productos.find(p => p.id === parseInt(prod)), data.vectorImg.find(i => i.nombre === prod.imagen).data, dataOf.find(p => p.producto_id === prod.id));
             const contenedor = document.getElementById("contenedor-deseos");
             contenedor.appendChild(card);
 
@@ -52,7 +55,7 @@ async function mostrarDeseos() {
     }
 }
 
-function crearTarjeta(prod, imagen) {
+function crearTarjeta(prod, imagen, oferta) {
     const card = document.createElement("div");
     card.classList.add("product-card");
     let nomCard;
@@ -63,11 +66,19 @@ function crearTarjeta(prod, imagen) {
         nomCard = "No hay existencias";
     }
 
+    let precioNuevo;
+    if(oferta){
+        precioNuevo = prod.precio * oferta.descuento;
+    }
+    else{
+        precioNuevo = prod.precio;
+    }
+
     card.innerHTML = `
         <img src="${imagen}" alt="${prod.imagen}" id="imagen${prod.nombre}">
         <h3>${nomCard}</h3>
         <div class="divPreEx">
-            <p>Precio: $${prod.precio}</p>
+            <p>Precio: $${precioNuevo}</p>
             <p>Existencia: ${prod.existencia}</p>
         </div>
         <p>${prod.descripcion}</p>
