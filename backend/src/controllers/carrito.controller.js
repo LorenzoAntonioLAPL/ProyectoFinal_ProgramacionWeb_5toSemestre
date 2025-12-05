@@ -1,10 +1,10 @@
-import * as CarritoModel from "../models/carrito.model.js"
+import * as CarritoModel from '../models/carrito.model.js'; 
 
-const añadirCarrito = async (req, res) => { 
+export const agregarCarrito = async (req, res) => { 
   try { 
     const { user } = req.user.id;
     const { idProducto } = req.params;
-    const { cantidad } = req.body;
+    let { cantidad } = req.body;
 
     const usuario = await CarritoModel.findUserById(user); 
     if (!usuario){
@@ -50,11 +50,11 @@ const añadirCarrito = async (req, res) => {
 }; 
 
 //Quitar de la lista
-const eliminarCarrito = async (req, res) => { 
+export const eliminarCarrito = async (req, res) => { 
   try { 
     const { user } = req.user.id;
     const { idProducto } = req.params;
-    const { cantidad } = req.body;
+    let { cantidad } = req.body;
 
     const usuario = await CarritoModel.findUserById(user); 
     if (!usuario) 
@@ -95,7 +95,7 @@ const eliminarCarrito = async (req, res) => {
 }; 
 
 //Devolver la lista
-const obtenerCarrito = async (req, res) => { 
+export const obtenerCarrito = async (req, res) => { 
   try { 
     const { user } = req.user.id;
 
@@ -119,8 +119,30 @@ const obtenerCarrito = async (req, res) => {
   } 
 }; 
 
+const obtenerTotalCarrito = async (req, res) => { 
+  try { 
+    const { user } = req.user.id;
+
+    const usuario = await CarritoModel.findUserById(user); 
+    if (!usuario) 
+      return res.status(404).json({ mensaje: 'Usuario no encontrado' });
+
+    const listaCantidad = usuario.product_num.split(",");
+    if(listaCantidad[listaCantidad.length - 1] === "") listaCantidad.pop();
+
+    res.status(200).json({
+        message: "Datos Listos",
+        totalProductos: listaCantidad.length
+    });
+  } catch (error) { 
+    console.error('Error al obtener el carrito de compra:', error); 
+    res.status(500).json({ mensaje: 'Error al obtener el carrito de compra' }); 
+  } 
+}; 
+
 export {
   añadirCarrito,
   eliminarCarrito,
-  obtenerCarrito
+  obtenerCarrito,
+  obtenerTotalCarrito
 };

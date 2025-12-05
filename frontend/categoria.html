@@ -28,8 +28,13 @@
     <!-- Navbar -->
     <nav class="navbar">
         <div id="header-logo">
+<<<<<<< HEAD
+            <img src="./imagenes/logo.png" alt="Logo">
+            <h1><i class="fa-solid fa-donut"></i> PAPA'S DONUTERIA</h1>
+=======
             <img src="./imagenes/LogoDona.png" alt="Logo">
             <h1>PAPA'S DONUTERIA</h1>
+>>>>>>> origin/Eli
         </div>
 
         <div id="header-right">
@@ -45,17 +50,38 @@
                 <i class="fa-regular fa-heart"></i>
             </button>
 
+<<<<<<< HEAD
+            <button class="icon-btn" title="Carrito">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+
+
+            <button class="icon-btn" title="Lista de deseos" onclick="location.href='lista-de-deseos.html'">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+
+            <button class="icon-btn" title="Carrito" onclick="location.href='carrito.html'">
+=======
             <button id="carritoBtn" class="icon-btn" title="Carrito">
+>>>>>>> origin/Eli
                 <i class="fa-solid fa-cart-shopping"></i>
             </button>
 
             <button id="loginBtn" class="icon-btn" title="Login">
                 <i class="fa-solid fa-user"></i>
+<<<<<<< HEAD
+                <i class="fa-solid fa-user"></i>
+            </button>
+
+            <button id="logoutBtn" class="icon-btn" style="display:none;" title="Cerrar sesión">
+                <i class="fa-solid fa-right-from-bracket"></i>
+=======
             </button>
 
             <button id="adminBtn" class="icon-btn" style="display:none;" title="Administrador" disabled>
                 <i class="fa-solid fa-user-tie"></i>
             </button>
+>>>>>>> origin/Eli
 
             <button id="logoutBtn" class="icon-btn" style="display:none;" title="Cerrar sesión">
                 <i class="fa-solid fa-right-from-bracket"></i>
@@ -63,9 +89,13 @@
 
             <span id="userName" class="user-name"></span>
 
+<<<<<<< HEAD
+            <span id="userName" class="user-name"></span>
+=======
             <button id="theme-toggle" class="icon-btn" title="Cambiar tema">
                 <i id="theme-icon" class="fa-solid fa-moon"></i>
             </button>
+>>>>>>> origin/Eli
         </div>
     </nav>
 
@@ -94,7 +124,6 @@
 
             <form id="formLogin">
 
-            <!-- Solo aparece en modo REGISTRO -->
             <input 
                 type="text" 
                 id="nombre" 
@@ -122,15 +151,19 @@
                 placeholder="Confirmar contraseña"
                 style="display:none;"
             >
-            
+
             <div class="g-recaptcha" data-sitekey="6LdTcyAsAAAAAFOkXtlCJ9Fcrgd9An7D5UayW1Pa"></div>
 
             <button type="submit" id="submitBtn">Login</button>
             </form>
 
+            <p style="text-align:center; margin-top:8px;">
+            <a href="#" id="forgotPassword">¿Olvidaste tu contraseña?</a>
+            </p>
+
             <p style="margin-top: 10px; text-align:center;">
-                <span id="toggleText">¿No tienes cuenta?</span>
-                <a href="#" id="toggleForm"> Regístrate</a>
+            <span id="toggleText">¿No tienes cuenta?</span>
+            <a href="#" id="toggleForm"> Regístrate</a>
             </p>
 
         </div>
