@@ -1,24 +1,12 @@
-const formContact = document.getElementById("formContact");
+const btnContact = document.getElementById("submitCorreoBtn");
 
-formContact.addEventListener("submit", async (e) => {
+btnContact.addEventListener("click", async (e) => {
     e.preventDefault();
 
     const nombre = document.getElementById("nombre").value;
-    const apPat = document.getElementById("apPaterno").value;
-    const apMat = document.getElementById("apMaterno").value;
     const email = document.getElementById("email").value;
     const asunto = document.getElementById("asunto").value;
     const mensaje = document.getElementById("mensaje").value;
-
-    let nombreCompleto = nombre;
-
-    if(apPat){
-        nombreCompleto += " " + apPat;
-    }
-
-    if(apMat){
-        nombreCompleto += " " + apMat;
-    }
     
     try {
         const res = await fetch("http://localhost:3000/api/mensaje", {
@@ -27,7 +15,7 @@ formContact.addEventListener("submit", async (e) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                nombre: nombreCompleto,
+                nombre: nombre,
                 correo: email,
                 asunto: asunto,
                 mensaje: mensaje
@@ -46,18 +34,6 @@ formContact.addEventListener("submit", async (e) => {
         console.error("Error al conectar con el servidor:", err);
         swal("Error", "Error de conexión con el servidor.", "error");
     } finally {
-        const nombreInput = document.getElementById("nombre");
-        const apPatInput = document.getElementById("apPaterno");
-        const apMatInput = document.getElementById("apMaterno");
-        const emailInput = document.getElementById("email");
-        const asuntoInput = document.getElementById("asunto");
-        const mensajeInput = document.getElementById("mensaje");
-
-        if(nombreInput) nombreInput.value = "";
-        if(apPatInput) apPatInput.value = "";
-        if(apMatInput) apMatInput.value = "";
-        if(emailInput) emailInput.value = "";
-        if(asuntoInput) asuntoInput.value = "";
-        if(mensajeInput) mensajeInput.value = "";
+        console.log(`correo enviado: nombre: ${nombre}, \n correo: ${email}, \n asunto: ${asunto}, \n mensaje: ${mensaje} `);
     }
 });

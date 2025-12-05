@@ -3,9 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 async function mostrarCarrito() {
-    try {
-        const resp = await fetch(`${API_BASE_URL}/api/products/obtenerProductos`);
-        const productos = await resp.json();
+    try{
+        const contenedor = document.getElementById("contenedor-carrito");
+        const lista = JSON.parse(localStorage.getItem("carrito")) || [];
 
         if (!resp.ok) {
             swal("Error", "No se pudieron cargar los productos", "error");
@@ -33,7 +33,11 @@ async function mostrarCarrito() {
         }
 
         const respuestaOf = await fetch(`${API_BASE_URL}/api/extras/obtenerOfertas`);
-        const dataOf = await respuestaOf.json();
+        let dataOf = await respuestaOf.json();
+
+        if(!respuestaOf.ok || !dataOf){
+            dataOf = [{ producto_id: 0, descuento: 0 }]
+        }
 
         let j=0;
         productosCarrito.idProductos.forEach(prod => {
@@ -184,33 +188,6 @@ function activarBotones() {
 
     // Botones del carrito
     document.querySelectorAll(".btn-carrito").forEach(btn => {
-        const primerClicCarrito = async () => {
-            const prod = JSON.parse(btn.getAttribute("data-producto"));
-            //enviarA("carrito", prod);
-            const input = document.getElementById(`nombre${prod.nombre}`);
-            const total = Number(input.value);
-
-            const response = await fetch(`${API_BASE_URL}/api/carritoCompra/agregarProducto/${prod.id}`, {
-                method: "PUT",
-                headers: {
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    cantidad: total
-                })
-            });
-            const data = await response.json();
-
-            if(response.ok){
-                swal("Éxito", data.mensaje || "Se añadio el producto al carrito", "success");
-                btn.removeEventListener("click", primerClicCarrito);
-                btn.addEventListener("click", segundoClicCarrito);
-            } else {
-                swal("Error", data.mensaje || "Hubo un error al añadir el producto al carrito", "error");
-            }
-        };
-
         const segundoClicCarrito = async () => {
             const prod = JSON.parse(btn.getAttribute("data-producto"));
             //enviarA("carrito", prod);
@@ -231,13 +208,11 @@ function activarBotones() {
 
             if(response.ok){
                 swal("Éxito", data.mensaje || "Se quito el producto del carrito", "success");
-                btn.removeEventListener("click", segundoClicCarrito);
-                btn.addEventListener("click", primerClicCarrito);
             } else {
                 swal("Error", data.mensaje || "Hubo un error al quitar el producto del carrito", "error");
             }
         };
-
+        
         btn.addEventListener("click", segundoClicCarrito);
     });
 }

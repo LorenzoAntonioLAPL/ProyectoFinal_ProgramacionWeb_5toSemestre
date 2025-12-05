@@ -41,8 +41,8 @@ async function mostrarDeseos() {
             const contenedor = document.getElementById("contenedor-deseos");
             contenedor.appendChild(card);
 
-            if(productos.find(p => p.id === parseInt(prod)).existencia <= 0){
-                document.getElementById(`imagen${productos.find(p => p.id === parseInt(prod)).nombre}`).style.filter = grayscale(1);
+            if(produ.existencia <= 0){
+                document.getElementById(`imagen${produ.nombre}`).style.filter = "grayscale(1)";
             }
         });
 
@@ -137,7 +137,7 @@ function activarBotones() {
             const input = document.getElementById(`nombre${prod.nombre}`);
             const total = Number(input.value);
 
-            const response = await fetch(`${API_BASE_URL}/api/carritoCompra/añadirProducto/${prod.id}`, {
+            const response = await fetch(`${API_BASE_URL}/api/carritoCompra/agregarProducto/${prod.id}`, {
                 method: "PUT",
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`,
@@ -154,7 +154,7 @@ function activarBotones() {
                 btn.removeEventListener("click", primerClicCarrito);
                 btn.addEventListener("click", segundoClicCarrito);
             } else {
-                swal("Error", data.mensaje || "Hubo un error al añadir el producto al carrito", "error");
+                swal("Error", data.mensaje || "Hubo un error al agregar el producto al carrito", "error");
             }
         };
 
