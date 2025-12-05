@@ -36,11 +36,12 @@ async function mostrarDeseos() {
         const dataOf = await respuestaOf.json();
 
         productosLista.forEach(prod => {
-            const card = crearTarjeta(productos.find(p => p.id === parseInt(prod)), data.vectorImg.find(i => i.nombre === prod.imagen).data, dataOf.find(p => p.producto_id === prod.id));
+            let produ = productos.find(p => p.id === parseInt(prod));
+            const card = crearTarjeta(produ, data.vectorImg.find(i => i.nombre === produ.imagen).data, dataOf.find(p => p.producto_id === produ.id));
             const contenedor = document.getElementById("contenedor-deseos");
             contenedor.appendChild(card);
 
-            if(productos.find(p => p.id === parseInt(prod)).existencia){
+            if(productos.find(p => p.id === parseInt(prod)).existencia <= 0){
                 document.getElementById(`imagen${productos.find(p => p.id === parseInt(prod)).nombre}`).style.filter = grayscale(1);
             }
         });

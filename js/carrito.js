@@ -37,10 +37,11 @@ async function mostrarCarrito() {
 
         let j=0;
         productosCarrito.idProductos.forEach(prod => {
-            const card = crearTarjeta(productos.find(p => p.id === parseInt(prod)), data.vectorImg.find(i => i.nombre === prod.imagen).data, productosCarrito.cantidades[j], dataOf.find(p => p.producto_id === prod.id));
+            let produ = productos.find(p => p.id === parseInt(prod));
+            const card = crearTarjeta(produ, data.vectorImg.find(i => i.nombre === produ.imagen).data, productosCarrito.cantidades[j], dataOf.find(p => p.producto_id === produ.id));
             const contenedor = document.getElementById("contenedor-carrito");
             contenedor.appendChild(card);
-            if(productos.find(p => p.id === parseInt(prod)).existencia){
+            if(productos.find(p => p.id === parseInt(prod)).existencia <= 0){
                 document.getElementById(`imagen${productos.find(p => p.id === parseInt(prod)).nombre}`).style.filter = "grayscale(1)";
             }
             j++;
@@ -71,7 +72,7 @@ async function mostrarCarrito() {
             swal("Error", data.msg || "Hubo un error al obtener datos del carrito", "error");
         }
         else{
-            let divDatosTotales = document.getElementById("total-wrapper");
+            let divDatosTotales = document.getElementById("total-carrito");
             divDatosTotales.innerHTML=`Productos agregados: ${data2.totalProductos} <br> Total a pagar: $${data1.subtotal}`;
         }
     } catch (error) {
