@@ -12,7 +12,7 @@ import authRoutes from "./routes/auth.routes.js";
 import connection from "./database/db.js";
 import { verifyToken } from "./middleware/verifyToken.js";
 import { isAdmin } from "./middleware/isAdmin.js";
-
+import emailRoutes from "./routes/emailRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -22,6 +22,8 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
+app.use("/api/email", emailRoutes);
 
 app.use("/api/auth", authRoutes);
 
