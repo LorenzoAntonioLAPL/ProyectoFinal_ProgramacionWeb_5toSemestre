@@ -103,3 +103,64 @@ main{
 .card-icons i:hover {
     color: var(--title-hover);
 }
+
+/*Total de pago*/
+/* Tarjeta del total del carrito */
+#total-carrito {
+    background-color: #f0ddd0;
+    color: #361715;
+    padding: 15px 20px;
+    border-radius: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 20px auto;
+    width: fit-content;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(54, 23, 21, 0.2);
+}
+
+/*centrarlo completamente*/
+.total-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+/* Controles de cantidad */
+.cantidad-control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.cantidad-control button {
+    background-color: #694440;  
+    color: #faf5f1;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.cantidad-control button:hover {
+    background-color: #361715;
+}
+
+.container-categ div{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.product-card {
+    flex: 0 0 calc(25% - 7.5px); 
+    box-sizing: border-box;      
+    text-align: center;
+}
+
+.product-card input{
+    width: 40px;
+}
