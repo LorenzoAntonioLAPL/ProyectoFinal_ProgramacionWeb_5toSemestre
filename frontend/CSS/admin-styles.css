@@ -1,3 +1,49 @@
+/* Colores */
+
+:root {
+    --bg-main: #faf5f1;
+    --bg-navbar: #d3c2ad;
+    --bg-card: #fff7f0;
+    --bg-modal: #fffaf5;
+
+    --text-primary: #5a3725;
+    --text-secondary: #7a5b4a;
+    --text-light: #8a6a58;
+
+    --accent: #b4845d;
+    --accent-hover: #8a5c4f;
+    --border-light: #c7b9a6;
+    --icon: #b4845d;
+    --card-p: #7a6258;
+    --card-title: #5a3e36;
+    --container-h: #5a3e36;
+    --modal-a: #c47b59;
+    --modal-p: #5a4039;
+    --modal-c: #7a5f54;
+}
+
+[data-theme="dark"] {
+    --bg-main: #352924;          
+    --bg-navbar: #3a2d26;        
+    --bg-card: #3c2f28;          
+    --bg-modal: #3f322a;      
+
+    --text-primary: #f0e2d5;     
+    --text-secondary: #d3b7a3; 
+    --text-light: #c7a894;     
+
+    --accent: #d9a774;          
+    --accent-hover: #c28d5c;     
+    --border-light: #8a6f5d;     
+    --icon: #e0b285;             
+    --card-p: #d2b39f;           
+    --card-title: #f2d7c0;     
+    --container-h: #f3dac5;      
+    --modal-a: #e4a67b;          
+    --modal-p: #d6b6a3;        
+    --modal-c: #e2c3b3;
+}
+
 /* Agregué un margen para que no quedara pegado hasta el tope de la pagina el contenido de main */
 main {
     margin-top: 15vh;
