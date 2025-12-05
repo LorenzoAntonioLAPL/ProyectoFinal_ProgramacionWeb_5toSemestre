@@ -141,7 +141,7 @@ const obtenerTotalCarrito = async (req, res) => {
 }; 
 
 export {
-  añadirCarrito,
+  agregarCarrito,
   eliminarCarrito,
   obtenerCarrito,
   obtenerTotalCarrito
