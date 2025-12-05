@@ -18,7 +18,7 @@ async function mostrarCarrito() {
                 "Authorization": `Bearer ${localStorage.getItem('token')}`
             }
         });
-        const productosCarrito = await resp.json();
+        const productosCarrito = await respuesta.json();
 
         if (!respuesta.ok) {
             swal("Error", "No se pudieron cargar los productos", "error");
@@ -32,9 +32,12 @@ async function mostrarCarrito() {
             swal("Error", data.msg || "Hubo un error al cargar las imagenes", "error");
         }
 
+        const respuestaOf = await fetch(`${API_BASE_URL}/api/extras/obtenerOfertas`);
+        const dataOf = await respuestaOf.json();
+
         let j=0;
         productosCarrito.idProductos.forEach(prod => {
-            const card = crearTarjeta(productos.find(p => p.id === parseInt(prod)), data.vectorImg.find(i => i.nombre === prod.imagen).data, productosCarrito.cantidades[j]);
+            const card = crearTarjeta(productos.find(p => p.id === parseInt(prod)), data.vectorImg.find(i => i.nombre === prod.imagen).data, productosCarrito.cantidades[j], dataOf.find(p => p.producto_id === prod.id));
             const contenedor = document.getElementById("contenedor-carrito");
             contenedor.appendChild(card);
             if(productos.find(p => p.id === parseInt(prod)).existencia){
@@ -77,7 +80,7 @@ async function mostrarCarrito() {
     }
 }
 
-function crearTarjeta(prod, imagen, cantidadTotal) {
+function crearTarjeta(prod, imagen, cantidadTotal, oferta) {
     const card = document.createElement("div");
     card.classList.add("product-card");
     let nomCard;
@@ -88,6 +91,14 @@ function crearTarjeta(prod, imagen, cantidadTotal) {
         nomCard = "No hay existencias";
     }
 
+    let precioNuevo;
+    if(oferta){
+        precioNuevo = prod.precio * oferta.descuento;
+    }
+    else{
+        precioNuevo = prod.precio;
+    }
+
     card.innerHTML = `
         <img src="${imagen}" alt="${prod.imagen}" id="imagen${prod.nombre}">
         <div class="divPreEx">
@@ -95,7 +106,7 @@ function crearTarjeta(prod, imagen, cantidadTotal) {
             <p>Cantidad: ${cantidadTotal}</p>
         </div>
         <div class="divPreEx">
-            <p>Precio: $${prod.precio}</p>
+            <p>Precio: $${precioNuevo} </p>
             <p>Existencia: ${prod.existencia}</p>
         </div>
         <p>${prod.descripcion}</p>
