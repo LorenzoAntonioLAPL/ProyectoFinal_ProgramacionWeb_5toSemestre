@@ -4,6 +4,8 @@ import fetch from "node-fetch";
 import crypto from "crypto";
 import { sendEmail } from "../utils/sendEmail.js";
 import { 
+  saveResetToken,
+  resetPasswordByToken,
   findUserByEmail, 
   createUser, 
   updateAttempts 
@@ -149,11 +151,7 @@ export const forgotPassword = async (req, res) => {
     const resetToken = crypto.randomBytes(32).toString("hex");
     const expires = new Date(Date.now() + 15 * 60 * 1000); // 15 min
 
-    // Guardar token en DB
-    await connection.query(
-      "UPDATE usuarios SET reset_token = ?, reset_expires = ? WHERE id = ?",
-      [resetToken, expires, user.id]
-    );
+    await saveResetToken(user.id, resetToken, expires);
 
     const resetLink = `https://lorenzoantioniolapl.github.io/ProyectoFinal_ProgramacionWeb_5toSemestre/reset-password.html?token=${resetToken}`;
 
@@ -178,22 +176,17 @@ export const resetPassword = async (req, res) => {
   try {
     const { token, newPassword } = req.body;
 
-    const [rows] = await connection.query(
-      "SELECT * FROM usuarios WHERE reset_token = ? AND reset_expires > NOW()",
-      [token]
-    );
-
-    if (rows.length === 0) {
-      return res.status(400).json({ msg: "Token inválido o expirado" });
+    if (!token || !newPassword) {
+      return res.status(400).json({ msg: "Datos incompletos" });
     }
 
-    const user = rows[0];
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-    await connection.query(
-      "UPDATE usuarios SET password = ?, reset_token = NULL, reset_expires = NULL WHERE id = ?",
-      [hashedPassword, user.id]
-    );
+    const user = await resetPasswordByToken(token, hashedPassword);
+
+    if (!user) {
+      return res.status(400).json({ msg: "Token inválido o expirado" });
+    }
 
     res.json({ msg: "Contraseña actualizada correctamente" });
 
