@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,8 +12,16 @@
     <link rel="stylesheet" href="./CSS/index-styles.css">
 
     <!-- Scripts -->
+<<<<<<< HEAD
     <script src="js/login.js" defer></script>
+=======
+    <script src="./js/login.js" defer></script>
+>>>>>>> origin/Eli
     <script src="js/slider.js" defer></script>
+    <script src="./js/header.js" defer></script>
+    <script src="./js/theme.js" defer></script>
+
+    <!-- Scripts Externos -->
     <script src="https://kit.fontawesome.com/d420dccc9b.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -36,11 +44,11 @@
                 <a href="./nosotros.html">NOSOTROS</a>
             </div>
 
-            <button class="icon-btn" title="Lista de deseos" onclick="location.href='lista-de-deseos.html'">
+            <button id="deseosBtn" class="icon-btn" title="Lista de deseos">
                 <i class="fa-regular fa-heart"></i>
             </button>
 
-            <button class="icon-btn" title="Carrito" onclick="location.href='carrito.html'">
+            <button id="carritoBtn" class="icon-btn" title="Carrito">
                 <i class="fa-solid fa-cart-shopping"></i>
             </button>
 
@@ -48,11 +56,19 @@
                 <i class="fa-solid fa-user"></i>
             </button>
 
+            <button id="adminBtn" class="icon-btn" style="display:none;" title="Administrador" disabled>
+                <i class="fa-solid fa-user-tie"></i>
+            </button>
+
             <button id="logoutBtn" class="icon-btn" style="display:none;" title="Cerrar sesión">
                 <i class="fa-solid fa-right-from-bracket"></i>
             </button>
 
             <span id="userName" class="user-name"></span>
+
+            <button id="theme-toggle" class="icon-btn" title="Cambiar tema">
+                <i id="theme-icon" class="fa-solid fa-moon"></i>
+            </button>
         </div>
     </nav>
 

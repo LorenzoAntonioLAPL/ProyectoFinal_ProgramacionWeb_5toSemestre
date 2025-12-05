@@ -21,43 +21,44 @@ const addExist = document.getElementById("addExist");
 const addCateg = document.getElementById("addCateg");
 const addImag = document.getElementById("addImagen");
 
+// Tablas
+const tableAll = document.getElementById("table-all");
+const tableCateg = document.getElementById("table-categ");
+
 // Mostrar productos al cargar la página
 document.addEventListener('DOMContentLoaded', async () =>{
     // Revisar si es administrador
-    // try {
-    //     const res = await fetch(`${API_BASE_URL}/api/`, {
-    //         method: "POST",
-    //         headers: {
-    //             "Authorization": `Bearer ${localStorage.getItem('token')}`,
-    //         }
-    //     });
-
-    //     let data;
-    //     try {
-    //         data = await res.json();
-    //     } catch (parseErr) {
-    //         console.warn("Respuesta no JSON del servidor", parseErr);
-    //     }
-
-    //     if (!res.ok) {
-    //         location.href = "index.html";
-    //     } 
-    // } catch (err) {
-    //     console.error("Error al conectar con el servidor:", err);
-    //     swal("Error", "Error de conexión con el servidor, reenviando a inicio.", "error", {
-    //         buttons: false,
-    //         timer: 3500,
-    //         closeOnClickOutside: false,
-    //         closeOnEsc: false,
-    //     });
-    //     setTimeout(function(){location.href = "index.html"},3000)
-    // }
-    
     try {
-        mostrarTodosProductos();
-    } catch (error) {
-        
+        const res = await fetch(`${API_BASE_URL}/api/admin/esAdmin`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`,
+            }
+        });
+
+        let data;
+        try {
+            data = await res.json();
+        } catch (parseErr) {
+            console.warn("Respuesta no JSON del servidor", parseErr);
+        }
+
+        if (!res.ok) {
+            location.href = "index.html";
+        } 
+    } catch (err) {
+        console.error("Error al conectar con el servidor:", err);
+        swal("Error", "Error de conexión con el servidor, reenviando a inicio.", "error", {
+            buttons: false,
+            timer: 3500,
+            closeOnClickOutside: false,
+            closeOnEsc: false,
+        });
+        setTimeout(function(){location.href = "index.html"},3000)
     }
+    
+    mostrarTodosProductos();
+    mostrarTablasReporte();
 });
 
 // Funcion para mostrarproductos (es llamada por varias funciones)
@@ -94,6 +95,146 @@ async function mostrarTodosProductos() {
         swal("Error", "No se pudo conectar con el servidor", "error");
     }
 };
+
+async function mostrarTablasReporte() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/admin/reporteVentas`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`,
+            }
+        });
+        const data = await response.json();
+
+        if(response.ok){
+            // Donas
+            let tablaTotal = document.createElement("table");
+
+            tablaTotal.innerHTML =
+                `<caption>Todos los productos</caption>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Categoria</th>
+                        <th>Precio</th>
+                        <th>Ventas</th>
+                    </tr>`;
+
+            data.ventas.forEach(prod => {
+                tablaTotal.innerHTML +=
+                    `<tr>
+                        <td>${prod.id}</td>
+                        <td>${prod.nombre}</td>
+                        <td>${prod.categoria}</td>
+                        <td>${prod.precio}</td>
+                        <td>${prod.ventas}</td>
+                    </tr>
+                    `;
+            });
+
+            tableAll.append(tablaTotal);
+
+            mostrarTablasCategoria();
+        } else {
+            swal("Error", data.msg || "Hubo un error al cargar los productos", "error");
+        }
+    } catch (error) {
+        console.error('Error: No se pudo conectar con el servidor', error);
+        swal("Error", "No se pudo conectar con el servidor", "error");
+    }
+};
+
+async function mostrarTablasCategoria() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/admin/inventario`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`,
+            }
+        });
+        const data = await response.json();
+
+        if(response.ok){
+            // Donas
+            let tablaDonas = document.createElement("table");
+
+            tablaDonas.innerHTML =
+                `<caption>Categoría: Donas</caption>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Existencia</th>
+                    </tr>`;
+
+            data.ventas.forEach(prod => {
+                if(prod.categoria === 1){
+                    tablaDonas.innerHTML +=
+                        `<tr>
+                            <td>${prod.id}</td>
+                            <td>${prod.nombre}</td>
+                            <td>${prod.existencia}</td>
+                        </tr>
+                        `;
+                }
+            });
+
+            // Bebidas
+            let tablaDrink = document.createElement("table");
+
+            tablaDrink.innerHTML =
+                `<caption>Categoría: Bebidas</caption>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Existencia</th>
+                    </tr>`;
+
+            data.ventas.forEach(prod => {
+                if(prod.categoria === 2){
+                    tablaDrink.innerHTML +=
+                        `<tr>
+                            <td>${prod.id}</td>
+                            <td>${prod.nombre}</td>
+                            <td>${prod.existencia}</td>
+                        </tr>
+                        `;
+                }
+            });
+
+            // Souvenir
+            let tablaSouv = document.createElement("table");
+
+            tablaSouv.innerHTML =
+                `<caption>Categoría: Souvenirs</caption>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Existencia</th>
+                    </tr>`;
+
+            data.ventas.forEach(prod => {
+                if(prod.categoria === 3){
+                    tablaSouv.innerHTML +=
+                        `<tr>
+                            <td>${prod.id}</td>
+                            <td>${prod.nombre}</td>
+                            <td>${prod.existencia}</td>
+                        </tr>
+                        `;
+                }
+            });
+
+            tableCateg.append(tablaDonas);
+            tableCateg.append(tablaDrink);
+            tableCateg.append(tablaSouv);
+        } else {
+            swal("Error", data.msg || "Hubo un error al cargar los productos", "error");
+        }
+    } catch (error) {
+        console.error('Error: No se pudo conectar con el servidor', error);
+        swal("Error", "No se pudo conectar con el servidor", "error");
+    }
+}
 
 // Buscar y mostrar el producto encontrado
 searchForm.addEventListener("submit", async (e) => {
@@ -180,6 +321,7 @@ modForm.addEventListener("submit", async (e) => {
         if(response.ok){
             swal("Éxito", data.msg || "Se modificó el producto correctamente", "success");
             mostrarTodosProductos();
+            mostrarTablasReporte();
         } else {
             swal("Error", data.msg || "Hubo un error al modificar el producto", "error");
         }
@@ -233,6 +375,7 @@ btnElim.addEventListener("click", async () => {
         if(res.ok) {
             swal("Éxito", data.msg || "Se eliminó el producto correctamente", "success");
             mostrarTodosProductos();
+            mostrarTablasReporte();
         } else {
             swal("Error", data.msg || "Hubo un error al eliminar el producto", "error");
         }
@@ -336,6 +479,7 @@ addForm.addEventListener("submit", async (e) => {
         if(response.ok){
             swal("Éxito", data.msg || "Se agregó el producto correctamente", "success");
             mostrarTodosProductos();
+            mostrarTablasReporte();
         } else {
             swal("Error", data.msg || "Hubo un error al agregar el producto", "error");
         }
