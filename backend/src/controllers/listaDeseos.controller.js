@@ -2,7 +2,8 @@ import * as ListaModel from '../models/listaDeseos.model.js';
 
 export const agregarLista = async (req, res) => { 
   try { 
-    const { user } = req.user.id;
+    const { id } = req.user;
+    const user = id;
     const { idProducto } = req.params;
 
     const usuario = await ListaModel.findUserById(user); 
@@ -45,7 +46,8 @@ export const agregarLista = async (req, res) => {
 //Quitar de la lista
 export const eliminarLista = async (req, res) => { 
   try { 
-    const { user } = req.user.id;
+    const { id } = req.user;
+    const user = id;
     const { idProducto } = req.params;
 
     const usuario = await ListaModel.findUserById(user); 
@@ -83,7 +85,8 @@ export const eliminarLista = async (req, res) => {
 //Devolver la lista
 export const obtenerLista = async (req, res) => { 
   try { 
-    const { user } = req.user.id;
+    const { id } = req.user;
+    const user = id;
 
     const usuario = await ListaModel.findUserById(user); 
     if (!usuario) 

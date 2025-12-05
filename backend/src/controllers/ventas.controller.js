@@ -5,7 +5,8 @@ import * as OfertasModel from "../models/ofertas.model.js"
 
 export const completarVenta = async (req,res) => {
     try {
-        const { user } = req.user.id;
+        const { id } = req.user;
+    const user = id;
         
             const usuario = await CarritoModel.findUserById(user); 
             if (!usuario) 
@@ -64,7 +65,8 @@ export const obtenerPaises = async (req, res) => {
 
 export const calcularPrecio = async (req, res) => {
     try { 
-        const { user } = req.user.id;
+        const { id } = req.user;
+    const user = id;
         const { idPais } = req.body;
 
         const usuario = await CarritoModel.findUserById(user); 
@@ -127,7 +129,8 @@ export const calcularPrecio = async (req, res) => {
 
 export const confirmarPedido = async (req, res) => {
     try { 
-        const { user } = req.user.id;
+        const { id } = req.user;
+    const user = id;
         const usuario = await CarritoModel.findUserById(user); 
             if (!usuario) 
               return res.status(404).json({ mensaje: 'Usuario no encontrado' });
@@ -166,7 +169,8 @@ export const confirmarPedido = async (req, res) => {
 
 export const pagoTarjeta = async (req, res) => {
     try { 
-        const { user } = req.user.id;
+        const { id } = req.user;
+    const user = id;
         const { precio } = req.body;
 
         const usuario = await CarritoModel.findUserById(user); 
@@ -186,7 +190,8 @@ export const pagoTarjeta = async (req, res) => {
 
 export const pagoTransferencia = async (req, res) => {
     try { 
-        const { user } = req.user.id;
+        const { id } = req.user;
+    const user = id;
         const { precio } = req.body;
 
         const usuario = await CarritoModel.findUserById(user); 
@@ -206,7 +211,8 @@ export const pagoTransferencia = async (req, res) => {
 
 export const pagoOxxo = async (req, res) => {
     try { 
-        const { user } = req.user.id;
+        const { id } = req.user;
+    const user = id;
         const { precio } = req.body;
 
         const usuario = await CarritoModel.findUserById(user); 
@@ -229,7 +235,8 @@ export const pagoOxxo = async (req, res) => {
 
 export const calcularSubTotal = async (req, res) => {
     try { 
-        const { user } = req.user.id;
+        const { id } = req.user;
+    const user = id;
 
         const usuario = await CarritoModel.findUserById(user); 
         if (!usuario) 

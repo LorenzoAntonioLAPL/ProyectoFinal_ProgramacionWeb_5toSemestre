@@ -2,7 +2,8 @@ import * as CarritoModel from '../models/carrito.model.js';
 
 export const agregarCarrito = async (req, res) => { 
   try { 
-    const { user } = req.user.id;
+    const { id } = req.user;
+    const user = id;
     const { idProducto } = req.params;
     let { cantidad } = req.body;
 
@@ -52,7 +53,8 @@ export const agregarCarrito = async (req, res) => {
 //Quitar de la lista
 export const eliminarCarrito = async (req, res) => { 
   try { 
-    const { user } = req.user.id;
+    const { id } = req.user;
+    const user = id;
     const { idProducto } = req.params;
     let { cantidad } = req.body;
 
@@ -97,7 +99,8 @@ export const eliminarCarrito = async (req, res) => {
 //Devolver la lista
 export const obtenerCarrito = async (req, res) => { 
   try { 
-    const { user } = req.user.id;
+    const { id } = req.user;
+    const user = id;
 
     const usuario = await CarritoModel.findUserById(user); 
     if (!usuario) 
@@ -121,7 +124,8 @@ export const obtenerCarrito = async (req, res) => {
 
 export const obtenerTotalCarrito = async (req, res) => { 
   try { 
-    const { user } = req.user.id;
+    const { id } = req.user;
+    const user = id;
 
     const usuario = await CarritoModel.findUserById(user); 
     if (!usuario) 
