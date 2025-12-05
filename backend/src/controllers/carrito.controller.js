@@ -130,9 +130,14 @@ export const obtenerTotalCarrito = async (req, res) => {
     const listaCantidad = usuario.product_num.split(",");
     if(listaCantidad[listaCantidad.length - 1] === "") listaCantidad.pop();
 
+    let totalObjetos = 0;
+    listaCantidad.forEach(prod => {
+      totalObjetos += parseInt(prod);
+    });
+
     res.status(200).json({
         message: "Datos Listos",
-        totalProductos: listaCantidad.length
+        totalProductos: totalObjetos
     });
   } catch (error) { 
     console.error('Error al obtener el carrito de compra:', error); 

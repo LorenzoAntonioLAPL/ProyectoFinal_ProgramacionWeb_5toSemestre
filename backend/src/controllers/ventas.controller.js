@@ -258,7 +258,7 @@ export const calcularSubTotal = async (req, res) => {
         let prodOferta;
 
         for(let i = 0; i<listaProd.length; i++){
-            prodOferta = listaOferta.find(p => p.id === listaProd[i].id);
+            prodOferta = listaOferta.find(p => p.producto_id === listaProd[i].id);
             if(!prodOferta){
                 precioSubTotal += listaProd[i].precio * parseInt(listaCantidad[i]);
             }
