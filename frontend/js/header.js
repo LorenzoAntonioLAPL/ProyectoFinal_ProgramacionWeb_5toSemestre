@@ -20,11 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
         let data;
-        try {
-            data = await res.json();
-        } catch (parseErr) {
-            console.warn("Respuesta no JSON del servidor", parseErr);
-        }
+        data = await res.json();
 
         if (res.ok) {
             adminBtn.addEventListener("click", () => {
@@ -33,8 +29,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             adminBtn.removeAttribute("disabled");
             adminBtn.style.display = "inline-block";
-        } else {
-            console.log("Error al comprobar admin");
         }
     } catch (err) {
         console.error("Error al conectar con el servidor:", err);

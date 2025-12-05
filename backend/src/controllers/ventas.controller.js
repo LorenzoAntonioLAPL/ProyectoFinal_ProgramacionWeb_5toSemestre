@@ -66,7 +66,7 @@ export const obtenerPaises = async (req, res) => {
 export const calcularPrecio = async (req, res) => {
     try { 
         const { id } = req.user;
-    const user = id;
+        const user = id;
         const { idPais } = req.body;
 
         const usuario = await CarritoModel.findUserById(user); 

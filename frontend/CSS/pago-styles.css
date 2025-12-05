@@ -19,8 +19,19 @@ hr {
     background-color: var(--base);
 }
 
-#p-subtotal, #p-total {
+p, label {
     color: var(--base);
+}
+
+#p-subtotal, #p-total, #p-envio, #p-impuesto {
+    color: var(--base);
+    margin-bottom: 1vh;
+    font-weight: bold;
+}
+
+#p-envio, #p-impuesto{
+    font-size: .7rem;
+    font-weight: normal;
 }
 
 #pago-metodo, #pago-btns{
@@ -31,4 +42,14 @@ hr {
     width: 100%;
     display: flex;
     justify-content: space-evenly;
+}
+
+#pago-btns {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#btn-comprar {
+    min-width: 75px;
 }
