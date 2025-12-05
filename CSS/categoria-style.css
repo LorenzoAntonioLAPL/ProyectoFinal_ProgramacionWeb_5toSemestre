@@ -123,6 +123,12 @@ main{
     gap: 1rem;
 }
 
+#contenedor-donas, #contenedor-bebidas, #contenedor-souvenirs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
 .product-card {
     flex: 0 0 calc(25% - 7.5px); 
     box-sizing: border-box;      
