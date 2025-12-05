@@ -4,7 +4,7 @@ const prodSect = document.getElementById("pago-product");
 const metSect = document.getElementById("pago-metodo");
 
 // Envio
-const envSect = document.getElementById("pago-emvio");
+const envSect = document.getElementById("pago-envio");
 const envNomInput = document.getElementById("envNom");
 const envDirInput = document.getElementById("envDir");
 const envCityInput = document.getElementById("envCity");
