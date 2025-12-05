@@ -4,8 +4,6 @@ const searchedItem = document.getElementById("searched-items");
 idBusqueda.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    console.log("Entra funcion");
-
     const searchCateg = document.getElementById("searchCateg").value || 0;
     const searchRange_low = document.getElementById("searchRange-low").value || 0;
     const searchRange_high = document.getElementById("searchRange-high").value || null;
@@ -14,6 +12,7 @@ idBusqueda.addEventListener("submit", async (e) => {
     let prodTotal = [];
     let prodFiltro = [];
 
+    // Limpiar el contenedor de los items buscados
     while (searchedItem.firstChild) {
         searchedItem.removeChild(searchedItem.lastChild);
     }
@@ -29,6 +28,7 @@ idBusqueda.addEventListener("submit", async (e) => {
         swal("Error", "No se pudo conectar con el servidor", "error");
     }
     
+    // Buscar por categoría
     if(searchCateg != 0){
         try {
             prodTotal.forEach(prod => {
@@ -40,10 +40,10 @@ idBusqueda.addEventListener("submit", async (e) => {
             console.error(error);
             swal("Error", "Error al buscar por categoría", "error");
         }
+        prodTotal = [...prodFiltro];
     }
 
-    prodTotal = [...prodFiltro];
-
+    // Buscar por rango
     if((searchRange_low !== 0) || (searchRange_high !== null)){
         prodFiltro = [];
         try {
@@ -54,8 +54,9 @@ idBusqueda.addEventListener("submit", async (e) => {
                     }
                 });
             } else {
+                console.log("Entrar filtro rango max");
                 prodTotal.forEach(prod => {
-                    if(prod.precio >= searchRange_low && prod.precio <= searchRange_high){
+                    if((prod.precio >= searchRange_low) && (searchRange_high+1 > prod.precio)){
                         prodFiltro.push(prod);
                     }
                 });
@@ -64,20 +65,19 @@ idBusqueda.addEventListener("submit", async (e) => {
             console.error(error);
             swal("Error", "Error al filtrar por rango", "error");
         }
+        prodTotal = [...prodFiltro];
     }
 
-    prodTotal = [...prodFiltro];
-
+    // Buscar por oferta
     if(searchOffer){
-        console.log("Entrar funcion oferta");
         prodFiltro = [];
         try {
             const resp = await fetch(`${API_BASE_URL}/api/extras/obtenerOfertas`);
-            const data = await resp.json();
+            const data = await resp.json();;
 
             if(resp){
                 prodTotal.forEach(prod => {
-                    if(data.find(i => i.id === prod.id)){
+                    if(data.find(i => i.producto_id === prod.id)){
                         prodFiltro.push(prod);
                     }
                 });
@@ -86,12 +86,10 @@ idBusqueda.addEventListener("submit", async (e) => {
             console.error(error);
             swal("Error", "No se pudo conectar con el servidor", "error");
         }
+        prodTotal = [...prodFiltro];
     }
 
-    prodTotal = [...prodFiltro];
-
     // Obtener imagenes
-    
     const response = await fetch(`${API_BASE_URL}/api/imagenes/obtenerImagenes`);
     const imagen = await response.json();
 
