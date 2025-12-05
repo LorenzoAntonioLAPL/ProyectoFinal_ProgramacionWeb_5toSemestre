@@ -12,7 +12,12 @@ async function mostrarDeseos() {
             return;
         }
 
-        const respuesta = await fetch(`${API_BASE_URL}/api/listaDeseos/obtenerLista`);
+        const respuesta = await fetch(`${API_BASE_URL}/api/listaDeseos/obtenerLista`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
+        });
         const productosLista = await resp.json();
 
         if (!respuesta.ok) {
@@ -94,8 +99,7 @@ function activarBotones() {
             const response = await fetch(`${API_BASE_URL}/api/listaDeseos/eliminarProducto/${prod.id}`, {
                 method: "PUT",
                 headers: {
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
-                    "Content-Type": "application/json"
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`
                 }
             });
             const data = await response.json();
