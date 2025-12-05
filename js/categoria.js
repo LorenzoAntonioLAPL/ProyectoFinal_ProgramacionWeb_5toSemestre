@@ -47,7 +47,7 @@ function crearTarjeta(prod) {
     card.classList.add("product-card");
 
     card.innerHTML = `
-        <img src="${prod.imagen}" alt="${prod.nombre}">
+        <img src="/backend/src/assets/${prod.imagen}" alt="${prod.nombre}">
         <h3>${prod.nombre}</h3>
         <p>Precio: $${prod.precio}</p>
         <p>Existencia: ${prod.existencia}</p>
