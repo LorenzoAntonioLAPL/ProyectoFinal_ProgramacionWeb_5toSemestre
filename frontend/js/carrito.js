@@ -1,5 +1,3 @@
-const API_BASE_URL = 'https://proyectofinal-programacionweb-5tosemestre.onrender.com';
-
 document.addEventListener("DOMContentLoaded", () => {
     mostrarCarrito();
 });
@@ -31,7 +29,7 @@ async function mostrarCarrito() {
 
         let j=0;
         productosCarrito.idProductos.forEach(prod => {
-            const card = crearTarjeta(productos.find(p => p.id === prod), data.vector.find(i => i.nombre === prod.nombre).data, productosCarrito.cantidades[j]);
+            const card = crearTarjeta(productos.find(p => p.id === prod), data.vectorImg.find(i => i.nombre === prod.imagen).data, productosCarrito.cantidades[j]);
             const contenedor = document.getElementById("contenedor-carrito");
             contenedor.appendChild(card);
             j++;

@@ -1,5 +1,3 @@
-const API_BASE_URL = 'https://proyectofinal-programacionweb-5tosemestre.onrender.com';
-
 document.addEventListener("DOMContentLoaded", () => {
     mostrarDeseos();
 });
@@ -30,7 +28,7 @@ async function mostrarDeseos() {
         }
 
         productosLista.forEach(prod => {
-            const card = crearTarjeta(productos.find(p => p.id === parseInt(prod)), data.vector.find(i => i.nombre === prod.nombre).data);
+            const card = crearTarjeta(productos.find(p => p.id === parseInt(prod)), data.vectorImg.find(i => i.nombre === prod.imagen).data);
             const contenedor = document.getElementById("contenedor-deseos");
             contenedor.appendChild(card);
         });

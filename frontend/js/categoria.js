@@ -1,5 +1,3 @@
-const API_BASE_URL = 'https://proyectofinal-programacionweb-5tosemestre.onrender.com';
-
 document.addEventListener("DOMContentLoaded", () => {
     cargarProductos();
 });
@@ -33,11 +31,9 @@ async function cargarProductos() {
             swal("Error", data.msg || "Hubo un error al cargar las imagenes", "error");
         }
 
-        
-
         productos.forEach(prod => {
             const categoria = categoriasMap[prod.categoria];
-            const card = crearTarjeta(prod, data.vector.find(i => i.nombre === prod.nombre).data);
+            const card = crearTarjeta(prod, data.vectorImg.find(i => i.nombre === prod.imagen).data);
 
             if (categoria === "dona") contDona.appendChild(card);
             else if (categoria === "bebida") contBebida.appendChild(card);
@@ -87,7 +83,7 @@ function activarBotones() {
         const primerClicDeseo = async () => {
             const prod = JSON.parse(btn.getAttribute("data-producto"));
             //enviarA("deseos", prod);
-            const response = await fetch(`${API_BASE_URL}/api/listaDeseos/añadirProducto/${prod.id}`, {
+            const response = await fetch(`${API_BASE_URL}/api/listaDeseos/agregarProducto/${prod.id}`, {
                 method: "PUT",
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`,
@@ -101,7 +97,7 @@ function activarBotones() {
                 btn.removeEventListener("click", primerClicDeseo);
                 btn.addEventListener("click", segundoClicDeseo);
             } else {
-                swal("Error", data.mensaje || "Hubo un error al añadir el producto a la lista de deseos", "error");
+                swal("Error", data.mensaje || "Hubo un error al agregar el producto a la lista de deseos", "error");
             }
         };
 
@@ -137,7 +133,7 @@ function activarBotones() {
             const input = document.getElementById(`nombre${prod.nombre}`);
             const total = Number(input.value);
 
-            const response = await fetch(`${API_BASE_URL}/api/carritoCompra/añadirProducto/${prod.id}`, {
+            const response = await fetch(`${API_BASE_URL}/api/carritoCompra/agregarProducto/${prod.id}`, {
                 method: "PUT",
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`,
@@ -154,7 +150,7 @@ function activarBotones() {
                 btn.removeEventListener("click", primerClicCarrito);
                 btn.addEventListener("click", segundoClicCarrito);
             } else {
-                swal("Error", data.mensaje || "Hubo un error al añadir el producto al carrito", "error");
+                swal("Error", data.mensaje || "Hubo un error al agregar el producto al carrito", "error");
             }
         };
 

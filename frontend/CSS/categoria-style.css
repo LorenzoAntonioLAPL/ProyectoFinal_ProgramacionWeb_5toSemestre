@@ -148,3 +148,19 @@ main{
 .cantidad-control button:hover {
     background-color: #361715;
 }
+
+.container-categ div{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.product-card {
+    flex: 0 0 calc(25% - 7.5px); 
+    box-sizing: border-box;      
+    text-align: center;
+}
+
+.product-card input{
+    width: 40px;
+}
