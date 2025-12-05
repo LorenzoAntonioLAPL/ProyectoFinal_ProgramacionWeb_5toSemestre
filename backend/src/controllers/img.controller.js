@@ -1,13 +1,24 @@
-import * as fs from "fs"
+// 1. IMPORTACIONES CORREGIDAS
+// Usamos fs/promises para que el await funcione correctamente (asincronía no bloqueante)
+import * as fs from "fs/promises" 
 import * as path from "path"
-const RUTA_IMGS = "../assets/";
+import { fileURLToPath } from 'url'; // NECESARIO para obtener rutas en módulos ES
+
 import * as ProductoModel from "../models/productos.model.js"
+
+// 2. DEFINICIÓN DE __dirname y __filename
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// 3. DEFINICIÓN DE RUTA ABSOLUTA
+const RUTA_IMGS = path.join(__dirname, '..', 'assets'); 
+
 
 export const getImagenes = async (req, res) => { 
   try { 
-    const productos = await ProductoModel.getAllProducts(); 
-    
-    if (!productos || productos.length === 0) {
+     const productos = await ProductoModel.getAllProducts(); 
+ 
+      if (!productos || productos.length === 0) {
       throw new Error('Error al obtener los productos');
     }
 
@@ -18,12 +29,13 @@ export const getImagenes = async (req, res) => {
 
     if (NOM_IMAGENES.length === 0) {
       throw new Error('Error al obtener las imagenes');
-    }
+   }
     
     const imagenes = [];
 
     for(const imagen of NOM_IMAGENES){
-      const imagePath = path.join(__dirname, RUTA_IMGS, imagen);
+      // Usamos la RUTA_IMGS absoluta para un acceso correcto al archivo
+      const imagePath = path.join(RUTA_IMGS, imagen); 
       const imagenBase64 = await convertirImagen(imagePath);
 
       if(!imagenBase64) continue;
@@ -48,12 +60,11 @@ export const getImagenes = async (req, res) => {
   } 
 };
 
+// Función auxiliar, ahora verdaderamente asíncrona
 const convertirImagen = async (rutaImagen) => {
   try{
-    if(!fs.existsSync(rutaImagen)){
-      throw new Error('No se encontró el archivo');
-    }
-    const fileBuffer = fs.readFileSync(rutaImagen);
+    // Usamos fs.readFile de fs/promises
+    const fileBuffer = await fs.readFile(rutaImagen); 
     return fileBuffer.toString('base64');
   }
   catch(error){
@@ -61,6 +72,7 @@ const convertirImagen = async (rutaImagen) => {
     return null;
   }
 }
+
 
 export const guardarImagenes = async (req, res) => {
   try{
@@ -72,8 +84,9 @@ export const guardarImagenes = async (req, res) => {
 
     const buffer = Buffer.from(imagenBase64, 'base64');
 
-    const filePath = path.join(__dirname, RUTA_IMGS, nombre);
-    fs.writeFileSync(filePath, buffer);
+    // Usamos la ruta absoluta y la versión asíncrona
+    const filePath = path.join(RUTA_IMGS, nombre);
+    await fs.writeFile(filePath, buffer); // fs.writeFile de fs/promises
 
     res.status(200).json({ 
         mensaje: 'Imagen guardada correctamente',
