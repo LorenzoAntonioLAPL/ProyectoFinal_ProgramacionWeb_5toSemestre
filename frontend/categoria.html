@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Papa's Donuteria</title>
+    <title>Categorías - Papa's Donuteria</title>
 
-    <link rel="icon" type="image/x-icon" href="./imagenes/favicon.ico">
     <link rel="icon" type="image/x-icon" href="./imagenes/favicon.ico">
 
     <!-- Estilos -->
@@ -13,11 +12,12 @@
     <link rel="stylesheet" href="./CSS/categoria-style.css">
 
     <!-- Scripts -->
-    <script src="js/login.js" defer></script>
-    <script src="js/slider.js" defer></script>
+    <script src="./js/login.js" defer></script>
+    <script src="./js/slider.js" defer></script>
     <script src="./js/header.js" defer></script>
     <script src="./js/theme.js" defer></script>
     <script src="./js/categoria.js" defer></script>
+    <script src="./js/font.js" defer></script>
 
     <!-- Scripts Externos -->
     <script src="https://kit.fontawesome.com/d420dccc9b.js" crossorigin="anonymous"></script>
@@ -71,6 +71,34 @@
 
     <!-- Seccion principal, poner toda la información de la página aquí dentro -->
     <main>
+        <section id="container-search" class="container-categ">
+            <h2>Búsqueda</h2>
+            <form id="formSearch">
+                <!-- Categoria -->
+                <div>
+                    <label for="searchCateg">Categoría:</label><br>
+                    <select name="searchCateg" id="searchCateg">
+                        <option value="0">Ninguno</option>
+                        <option value="1">Donas</option>
+                        <option value="2">Bebidas</option>
+                        <option value="3">Souvenirs</option>
+                    </select>
+                </div>
+                <!-- Rango de Precios -->
+                <div>
+                    <label for="searchRange">Rango de Precios:</label><br>
+                    <input type="number" name="searchRange-low" min="0" id="searchRange-low" placeholder="Mínimo">
+                    <input type="number" name="searchRange-high" min="0" id="searchRange-high" placeholder="Máximo">
+                </div>
+                <!-- Ofertas -->
+                <div id="checkboxCont">
+                    <input type="checkbox" name="Oferta" id="searchOffer">
+                    <label for="searchOffer">Está en Oferta</label>
+                </div>
+                <input type="submit" value="Buscar" id="searchSubmit">
+            </form>
+            <div id="searched-items"></div>
+        </section>
         <section class="container-categ">
             <h2 id="TituloDonas">Donas</h2>
             <div id="contenedor-donas" class="featured-grid"></div>
@@ -141,9 +169,9 @@
     <!-- Footer -->
     <footer>
         <div class="footer-container">
-            
             <h1 class="footer-title"> Papas's Donuteria </h1><br>
             <p class="footer-tagline">El sabor perfecto para tu día</p>
+            <p class="footer-tagline"><i class="fa-solid fa-universal-access"></i> Sitio Web Accesible</p><br>
 
             <div class="footer-links">
                 <a href="contacto.html">Contáctanos</a>
@@ -161,5 +189,12 @@
             <p class="footer-rights">Nota: Esto es un proyecto escolar sin el objetivo de ser una tienda real</p>
         </div>
     </footer>
+
+    <!--Botones de control de tamaño-->
+    <div class="font-controls">
+        <button id="font-decrease">A-</button>
+        <button id="font-reset">A</button>
+        <button id="font-increase">A+</button>
+    </div>
 </body>
 </html>

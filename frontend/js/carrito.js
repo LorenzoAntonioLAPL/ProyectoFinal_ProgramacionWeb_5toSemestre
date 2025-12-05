@@ -3,9 +3,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 async function mostrarCarrito() {
-    try {
-        const resp = await fetch(`${API_BASE_URL}/api/products/obtenerProductos`);
-        const productos = await resp.json();
+    const contenedor = document.getElementById("contenedor-carrito");
+    const lista = JSON.parse(localStorage.getItem("carrito")) || [];
 
         if (!resp.ok) {
             swal("Error", "No se pudieron cargar los productos", "error");
