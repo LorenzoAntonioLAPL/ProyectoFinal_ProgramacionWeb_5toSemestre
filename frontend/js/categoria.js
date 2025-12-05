@@ -2,14 +2,12 @@ document.addEventListener("DOMContentLoaded", () => {
     cargarProductos();
 });
 
-
 // Mapeo de categorías NUMÉRICAS → TEXTO
 const categoriasMap = {
     1: "dona",
     2: "bebida",
     3: "souvenir"
 };
-
 
 async function cargarProductos() {
     try {
