@@ -254,7 +254,6 @@ export const calcularSubTotal = async (req, res) => {
         //Crea un arreglo de productos basado en el carrito
         const listaProd = [];
         let listaOferta = [];
-        let precioTotal = 0;
         let precioSubTotal = 0;
 
         carrito.forEach(async index => {
@@ -264,7 +263,7 @@ export const calcularSubTotal = async (req, res) => {
 
         let prodOferta;
 
-        for(let i = 0; i<listaProd.length; i++){
+        for(let i = 0; i<listaCantidad.length; i++){
             prodOferta = listaOferta.find(p => p.producto_id === listaProd[i].id);
             if(!prodOferta){
                 precioSubTotal += listaProd[i].precio * parseInt(listaCantidad[i]);
