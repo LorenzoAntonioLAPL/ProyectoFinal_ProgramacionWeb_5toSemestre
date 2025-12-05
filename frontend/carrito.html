@@ -72,11 +72,16 @@
     <!-- Seccion principal, poner toda la información de la página aquí dentro -->
     <main>
         <h1>Carrito</h1>
+        <div class="total-wrapper">
+            <div id="total-carrito">Productos agregados: 0 <br> Total a pagar: $0.00</div>
+        </div>
+
         <div id="contenedor-carrito" class="contenedor-general"></div>
+        <script src="carrito.js"></script>
     </main>
 
     
-    <!-- Modal de Login / Registro -->
+        <!-- Modal de Login / Registro -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close" id="closeModal">&times;</span>
@@ -85,7 +90,6 @@
 
             <form id="formLogin">
 
-            <!-- Solo aparece en modo REGISTRO -->
             <input 
                 type="text" 
                 id="nombre" 
@@ -113,15 +117,19 @@
                 placeholder="Confirmar contraseña"
                 style="display:none;"
             >
-            
+
             <div class="g-recaptcha" data-sitekey="6LdTcyAsAAAAAFOkXtlCJ9Fcrgd9An7D5UayW1Pa"></div>
 
             <button type="submit" id="submitBtn">Login</button>
             </form>
 
+            <p style="text-align:center; margin-top:8px;">
+            <a href="#" id="forgotPassword">¿Olvidaste tu contraseña?</a>
+            </p>
+
             <p style="margin-top: 10px; text-align:center;">
-                <span id="toggleText">¿No tienes cuenta?</span>
-                <a href="#" id="toggleForm"> Regístrate</a>
+            <span id="toggleText">¿No tienes cuenta?</span>
+            <a href="#" id="toggleForm"> Regístrate</a>
             </p>
 
         </div>

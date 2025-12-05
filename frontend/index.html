@@ -65,6 +65,8 @@
             <button id="theme-toggle" class="icon-btn" title="Cambiar tema">
                 <i id="theme-icon" class="fa-solid fa-moon"></i>
             </button>
+
+            <span id="userName" class="user-name"></span>
         </div>
     </nav>
 
@@ -130,7 +132,6 @@
 
             <form id="formLogin">
 
-            <!-- Solo aparece en modo REGISTRO -->
             <input 
                 type="text" 
                 id="nombre" 
@@ -158,15 +159,21 @@
                 placeholder="Confirmar contraseña"
                 style="display:none;"
             >
-            
+
             <div class="g-recaptcha" data-sitekey="6LdTcyAsAAAAAFOkXtlCJ9Fcrgd9An7D5UayW1Pa"></div>
 
             <button type="submit" id="submitBtn">Login</button>
             </form>
 
             <p style="margin-top: 10px; text-align:center;">
-                <span id="toggleText">¿No tienes cuenta?</span>
-                <a href="#" id="toggleForm"> Regístrate</a>
+            <a href="#" id="forgotPasswordLink" style="color:#d3c5ad;">
+                ¿Olvidaste tu contraseña?
+            </a>
+            </p>
+
+            <p style="margin-top: 10px; text-align:center;">
+            <span id="toggleText">¿No tienes cuenta?</span>
+            <a href="#" id="toggleForm"> Regístrate</a>
             </p>
 
         </div>

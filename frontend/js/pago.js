@@ -9,7 +9,7 @@ const radOxxo = document.getElementById("radio-Oxxo");
 let contTarjeta = document.getElementById("cont-tarjeta");
 
 // Envio
-const envSect = document.getElementById("pago-emvio");
+const envSect = document.getElementById("pago-envio");
 const envNomInput = document.getElementById("envNom");
 const envDirInput = document.getElementById("envDir");
 const envCityInput = document.getElementById("envCity");

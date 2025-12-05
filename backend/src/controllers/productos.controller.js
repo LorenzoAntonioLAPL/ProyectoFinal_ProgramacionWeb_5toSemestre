@@ -1,6 +1,6 @@
-import * as ProductoModel from "../models/productos.model.js"
+import * as ProductoModel from '../models/productos.model.js'; 
 
-const getProductos = async (req, res) => { 
+export const getProductos = async (req, res) => { 
   try { 
     const productos = await ProductoModel.getAllProducts(); 
     res.json(productos); 
@@ -10,7 +10,7 @@ const getProductos = async (req, res) => {
   } 
 };
 
-const getProductById = async (req, res) => { 
+export const getProductById = async (req, res) => { 
   try { 
     const { id } = req.params; 
     const producto = await ProductoModel.getProductById(id); 
@@ -25,7 +25,7 @@ const getProductById = async (req, res) => {
   } 
 };
 
-const createProduct = async (req, res) => { 
+export const createProduct = async (req, res) => { 
   try { 
     console.log(req.body); 
 
@@ -50,7 +50,7 @@ const createProduct = async (req, res) => {
   } 
 }; 
 
-const updateProduct = async (req, res) => { 
+export const updateProduct = async (req, res) => { 
   try { 
     const { id } = req.params; 
     //---------------------------------------------
@@ -77,7 +77,7 @@ const updateProduct = async (req, res) => {
   } 
 }; 
 
-const updateVentas = async (req, res) => { 
+export const updateVentas = async (req, res) => { 
   try { 
     const { id } = req.params; 
     let { ventas } = req.body; 
@@ -100,7 +100,7 @@ const updateVentas = async (req, res) => {
   } 
 }; 
 
-const deleteProduct = async (req, res) => { 
+export const deleteProduct = async (req, res) => { 
   try { 
     const { id } = req.params; 
     const filas = await ProductoModel.deleteProduct(id); 
@@ -115,7 +115,7 @@ const deleteProduct = async (req, res) => {
   } 
 };
 
-const getProductByCategoria = async (req, res) => { 
+export const getProductByCategoria = async (req, res) => { 
   try { 
     const { categoria } = req.params; 
     const productos = await ProductoModel.getProductByCategoria(categoria); 
@@ -129,13 +129,3 @@ const getProductByCategoria = async (req, res) => {
     res.status(500).json({ mensaje: 'Error al obtener producto' }); 
   } 
 };
-
-export {
-  getProductos,
-  getProductById,
-  createProduct,
-  updateProduct,
-  deleteProduct,
-  updateVentas,
-  getProductByCategoria
-}

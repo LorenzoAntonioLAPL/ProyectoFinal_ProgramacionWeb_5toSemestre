@@ -17,6 +17,8 @@
     <script src="./js/slider.js" defer></script>
     <script src="./js/header.js" defer></script>
     <script src="./js/theme.js" defer></script>
+    <script src="./js/categoria.js" defer></script>
+    <!-- <script src="./js/busqueda.js"></script> -->
     <script src="./js/font.js" defer></script>
 
     <!-- Scripts Externos -->
@@ -41,11 +43,11 @@
                 <a href="./nosotros.html">NOSOTROS</a>
             </div>
 
-            <button id="deseosBtn" class="icon-btn" title="Lista de deseos">
+            <button class="icon-btn" title="Lista de deseos" onclick="location.href='lista-de-deseos.html'">
                 <i class="fa-regular fa-heart"></i>
             </button>
 
-            <button id="carritoBtn" class="icon-btn" title="Carrito">
+            <button class="icon-btn" title="Carrito" onclick="location.href='carrito.html'">
                 <i class="fa-solid fa-cart-shopping"></i>
             </button>
 
@@ -100,16 +102,17 @@
             <div id="searched-items"></div>
         </section>
         <section class="container-categ">
-            <h2>Donas</h2>
+            <h2 id="TituloDonas">Donas</h2>
             <div id="contenedor-donas" class="featured-grid"></div>
 
-            <h2>Bebidas</h2>
+            <h2 id="TituloBebidas">Bebidas</h2>
             <div id="contenedor-bebidas" class="featured-grid"></div>
 
-            <h2>Souvenirs</h2>
+            <h2 id="TituloSouvenirs">Souvenirs</h2>
             <div id="contenedor-souvenirs" class="featured-grid"></div>
+            
         </section>
-    </main>
+    <script src="js/categoria.js" defer></script>
 
     <!-- Modal de Login / Registro -->
     <div id="loginModal" class="modal">
@@ -120,7 +123,6 @@
 
             <form id="formLogin">
 
-            <!-- Solo aparece en modo REGISTRO -->
             <input 
                 type="text" 
                 id="nombre" 
@@ -148,15 +150,19 @@
                 placeholder="Confirmar contraseña"
                 style="display:none;"
             >
-            
+
             <div class="g-recaptcha" data-sitekey="6LdTcyAsAAAAAFOkXtlCJ9Fcrgd9An7D5UayW1Pa"></div>
 
             <button type="submit" id="submitBtn">Login</button>
             </form>
 
+            <p style="text-align:center; margin-top:8px;">
+            <a href="#" id="forgotPassword">¿Olvidaste tu contraseña?</a>
+            </p>
+
             <p style="margin-top: 10px; text-align:center;">
-                <span id="toggleText">¿No tienes cuenta?</span>
-                <a href="#" id="toggleForm"> Regístrate</a>
+            <span id="toggleText">¿No tienes cuenta?</span>
+            <a href="#" id="toggleForm"> Regístrate</a>
             </p>
 
         </div>

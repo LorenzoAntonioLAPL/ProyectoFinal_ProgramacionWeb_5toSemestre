@@ -25,3 +25,9 @@ export async function updateCarrito(user_id, product_ids, product_num) {
     );
     return result.affectedRows;
 }
+
+export async function cleanCarrito(user_id) {
+    //............................................................
+    const [result] = await connection.query('DELETE FROM carrito WHERE user_id = ?', [user_id]);
+    return result.affectedRows;
+}

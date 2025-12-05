@@ -1,6 +1,6 @@
-import * as ListaModel from "../models/productos.model.js"
+import * as ListaModel from '../models/listaDeseos.model.js'; 
 
-const añadirLista = async (req, res) => { 
+export const agregarLista = async (req, res) => { 
   try { 
     const { user } = req.user.id;
     const { idProducto } = req.params;
@@ -43,7 +43,7 @@ const añadirLista = async (req, res) => {
 }; 
 
 //Quitar de la lista
-const eliminarLista = async (req, res) => { 
+export const eliminarLista = async (req, res) => { 
   try { 
     const { user } = req.user.id;
     const { idProducto } = req.params;
@@ -81,7 +81,7 @@ const eliminarLista = async (req, res) => {
 }; 
 
 //Devolver la lista
-const obtenerLista = async (req, res) => { 
+export const obtenerLista = async (req, res) => { 
   try { 
     const { user } = req.user.id;
 
@@ -98,9 +98,3 @@ const obtenerLista = async (req, res) => {
     res.status(500).json({ mensaje: 'Error al obtener la lista de deseos' }); 
   } 
 }; 
-
-export {
-  añadirLista,
-  eliminarLista,
-  obtenerLista
-};
