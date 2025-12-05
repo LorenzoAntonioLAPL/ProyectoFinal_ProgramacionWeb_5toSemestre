@@ -100,8 +100,8 @@ export const login = async (req, res) => {
 
       let bloqueo = null;
 
-      if (newAttempts >= 5) {
-        bloqueo = new Date(Date.now() + 10 * 60 * 1000); // 10 min
+      if (newAttempts >= 3) {
+        bloqueo = new Date(Date.now() + 5 * 60 * 1000); // 5 min
       }
 
       await updateAttempts(user.id, newAttempts, bloqueo);
