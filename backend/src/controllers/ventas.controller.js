@@ -94,9 +94,9 @@ export const calcularPrecio = async (req, res) => {
 
         carrito.forEach(async index => {
             listaProd.push(await productos.getProductById(parseInt(index)));
-            listaOferta.push(await OfertasModel.getProductById(parseInt(index)));
         });
 
+        listaOferta = await OfertasModel.getAllProducts();
         let prodOferta;
 
         for(let i = 0; i<listaProd.length; i++){
@@ -259,8 +259,8 @@ export const calcularSubTotal = async (req, res) => {
 
         carrito.forEach(async index => {
             listaProd.push(await productos.getProductById(parseInt(index)));
-            listaOferta.push(await OfertasModel.getProductById(parseInt(index)));
         });
+        listaOferta = await OfertasModel.getAllProducts();
 
         let prodOferta;
 
