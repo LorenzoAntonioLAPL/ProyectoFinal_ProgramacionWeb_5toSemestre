@@ -29,13 +29,17 @@ async function mostrarCarrito() {
 
         let j=0;
         productosCarrito.idProductos.forEach(prod => {
-            const card = crearTarjeta(productos.find(p => p.id === prod), data.vectorImg.find(i => i.nombre === prod.imagen).data, productosCarrito.cantidades[j]);
+            const card = crearTarjeta(productos.find(p => p.id === parseInt(prod)), data.vectorImg.find(i => i.nombre === prod.imagen).data, productosCarrito.cantidades[j]);
             const contenedor = document.getElementById("contenedor-carrito");
             contenedor.appendChild(card);
+            if(productos.find(p => p.id === parseInt(prod)).existencia){
+                document.getElementById(`imagen${productos.find(p => p.id === parseInt(prod)).nombre}`).style.filter = "grayscale(1)";
+            }
             j++;
         });
 
     //Activamos los botones DESPUÉS de cargar las tarjetas
+        if(productosCarrito.length > 0)
         activarBotones();
 
     } catch (error) {
@@ -44,20 +48,34 @@ async function mostrarCarrito() {
     }
 }
 
-function crearTarjeta(prod, imagen) {
+function crearTarjeta(prod, imagen, cantidadTotal) {
     const card = document.createElement("div");
     card.classList.add("product-card");
+    let nomCard;
+    if(prod.existencia > 0){
+        nomCard = prod.nombre;
+    }
+    else{
+        nomCard = "No hay existencias";
+    }
 
     card.innerHTML = `
-        <img src="${imagen}" alt="${prod.imagen}">
-        <h3>${prod.nombre}</h3>
-        <p>Precio: $${prod.precio}</p>
-        <p>Existencia: ${prod.existencia}</p>
+        <img src="${imagen}" alt="${prod.imagen}" id="imagen${prod.nombre}">
+        <div class="divPreEx">
+            <h3>${nomCard}</h3>
+            <p>Cantidad: ${cantidadTotal}</p>
+        </div>
+        <div class="divPreEx">
+            <p>Precio: $${prod.precio}</p>
+            <p>Existencia: ${prod.existencia}</p>
+        </div>
+        <p>${prod.descripcion}</p>
+        <br>
 
         <div class="card-icons">
             <i class="fa-regular fa-heart btn-deseo" 
                data-producto='${JSON.stringify(prod)}' 
-               title="Añadir a deseos">
+               title="Añadir a deseos" id="icono${prod.nombre}">
             </i>
 
             <i class="fa-solid fa-cart-plus btn-carrito" 
@@ -77,7 +95,7 @@ function activarBotones() {
         const primerClicDeseo = async () => {
             const prod = JSON.parse(btn.getAttribute("data-producto"));
             //enviarA("deseos", prod);
-            const response = await fetch(`${API_BASE_URL}/api/listaDeseos/añadirProducto/${prod.id}`, {
+            const response = await fetch(`${API_BASE_URL}/api/listaDeseos/agregarProducto/${prod.id}`, {
                 method: "PUT",
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`,
@@ -88,6 +106,9 @@ function activarBotones() {
 
             if(response.ok){
                 swal("Éxito", data.mensaje || "Se añadio el producto a la lista de deseos", "success");
+                let varIcono = document.getElementById(`icono${prod.nombre}`);
+                varIcono.classList.remove("fa-regular");
+                varIcono.classList.add("fa-solid");
                 btn.removeEventListener("click", primerClicDeseo);
                 btn.addEventListener("click", segundoClicDeseo);
             } else {
@@ -109,6 +130,9 @@ function activarBotones() {
 
             if(response.ok){
                 swal("Éxito", data.mensaje || "Se elimino el producto a la lista de deseos", "success");
+                let varIcono = document.getElementById(`icono${prod.nombre}`);
+                varIcono.classList.remove("fa-solid");
+                varIcono.classList.add("fa-regular");
                 btn.removeEventListener("click", segundoClicDeseo);
                 btn.addEventListener("click", primerClicDeseo);
             } else {
@@ -127,7 +151,7 @@ function activarBotones() {
             const input = document.getElementById(`nombre${prod.nombre}`);
             const total = Number(input.value);
 
-            const response = await fetch(`${API_BASE_URL}/api/carritoCompra/añadirProducto/${prod.id}`, {
+            const response = await fetch(`${API_BASE_URL}/api/carritoCompra/agregarProducto/${prod.id}`, {
                 method: "PUT",
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`,
@@ -175,6 +199,6 @@ function activarBotones() {
             }
         };
 
-        btn.addEventListener("click", primerClicCarrito);
+        btn.addEventListener("click", segundoClicCarrito);
     });
 }
