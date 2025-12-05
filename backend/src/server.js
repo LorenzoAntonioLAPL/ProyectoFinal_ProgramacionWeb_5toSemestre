@@ -17,7 +17,8 @@ import extraRoutes from "./routes/extras.routes.js";
 import connection from "./database/db.js";
 import { verifyToken } from "./middleware/verifyToken.js";
 import { isAdmin } from "./middleware/isAdmin.js";
-
+import ventasRoutes from "./routes/ventas.routes.js";
+import adminRoutes from "./routes/admin.routes.js";
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -35,6 +36,8 @@ app.use("/api/imagenes", imgRoutes);
 app.use("/api/extras", extraRoutes);
 app.use("/api/listaDeseos", listaRoutes);
 app.use("/api/carritoCompra", carritoRoutes);
+app.use("/api/ventas", ventasRoutes);
+app.use("/api/administrador", adminRoutes);
 
 // Ruta normal para usuarios con login
 app.get("/api/perfil", verifyToken, (req, res) => {
