@@ -1,6 +1,6 @@
 import * as CarritoModel from '../models/carrito.model.js'; 
 
- const añadirCarrito = async (req, res) => { 
+export const agregarCarrito = async (req, res) => { 
   try { 
     const { user } = req.user.id;
     const { idProducto } = req.params;
@@ -50,7 +50,7 @@ import * as CarritoModel from '../models/carrito.model.js';
 }; 
 
 //Quitar de la lista
- const eliminarCarrito = async (req, res) => { 
+export const eliminarCarrito = async (req, res) => { 
   try { 
     const { user } = req.user.id;
     const { idProducto } = req.params;
@@ -95,7 +95,7 @@ import * as CarritoModel from '../models/carrito.model.js';
 }; 
 
 //Devolver la lista
- const obtenerCarrito = async (req, res) => { 
+export const obtenerCarrito = async (req, res) => { 
   try { 
     const { user } = req.user.id;
 

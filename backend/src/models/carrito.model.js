@@ -30,7 +30,7 @@ export async function updateCarrito(user_id, product_ids, product_num) {
 export async function cleanCarrito(user_id) {
   const {result} = await connection.query(
     //............................................................
-    'DELETE carrito WHERE user_id = ?',
+    'DELETE FROM carrito WHERE user_id = ?',
     [user_id]
   );
   return result;
