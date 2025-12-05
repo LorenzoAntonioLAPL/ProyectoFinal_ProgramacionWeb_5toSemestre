@@ -29,10 +29,12 @@ async function mostrarCarrito() {
             swal("Error", data.msg || "Hubo un error al cargar las imagenes", "error");
         }
 
-        productosCarrito.forEach(prod => {
-            const card = crearTarjeta(productos.find(p => p.id === prod), data.vector.find(i => i.nombre === prod.nombre).data);
+        let j=0;
+        productosCarrito.idProductos.forEach(prod => {
+            const card = crearTarjeta(productos.find(p => p.id === prod), data.vector.find(i => i.nombre === prod.nombre).data, productosCarrito.cantidades[j]);
             const contenedor = document.getElementById("contenedor-carrito");
             contenedor.appendChild(card);
+            j++;
         });
 
     //Activamos los botones DESPUÉS de cargar las tarjetas
