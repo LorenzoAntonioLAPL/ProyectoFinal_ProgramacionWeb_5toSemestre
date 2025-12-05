@@ -34,12 +34,12 @@ main{
 .container-categ, .featured-container h2 {
     color: var(--title);
     margin: 30px 0 15px;
-    font-size: 28px;
+    font-size: 1.5rem;
     font-weight: bold;
 }
 
 
-/*GRID DE TARJETAS*/
+/* GRID DE TARJETAS */
 .featured-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -78,7 +78,7 @@ main{
 
 /* Nombre y texto */
 .product-card h3 {
-    font-size: 20px;
+    font-size: 1.5rem;
     color: var(--title);
     margin: 10px 0 5px;
 }
@@ -86,7 +86,7 @@ main{
 .product-card p {
     margin: 5px 0;
     color: var(--title);
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 
@@ -99,7 +99,7 @@ main{
 }
 
 .card-icons i {
-    font-size: 22px;
+    font-size: 1.2rem;
     color: var(--title);
     cursor: pointer;
     transition: color 0.2s ease-in-out;
@@ -111,6 +111,7 @@ main{
 
 /* Búsqueda */
 #formSearch {
+    margin-top: 2vh;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -140,10 +141,6 @@ main{
     width: 3.5vh;
     border-radius: 0.5rem;
     border: 0;
-}
-
-#searchOffer:checked {
-    
 }
 
 #searchSubmit {

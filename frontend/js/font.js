@@ -8,8 +8,10 @@ let currentSize = localStorage.getItem("fontSize")
 document.documentElement.style.fontSize = currentSize + "%";
 
 document.getElementById("font-increase").addEventListener("click", () => {
-    currentSize += 10; 
-    applyFontSize();
+    if (currentSize < 200){
+        currentSize += 10; 
+        applyFontSize();
+    }
 });
 
 document.getElementById("font-decrease").addEventListener("click", () => {
