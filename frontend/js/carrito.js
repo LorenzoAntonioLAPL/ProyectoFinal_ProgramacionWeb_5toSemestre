@@ -67,6 +67,25 @@ function mostrarCarrito() {
     });
 }
 
+function agregarProducto() {
+    const nombre = document.getElementById("nombre").value;
+    const precio = document.getElementById("precio").value;
+    const imagen = document.getElementById("imagen").value;
+
+    const lista = JSON.parse(localStorage.getItem("productos")) || [];
+
+    lista.push({
+        nombre,
+        precio,
+        imagen
+    });
+
+    localStorage.setItem("productos", JSON.stringify(lista));
+
+    mostrarCarrito();
+}
+
+
 function modificarCantidad(id, cambio) {
     let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
