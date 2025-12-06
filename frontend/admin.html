@@ -13,13 +13,12 @@
     <link rel="stylesheet" href="./CSS/admin-styles.css">
 
     <!-- Scripts -->
-    <script src="./js/login.js" defer></script>
+    <script src="js/login.js" defer></script>
     <script src="./js/header.js" defer></script>
     <script src="./js/theme.js" defer></script>
     <script src="./js/collapsible.js" defer></script>
     <script src="./js/grafica.js" defer></script>
     <script src="./js/admin.js" defer></script>
-    <script src="./js/font.js" defer></script>
 
     <!-- Scripts Externos -->
     <script src="https://kit.fontawesome.com/d420dccc9b.js" crossorigin="anonymous"></script>
@@ -84,22 +83,22 @@
                     <div class="a-product-modify">
                         <form id="formAddProduct">
                             <label for="addNom">Nombre:</label>
-                            <input type="text" id="addNom" class="a-product-input" placeholder="Nombre del Producto" required>
+                            <input type="text" id="addNom" class="a-product-input" placeholder="Nombre del Producto">
 
                             <label for="addDesc">Descripción:</label>
-                            <textarea type="text" id="addDesc" class="a-product-input input-resize" placeholder="Descripción del Producto" required></textarea>
+                            <textarea type="text" id="addDesc" class="a-product-input input-resize" placeholder="Descripción del Producto"></textarea>
 
                             <label for="addPrecio">Precio:</label>
-                            <input type="number" id="addPrecio" class="a-product-input" min="0" step="any" placeholder="Precio del producto (0.00)" required>
+                            <input type="number" id="addPrecio" class="a-product-input" min="0" step="any" placeholder="Precio del producto (0.00)">
 
                             <label for="addExist">Existencias:</label>
-                            <input type="number" id="addExist" class="a-product-input" name="quantity" min="0" placeholder="Existencias del producto" required>
+                            <input type="number" id="addExist" class="a-product-input" name="quantity" min="0" placeholder="Existencias del producto">
 
                             <label for="addCateg">Categ:</label>
-                            <input type="number" id="addCateg" class="a-product-input" name="quantity" min="1" max="3" step="1" placeholder="Dona = 1, Bebida = 2, Souvenir = 3" required>
+                            <input type="number" id="addCateg" class="a-product-input" name="quantity" min="1" max="3" step="1" placeholder="Dona = 1, Bebida = 2, Souvenir = 3">
                                                 
                             <label for="addImagen">Imagen:</label>
-                            <input type="file" id="addImagen" accept="image/png, image/gif, image/jpeg, image/jpg" name="prodImagen" required>
+                            <input type="file" id="addImagen" accept="image/png, image/gif, image/jpeg, image/jpg" name="prodImagen">
 
                             <br><br>
                                                 
@@ -243,32 +242,24 @@
     <footer>
     <div class="footer-container">
         
-            <h1 class="footer-title"> Papas's Donuteria </h1><br>
-            <p class="footer-tagline">Donut worry, be happy</p>
-            <p class="footer-tagline"><i class="fa-solid fa-universal-access"></i> Sitio Web Accesible</p><br>
+        <h1 class="footer-title"> Papas's Donuteria </h1><br>
+        <p class="footer-tagline">Donut worry, be happy</p>
 
-            <div class="footer-links">
-                <a href="contacto.html">Contáctanos</a>
-                <a href="nosotros.html">Sobre nosotros</a>
-            </div>
-
-            <div class="footer-social">
-                <a href="https://www.instagram.com/papasdonuteria_pd/" target="_blank">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
-            </div>
-
-            <p class="footer-rights">© 2025 Papa's Donuteria — Todos los derechos reservados.</p>
-            <hr class="footer-divider">
-            <p class="footer-rights">Nota: Esto es un proyecto escolar sin el objetivo de ser una tienda real</p>
+        <div class="footer-links">
+            <a href="contacto.html">Contáctanos</a>
+            <a href="nosotros.html">Sobre nosotros</a>
         </div>
-    </footer>
 
-    <!--Botones de control de tamaño-->
-    <div class="font-controls">
-        <button id="font-decrease">A-</button>
-        <button id="font-reset">A</button>
-        <button id="font-increase">A+</button>
+        <div class="footer-social">
+            <a href="https://instagram.com" target="_blank">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+        </div>
+
+        <p class="footer-rights">© 2025 Papa's Donuteria — Todos los derechos reservados.</p>
+        <hr class="footer-divider">
+        <p class="footer-rights">Nota: Esto es un proyecto escolar sin el objetivo de ser una tienda real</p>
     </div>
+</footer>
 </body>
 </html>

@@ -37,7 +37,7 @@ app.use("/api/extras", extraRoutes);
 app.use("/api/listaDeseos", listaRoutes);
 app.use("/api/carritoCompra", carritoRoutes);
 app.use("/api/ventas", ventasRoutes);
-app.use("/api/administrador", adminRoutes);
+app.use("/api/admin", adminRoutes);
 
 // Ruta normal para usuarios con login
 app.get("/api/perfil", verifyToken, (req, res) => {

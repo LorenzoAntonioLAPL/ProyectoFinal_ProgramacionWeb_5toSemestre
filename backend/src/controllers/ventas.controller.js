@@ -5,8 +5,8 @@ import * as OfertasModel from "../models/ofertas.model.js"
 
 export const completarVenta = async (req,res) => {
     try {
-        const { id } = req.user;
-    const user = id;
+            const { id } = req.user;
+            const user = id;
         
             const usuario = await CarritoModel.findUserById(user); 
             if (!usuario) 

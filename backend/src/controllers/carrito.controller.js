@@ -82,8 +82,18 @@ export const eliminarCarrito = async (req, res) => {
     else
         listaCantidad[indice] = String(total);
 
-    const carritoCompra = carrito.join(",") + ",";
-    const lista = listaCantidad.join(",") + ",";
+    let carritoCompra;
+    let lista
+
+    if(carrito.length === 0){
+        carritoCompra = [""];
+        lista = [""];
+    }
+    else{
+        carritoCompra = carrito.join(",") + ",";
+        lista = listaCantidad.join(",") + ",";
+    }
+    
 
     const filas = await CarritoModel.updateCarrito(user, carritoCompra, lista);
     if (filas === 0) 

@@ -197,7 +197,6 @@ hr {
     border-collapse: collapse;
 
     color: var(--title);
-    /* align-self: flex-start; */
 }
 
 #table-container th, #table-container td {
