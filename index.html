@@ -17,6 +17,7 @@
     <script src="./js/header.js" defer></script>
     <script src="./js/theme.js" defer></script>
     <script src="./js/font.js" defer></script>
+    <script src="./js/indexRedirect.js" defer></script>
 
     <!-- Scripts Externos -->
     <script src="https://kit.fontawesome.com/d420dccc9b.js" crossorigin="anonymous"></script>
@@ -88,38 +89,37 @@
 
         <!--SECCION DE PRODUCTOS DINAMICOS-->
         <section class="featured-container">
-            <h2>Nuestras Donas Artesanales</h2>
+            <h2>Categorias</h2>
             <div class="featured-grid" id="contenedor-productos">
                 <div class="product-card">
                     <img src="imagenes/donas.jpg" alt="Dona ejemplo">
-                    <h3>Dona de Chocolate</h3>
-                    <p>Rellena y bañada en chocolate derretido premium.</p>
-                    <div class="card-icons">
-                        <i class="fa-solid fa-heart"></i>
-                        <i class="fa-solid fa-cart-shopping"></i>
-                    </div>
+                    <h3>Nuestras Donas</h3>
+                    <p>Tenemos una gran variedad de donas de distintos sabores listas para que las disfrute.</p>
+                    <button id="goDonas" class="product-button">Descubre</button>
                 </div>
 
                 <div class="product-card">
                     <img src="imagenes/bebida.jpg" alt="Bebida ejemplo">
-                    <h3>Latte Caramel</h3>
-                    <p>Café artesanal con caramelo casero y leche espumosa.</p>
-                    <div class="card-icons">
-                        <i class="fa-solid fa-heart"></i>
-                        <i class="fa-solid fa-cart-shopping"></i>
-                    </div>
+                    <h3>Nuestras Bebidas</h3>
+                    <p>Acompaña tu dona con una buena bebida caliente o fría.</p>
+                    <button id="goBebida" class="product-button">Descubre</button>
                 </div>
 
                 <div class="product-card">
-                    <img src="imagenes/donas.jpg" alt="Dona ejemplo">
-                    <h3>Dona de Chocolate</h3>
-                    <p>Rellena y bañada en chocolate derretido premium.</p>
-                    <div class="card-icons">
-                        <i class="fa-solid fa-heart"></i>
-                        <i class="fa-solid fa-cart-shopping"></i>
-                    </div>
+                    <img src="imagenes/souvenir.jpg" alt="Souvenir ejemplo">
+                    <h3>Nuestros Souvenirs</h3>
+                    <p>Para adornar un poco tu vida disfruta de nuestra variedad de souvenirs.</p>
+                    <button id="goSouvenir" class="product-button">Descubre</button>
                 </div>
             </div>
+        </section>
+
+        <section id="subscribe-cont">
+            <h2 id="title-sub">Suscribase a nuestra tienda</h2>
+            <form id="formSub">
+                <input type="email" id="subEmail" placeholder="Tu correo electrónico" required>
+                <button type="submit" id="subEnviar" class="product-button">Suscribirse</button>
+            </form>
         </section>
     </main>
 

@@ -47,6 +47,12 @@ async function mostrarCarrito() {
         productosCarrito.idProductos.forEach(prod => {
             let produ = productos.find(p => p.id === parseInt(prod));
             const card = crearTarjetaCart(produ, data.vectorImg.find(i => i.nombre === produ.imagen).data, productosCarrito.cantidades[j], dataOf.find(p => p.producto_id === produ.id));
+            if(dataOf.find(p => p.producto_id === produ.id)){
+                let avisoOferta = document.createElement('p');
+                avisoOferta.innerHTML = "OFERTA";
+                avisoOferta.style.color = "lightcoral";
+                card.getElementsByClassName("divPreEx")[0].appendChild(avisoOferta);
+            }
             const contenedor = document.getElementById("contenedor-carrito");
             contenedor.appendChild(card);
             if(productos.find(p => p.id === parseInt(prod)).existencia <= 0){
@@ -134,11 +140,11 @@ function crearTarjetaCart(prod, imagen, cantidadTotal, oferta) {
                data-producto='${JSON.stringify(prod)}' 
                title="Añadir al carrito">
             </i>
-            <input type="number" id='nombre${prod.nombre}' min="1">
+            <input type="number" id='nombre${prod.nombre}' min="1" max="${prod.existencia}" value="1">
         </div>
     `;
 
-    console.log("Tarjeta generada: ",card);
+    // console.log("Tarjeta generada: ",card);
 
     return card;
 }
@@ -234,7 +240,7 @@ pagarBtn.addEventListener("click", () => {
         swal("Debes iniciar sesión para proceder al pago.");
         return;
     }
-
+    
     if (document.getElementById("total-carrito").innerText.includes("Productos agregados: 0")) {
         swal("Tu carrito está vacío. Agrega productos antes de proceder al pago.");
         return;

@@ -37,7 +37,12 @@ async function cargarProductos() {
         productos.forEach(prod => {
             const categoria = categoriasMap[prod.categoria];
             const card = crearTarjetaCateg(prod, data.vectorImg.find(i => i.nombre === prod.imagen).data, dataOf.find(p => p.producto_id === prod.id));
-
+            if(dataOf.find(p => p.producto_id === prod.id)){
+                let avisoOferta = document.createElement('p');
+                avisoOferta.innerHTML = "OFERTA";
+                avisoOferta.style.color = "lightcoral";
+                card.getElementsByClassName("divPreEx")[0].appendChild(avisoOferta);
+            }
             if (categoria === "dona") contDona.appendChild(card);
             else if (categoria === "bebida") contBebida.appendChild(card);
             else if (categoria === "souvenir") contSouvenir.appendChild(card);
@@ -98,7 +103,7 @@ function crearTarjetaCateg(prod, imagen, oferta) {
                data-producto='${JSON.stringify(prod)}' 
                title="Añadir al carrito">
             </i>
-            <input type="number" id='nombre${prod.nombre}' min="1">
+            <input type="number" id='nombre${prod.nombre}' min="1" max="${prod.existencia}" value="1">
         </div>
     `;
 
