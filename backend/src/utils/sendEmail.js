@@ -19,11 +19,12 @@ export const sendEmail = async (to, subject, html) => {
       html: `${html}`
     });
     console.log('Correo enviado', sentMail);
-    return true;
   } catch (err) {
     console.error('Error enviando correo: ',err);
     return false;
   }
+
+  return true;
 };
 
 export const receiveEmail = async (name, from, subject, html) => {
