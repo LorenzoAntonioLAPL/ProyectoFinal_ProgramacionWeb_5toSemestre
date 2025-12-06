@@ -10,7 +10,7 @@ import { width } from "pdfkit/js/page";
 
 // ======= DATOS SIMULADOS ======= //
 
-export const generatePDF = async (id,name, method, lastDigits, items, subtotal, iva, envi, cupon, total) => {
+export const generatePDF = async (id,name, method, lastDigits, items, rSubtotal, iva, envi, rCupon, rTotal) => {
   const stream = fs.createWriteStream("nota-compra.pdf");
 
   const req = {
@@ -25,11 +25,11 @@ export const generatePDF = async (id,name, method, lastDigits, items, subtotal, 
       bankAccount: "552211009988",
       oxxoReference: "019203948495",
       cartItems: `${items}`,
-      subtotal: `${subtotal}`,
+      subtotal: `${rSubtotal}`,
       impuestos: `${iva}`,
       envio: `${envi}`,
-      cupon: `${cupon}`,
-      total: `${total}`
+      cupon: `${rCupon}`,
+      total: `${rTotal}`
     }
   };
 
