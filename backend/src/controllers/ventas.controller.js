@@ -301,66 +301,63 @@ export const calcularSubTotal = async (req, res) => {
 }
 
 export const correoPago = async (req, res) => {
-    const { id, email, nombre } = req.user;
-    const { method, lastDigits=0, cupon="Sin Cupón", idPais } = req.body;
+    try {
+        const { id, email, nombre } = req.user;
+        const { method, lastDigits = 0, cupon = "Sin Cupón", idPais } = req.body;
 
-    // Revisar que carrito exista
-    const usuario = await CarritoModel.findUserById(user);
+        const usuario = await CarritoModel.findUserById(id);
+        if (!usuario)
+            return res.status(404).json({ mensaje: 'Usuario no encontrado' });
 
-    if (!usuario) 
-      return res.status(404).json({ mensaje: 'Usuario no encontrado' });
+        const pais = await PaisModel.findPaisById(idPais);
+        if (!pais)
+            return res.status(404).json({ mensaje: 'Pais no encontrado' });
 
-    // Revisar pais
-    const pais = await PaisModel.findPaisById(idPais); 
-    if (!pais) 
-        return res.status(404).json({ mensaje: 'Pais no encontrado' });
+        // Productos del carrito
+        const carrito = usuario.product_ids.split(",").filter(e => e !== "");
+        const listaCantidad = usuario.product_num.split(",").filter(e => e !== "");
 
-    // Obtener elementos del carrito
-    const carrito = usuario.product_ids.split(",");
-    if(carrito[carrito.length - 1] === "") carrito.pop();
+        const items = await Promise.all(
+            carrito.map(pid => productos.getProductById(parseInt(pid)))
+        );
 
-    const listaCantidad = usuario.product_num.split(",");
-    if(listaCantidad[listaCantidad.length - 1] === "") listaCantidad.pop();
+        // Calcular precios
+        let subtotal = 0;
+        const iva = pais.impuesto;
+        const envio = 100 * (1 + iva);
 
-    let items = [];
+        const listaOferta = await OfertasModel.getAllProducts();
 
-    items = await Promise.all(
-        carrito.map(id => productos.getProductById(parseInt(id)))
-    );
+        for (let i = 0; i < items.length; i++) {
+            const prodOferta = listaOferta.find(p => p.producto_id === items[i].id);
 
-    // Datos de cobro
-    let total = 0;
-    let subtotal = 0;
-    const iva = pais.impuesto;
-    let envi = (100.0 * (1.0+iva));
-
-    // Obtener elementos en oferta para subtotal
-    listaOferta = await OfertasModel.getAllProducts();
-    let prodOferta;
-
-    for(let i = 0; i<items.length; i++){
-        prodOferta = listaOferta.find(p => p.producto_id === items[i].id);
-        if(!prodOferta){
-            subtotal += items[i].precio * parseInt(listaCantidad[i]);
+            if (!prodOferta)
+                subtotal += items[i].precio * parseInt(listaCantidad[i]);
+            else
+                subtotal += (items[i].precio * (1 - prodOferta.descuento)) * parseInt(listaCantidad[i]);
         }
-        else{
-            subtotal += (items[i].precio * (1 - prodOferta.descuento)) * parseInt(listaCantidad[i]);
-        }
+
+        const total = subtotal * (1 + iva) + envio;
+
+        // === Generar PDF CORRECTAMENTE ===
+        const pdfBuffer = await generatePDF(
+            id, nombre, method, lastDigits,
+            items, subtotal, iva, envio, cupon, total
+        );
+
+        if (!pdfBuffer)
+            return res.status(500).json({ mensaje: "Error al generar PDF" });
+
+        // === ENVIAR CORREO ===
+        const enviado = await sendFile(email, "Pago en Papa's Donuteria", pdfBuffer);
+
+        if (!enviado)
+            return res.status(500).json({ mensaje: "Error al enviar nota de pago" });
+
+        return res.status(200).json({ message: "Pago completado y correo enviado" });
+
+    } catch (error) {
+        console.error("Error en correoPago:", error);
+        return res.status(500).json({ mensaje: "Error interno en pago" });
     }
-
-    total = (subtotal*(1.0+iva));
-    total += envi;
-
-    // Generar PDF
-    const pdf = generatePDF(id, nombre, method, lastDigits, items, subtotal, iva, envi, cupon, total);
-
-    if(!(pdf === null)){
-        if(sendFile(email,"Pago en Papa's Donuteria",pdf)){
-            return res.status(200).json({message: "Se completó el pago con exito"});
-        } else {
-            return res.status(500).json({mensaje: "Error al rnviar nota de pago"})
-        }
-    } else {
-        return res.status(500).json({mensaje: "Error al generar el PDF"})
-    }
-}
+};
