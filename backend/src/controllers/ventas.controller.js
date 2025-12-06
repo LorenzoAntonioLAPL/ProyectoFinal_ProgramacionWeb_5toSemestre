@@ -22,7 +22,7 @@ export const completarVenta = async (req,res) => {
             }
             
             //Crea un arreglo de productos basado en el carrito
-            const listaProd = [];
+            let listaProd = [];
 
             listaProd = await Promise.all(
                 carrito.map(id => productos.getProductById(parseInt(id)))
