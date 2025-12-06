@@ -179,5 +179,5 @@ export const generatePDF = async (id,name, method, lastDigits, items, rSubtotal,
 
   doc.end();
 
-  return doc;
+  return stream;
 }

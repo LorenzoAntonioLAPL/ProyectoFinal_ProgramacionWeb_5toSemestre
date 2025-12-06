@@ -69,10 +69,9 @@ export const sendFile = async (to, subject, doc) => {
       to: `${to}`,
       subject: `${subject}`,
       html: "<h1>Descarga tu nota de compra</h1>",
-      attachment: [{
+      attachments: [{
         filename: 'nota-compra.pdf',
-        content: doc,
-        contentType: "application/pdf"
+        content: doc
       }]
     });
     console.log('Correo enviado', sentMail);
