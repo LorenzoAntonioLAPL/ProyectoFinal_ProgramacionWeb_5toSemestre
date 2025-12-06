@@ -215,3 +215,9 @@ main{
     box-shadow: 0 4px 8px rgba(54, 23, 21, 0.1);
     transition: background-color 0.25s ease-in-out, color 0.25s ease-in-out;
 }
+
+#contenedor-donas, #contenedor-bebidas, #contenedor-souvenirs{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
