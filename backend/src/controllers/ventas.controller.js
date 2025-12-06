@@ -66,7 +66,7 @@ export const obtenerPaises = async (req, res) => {
 export const calcularPrecio = async (req, res) => {
     try { 
         const { id } = req.user;
-    const user = id;
+        const user = id;
         const { idPais } = req.body;
 
         const usuario = await CarritoModel.findUserById(user); 
@@ -236,9 +236,10 @@ export const pagoOxxo = async (req, res) => {
 export const calcularSubTotal = async (req, res) => {
     try { 
         const { id } = req.user;
-    const user = id;
+        const user = id;
 
         const usuario = await CarritoModel.findUserById(user); 
+        
         if (!usuario) 
             return res.status(404).json({ mensaje: 'Usuario no encontrado' });
         
@@ -256,9 +257,9 @@ export const calcularSubTotal = async (req, res) => {
         let listaOferta = [];
         let precioSubTotal = 0;
 
-        carrito.forEach(async index => {
-            listaProd.push(await productos.getProductById(parseInt(index)));
-        });
+        listaProd = await Promise.all(
+            carrito.map(id => productos.getProductById(parseInt(id)))
+        );
         listaOferta = await OfertasModel.getAllProducts();
 
         let prodOferta;

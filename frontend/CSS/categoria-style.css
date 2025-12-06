@@ -176,3 +176,42 @@ main{
     flex-wrap: wrap;
     gap: 10px;
 }
+
+.total-wrapper{
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-radius: 14px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(54, 23, 21, 0.1);
+}
+
+#total-carrito{
+    margin: 5px 0;
+    color: var(--title);
+    font-size: 1rem;
+}
+
+#carrito-titulo{
+    color: var(--title);
+    font-size: 3rem;
+    text-align: center;
+}
+
+#pagarBtn{
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: var(--card-bg);
+    color: var(--title);
+    border: 2px solid var(--card-border);
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(54, 23, 21, 0.1);
+    transition: background-color 0.25s ease-in-out, color 0.25s ease-in-out;
+}
