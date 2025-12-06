@@ -14,9 +14,7 @@ const passwordInput = document.getElementById("password")
 const confirmPasswordInput = document.getElementById("confirmPassword")
 const forgotPasswordLink = document.getElementById("forgotPasswordLink");
 
-const API_BASE_URL = 'http://localhost:4000';
-
-//https://proyectofinal-programacionweb-5tosemestre.onrender.com
+const API_BASE_URL = 'https://proyectofinal-programacionweb-5tosemestre.onrender.com';
 
 let isRegister = false
 
