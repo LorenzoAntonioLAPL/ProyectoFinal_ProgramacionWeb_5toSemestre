@@ -24,9 +24,9 @@ export const completarVenta = async (req,res) => {
             //Crea un arreglo de productos basado en el carrito
             const listaProd = [];
 
-            carrito.forEach(async index => {
-                listaProd.push(await productos.getProductById(parseInt(index)));
-            });
+            listaProd = await Promise.all(
+                carrito.map(id => productos.getProductById(parseInt(id)))
+            );
 
             //Verifica que haya suficientes existencias y las cambia
             for (let index = 0; index < listaProd.length; index++) {
@@ -92,9 +92,9 @@ export const calcularPrecio = async (req, res) => {
         let precioTotal = 0;
         let precioSubTotal = 0;
 
-        carrito.forEach(async index => {
-            listaProd.push(await productos.getProductById(parseInt(index)));
-        });
+        listaProd = await Promise.all(
+            carrito.map(id => productos.getProductById(parseInt(id)))
+        );
 
         listaOferta = await OfertasModel.getAllProducts();
         let prodOferta;
@@ -147,9 +147,9 @@ export const confirmarPedido = async (req, res) => {
             //Crea un arreglo de productos basado en el carrito
             const listaProd = [];
 
-            carrito.forEach(async index => {
-                listaProd.push(await productos.getProductById(parseInt(index)));
-            });
+            listaProd = await Promise.all(
+                carrito.map(id => productos.getProductById(parseInt(id)))
+            );
 
             //Verifica que haya suficientes existencias y las cambia
             for (let index = 0; index < listaProd.length; index++) {
