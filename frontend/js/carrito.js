@@ -24,7 +24,7 @@ async function mostrarCarrito() {
             swal("Error", "No se pudieron cargar los productos", "error");
             return;
         }
-        if(!productosCarrito || productosCarrito.length === 0){
+        if(!productosCarrito || productosCarrito.idProductos.length === 0){
             swal("Error", "No hay productos en el carrito", "error");
             return;
         }
