@@ -366,14 +366,12 @@ btnComprar.addEventListener("click", async() =>{
             }
         });
         
-        swal("hola se supone que ya entraste oke?");
-        
         if (!respuestaDeVenta.ok) {
             swal("Error", "No se pudo procesar la compra", "error");
             return;
         }
 
-        
+
         swal("Éxito", "Compra procesada correctamente", "success").then(() => {
             // window.location.href = "index.html";
         });
