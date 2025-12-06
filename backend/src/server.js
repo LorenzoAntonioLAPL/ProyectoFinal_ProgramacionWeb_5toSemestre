@@ -1,5 +1,8 @@
 import path from "path";
 import dotenv from "dotenv";
+import fs from "fs";
+import PDFDocument from "pdfkit";
+import bwipjs from "bwip-js";
 
 // Cargar variables de entorno desde /backend/.env
 dotenv.config({

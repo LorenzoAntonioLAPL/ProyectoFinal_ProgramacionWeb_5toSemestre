@@ -1,3 +1,25 @@
+:root {
+    --title: #361715;
+    --title-hover: #20110a;
+
+    --card-bg: #faf5f1;
+    --card-border: #d3c2ad;
+
+    --input: #d3c2ad;
+    --input-hover: #c0a584;
+}
+
+[data-theme="dark"] {
+    --title: #f0ddd0;  
+    --title-hover: #dbc5b6;
+     
+    --card-bg: #665648;
+    --card-border: #311f14;
+
+    --input: #918474;
+    --input-hover: #756552;
+}
+
 #home {
     width: 100%;
     height: 85vh; 
@@ -51,7 +73,11 @@
     text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
 }
 
-.home-btn {
+.product-card p {
+    min-height: 10rem;
+}
+
+.product-button, .home-btn {
     display: inline-block;
     padding: 14px 35px;
     font-size: 1.3rem;
@@ -63,9 +89,64 @@
     text-decoration: none;
     transition: 0.3s ease;
     box-shadow: 2px 2px 12px rgba(0,0,0,0.3);
+
+    cursor: pointer;
 }
 
-.home-btn:hover {
+.product-button:hover, .home-btn:hover {
     background-color: #6d4c41;
     transform: scale(1.05);
+}
+
+.product-card img {
+    height: 25vh;
+    object-fit: cover;
+}
+
+#subscribe-cont {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5vh;
+}
+
+#title-sub {
+    color: var(--title);
+    font-size: 3rem;
+    margin-bottom: 1vh;
+}
+
+#formSub {
+    width: 80%;
+
+    background: var(--card-bg);
+    border-radius: 14px;
+    padding: 3rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#formSub input{
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.3rem;
+
+    border-radius: 10px;
+    border: 1px solid #cdb9a9;
+    background: var(--input);
+    margin-bottom: 5vh;
+}
+
+#formSub input::placeholder {
+    color: var(--title);
+}
+
+#subEnviar {
+    height: 5vh;
+    min-width: 125px;
+    padding: 0;
+    font-size: 0.8rem;
 }

@@ -255,6 +255,21 @@ btnComprar.addEventListener("click", async() =>{
     const envTel = envTelInput.value;
 
     const precioTotal = showTotal.innerText.substring(8);
+    // Obtener el país
+    let idPais = null;
+
+    const contPais = document.getElementById("opt-pais");
+    let btnPais = contPais.getElementsByTagName("input") || null;
+
+    for(var i=0;i<btnPais.length;i++){
+        if(btnPais[i].checked){
+            idPais = btnPais[i].getAttribute("id").substring(4);
+        }
+    }
+
+    if(idPais == null){
+        idPais = 1;
+    }
 
     // Si tarjeta de crédito fue seleccionado
     if(radTarjeta.checked) {
@@ -282,7 +297,9 @@ btnComprar.addEventListener("click", async() =>{
     console.log("Elementos: ",envNom,envDir,envCity,envPost,envTel,precioTotal);
 
     if(radTarjeta.checked) {
-        console.log("Con tarjeta de crédito: ",tarNom,tarNum,tarCVC);
+        const lastDigits = tarNum.substring(tarNum.length-4);
+
+        console.log("Con tarjeta de crédito: ",tarNom,lastDigits,tarCVC);
         try{
             const respuestaTar = await fetch(`${API_BASE_URL}/api/ventas/pagoTarjeta`, {
                 method: "POST",
@@ -302,7 +319,31 @@ btnComprar.addEventListener("click", async() =>{
             console.error('Error: No se pudo conectar con el servidor', error);
             swal("Error", "No se pudo conectar con el servidor", "error");
             return;
-        } 
+        }
+
+        // Enviar correo
+        try{
+            const respuestaTar = await fetch(`${API_BASE_URL}/api/ventas/correoPago`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    method: "card",
+                    idPais: idPais,
+                    lastDigits: lastDigits
+                })
+            });
+            if (!respuestaTar.ok) {
+                swal("Error", "No se pudo procesar el pago con tarjeta de crédito", "error");
+                return;
+            }
+        } catch (error) {
+            console.error('Error: No se pudo conectar con el servidor', error);
+            swal("Error", "No se pudo conectar con el servidor", "error");
+            return;
+        }
     } else if (radTrans.checked) {
         console.log("Con transferencia bancaria");
         try{
@@ -328,7 +369,30 @@ btnComprar.addEventListener("click", async() =>{
             return;
         }
 
-        
+        try{
+            const respuestaTrans = await fetch(`${API_BASE_URL}/api/ventas/correoPago`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    method: "transfer",
+                    idPais: idPais
+                })
+            });
+            
+            if (!respuestaTrans.ok) {
+                swal("Error", "No se pudo procesar el pago por transferencia", "error");
+                return;
+            }
+
+        } catch (error) {
+            console.error('Error: No se pudo conectar con el servidor', error);
+            swal("Error", "No se pudo conectar con el servidor", "error");
+            return;
+        }
+
     } else if (radOxxo.checked) {
         console.log("Con OXXO Pay");
         try{
@@ -352,11 +416,33 @@ btnComprar.addEventListener("click", async() =>{
             swal("Error", "No se pudo conectar con el servidor", "error");
             return;
         }
+
+        try{
+            const respuestaOxxo = await fetch(`${API_BASE_URL}/api/ventas/correoPago`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    method: "oxxo",
+                    idPais: idPais
+                })
+            });
+            
+            if (!respuestaOxxo.ok) {
+                swal("Error", "No se pudo procesar el pago con OXXO", "error");
+                return;
+            }
+        } catch (error) {
+            console.error('Error: No se pudo conectar con el servidor', error);
+            swal("Error", "No se pudo conectar con el servidor", "error");
+            return;
+        }
     }
 
     // Despues de maneejar los metodos todos envian un correo con los datos de compra
     // aqui se podria insertar el envio de correo si se tiene vamos lore 
-    console.log("hola de antes de venta")
     //mandar a procesar compra es decir hacer el fetch para procesar la compra del ventas de carrito actual
     try {
         const respuestaDeVenta = await fetch(`${API_BASE_URL}/api/ventas/completarVenta`, {
@@ -365,7 +451,6 @@ btnComprar.addEventListener("click", async() =>{
                 "Authorization": `Bearer ${localStorage.getItem('token')}`,
             }
         });
-        
         if (!respuestaDeVenta.ok) {
             swal("Error", "No se pudo procesar la compra", "error");
             return;
