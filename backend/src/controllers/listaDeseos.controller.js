@@ -2,7 +2,8 @@ import * as ListaModel from '../models/listaDeseos.model.js';
 
 export const agregarLista = async (req, res) => { 
   try { 
-    const { user } = req.user.id;
+    const { id } = req.user;
+    const user = id;
     const { idProducto } = req.params;
 
     const usuario = await ListaModel.findUserById(user); 
@@ -45,14 +46,15 @@ export const agregarLista = async (req, res) => {
 //Quitar de la lista
 export const eliminarLista = async (req, res) => { 
   try { 
-    const { user } = req.user.id;
+    const { id } = req.user;
+    const user = id;
     const { idProducto } = req.params;
 
     const usuario = await ListaModel.findUserById(user); 
     if (!usuario) 
       return res.status(404).json({ mensaje: 'Usuario no encontrado' });
 
-    const listaDeseos = usuario.product_ids.split(",");
+    let listaDeseos = usuario.product_ids.split(",");
     if(listaDeseos[listaDeseos.length - 1] === "") listaDeseos.pop();
 
     //buscar en la lista de usuarios
@@ -83,7 +85,8 @@ export const eliminarLista = async (req, res) => {
 //Devolver la lista
 export const obtenerLista = async (req, res) => { 
   try { 
-    const { user } = req.user.id;
+    const { id } = req.user;
+    const user = id;
 
     const usuario = await ListaModel.findUserById(user); 
     if (!usuario) 
