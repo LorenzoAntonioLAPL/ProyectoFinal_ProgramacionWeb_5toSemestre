@@ -98,7 +98,7 @@ idBusqueda.addEventListener("submit", async (e) => {
     }
 
     prodTotal.forEach(prod => {
-        const card = crearTarjeta(prod,imagen.vectorImg.find(i => i.nombre === prod.imagen).data);
+        const card = crearTarjetaBusc(prod,imagen.vectorImg.find(i => i.nombre === prod.imagen).data);
 
         searchedItem.appendChild(card);
     });
@@ -106,20 +106,39 @@ idBusqueda.addEventListener("submit", async (e) => {
     activarBotones();
 });
 
-function crearTarjeta(prod, imagen) {
+function crearTarjetaBusc(prod, imagen, oferta) {
     const card = document.createElement("div");
     card.classList.add("product-card");
+    let nomCard;
+    if(prod.existencia > 0){
+        nomCard = prod.nombre;
+    }
+    else{
+        nomCard = "No hay existencias";
+    }
+
+    let precioNuevo;
+    if(oferta){
+        precioNuevo = prod.precio * (1-oferta.descuento);
+    }
+    else{
+        precioNuevo = prod.precio;
+    }
 
     card.innerHTML = `
-        <img src="${imagen}" alt="${prod.imagen}">
-        <h3>${prod.nombre}</h3>
-        <p>Precio: $${prod.precio}</p>
-        <p>Existencia: ${prod.existencia}</p>
+        <img src="${imagen}" alt="${prod.imagen}" id="imagen${prod.nombre}">
+        <h3>${nomCard}</h3>
+        <div class="divPreEx">
+            <p>Precio: $${precioNuevo} </p>
+            <p>Existencia: ${prod.existencia}</p>
+        </div>
+        <p>${prod.descripcion}</p>
+        <br>
 
         <div class="card-icons">
             <i class="fa-regular fa-heart btn-deseo" 
                data-producto='${JSON.stringify(prod)}' 
-               title="Añadir a deseos">
+               title="Añadir a deseos" id="icono${prod.nombre}">
             </i>
 
             <i class="fa-solid fa-cart-plus btn-carrito" 

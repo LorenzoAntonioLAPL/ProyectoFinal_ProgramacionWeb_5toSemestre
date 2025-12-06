@@ -36,18 +36,20 @@ async function cargarProductos() {
 
         productos.forEach(prod => {
             const categoria = categoriasMap[prod.categoria];
-            const card = crearTarjeta(prod, data.vectorImg.find(i => i.nombre === prod.imagen).data, dataOf.find(p => p.producto_id === prod.id));
+            const card = crearTarjetaCateg(prod, data.vectorImg.find(i => i.nombre === prod.imagen).data, dataOf.find(p => p.producto_id === prod.id));
 
             if (categoria === "dona") contDona.appendChild(card);
             else if (categoria === "bebida") contBebida.appendChild(card);
             else if (categoria === "souvenir") contSouvenir.appendChild(card);
+        });
 
+        productos.forEach(prod => {
             if(prod.existencia <= 0){
                 document.getElementById(`imagen${prod.nombre}`).style.filter = "grayscale(1)";
             }
         });
 
-    //Activamos los botones DESPUÉS de cargar las tarjetas
+        //Activamos los botones DESPUÉS de cargar las tarjetas
         if(productos.length > 0)
         activarBotones();
 
@@ -57,7 +59,7 @@ async function cargarProductos() {
     }
 }
 
-function crearTarjeta(prod, imagen, oferta) {
+function crearTarjetaCateg(prod, imagen, oferta) {
     const card = document.createElement("div");
     card.classList.add("product-card");
     let nomCard;

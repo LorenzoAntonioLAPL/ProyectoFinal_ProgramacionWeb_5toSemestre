@@ -3,16 +3,8 @@ const deseosBtn = document.getElementById("deseosBtn");
 const carritoBtn = document.getElementById("carritoBtn");
 
 document.addEventListener("DOMContentLoaded", async () => {
-    deseosBtn.addEventListener("click", () => {
-        location.href="lista-de-deseos.html";
-    });
-
-    carritoBtn.addEventListener("click", () => {
-        location.href="carrito.html";
-    });
-
     try {
-        const res = await fetch(`${API_BASE_URL}/api/admin/esAdmin`, {
+        const res = await fetch(`${API_BASE_URL}/api/admin`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem('token')}`,
@@ -20,7 +12,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
         let data;
-        data = await res.json();
+        try{
+            data = await res.json();
+        } catch (e) {
+
+        }
 
         if (res.ok) {
             adminBtn.addEventListener("click", () => {
@@ -34,4 +30,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.error("Error al conectar con el servidor:", err);
         swal("Error", "Error de conexión con el servidor.", "error");
     }
+});
+
+deseosBtn.addEventListener("click", () => {
+    location.href="lista-de-deseos.html";
+});
+
+carritoBtn.addEventListener("click", () => {
+    location.href="carrito.html";
 });
