@@ -5,7 +5,7 @@ import * as OfertasModel from "../models/ofertas.model.js"
 
 export const completarVenta = async (req,res) => {
     try {
-        console.log("hola");
+            console.log("hola");
             const { id } = req.user;
             const user = id;
         
@@ -46,11 +46,11 @@ export const completarVenta = async (req,res) => {
             //Actualiza los datos en la base de datos
             let j = 0;
             listaProd.forEach(elemento => {
-                let producto_estado = productos.updateProduct(elemento.id, elemento.nombre, elemento.precio, elemento.descripcion, elemento.existencia, elemento.categoria, elemento.imagen, elemento.ventas + sumaVentas[j]);
+                let producto_estado = productos.updateProduct(elemento.id, elemento.nombre, elemento.precio, elemento.descripcion, elemento.existencia, elemento.categoria, elemento.imagen, (parseFloat(elemento.ventas) + parseFloat(sumaVentas[j])).toFixed(2));
                 if(!producto_estado){
                     console.log("Ocurrio un error al actualizar el producto: " + elemento.id);
                 }
-                let pruebaprod = productos.updateVentas(elemento.id, elemento.ventas + parseFloat(sumaVentas[j].toFixed(2)));
+                //let pruebaprod = productos.updateVentas(elemento.id, (parseFloat(elemento.ventas) + parseFloat(sumaVentas[j].toFixed(2))).toFixed(2));
                 j++;
             });
             
