@@ -18,7 +18,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-formSub.addEventListener("submit", async () => {
+formSub.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("subEmail").value;
+
     try {
         const res = await fetch(`${API_BASE_URL}/api/contacto/suscribir`, {
             method: "POST",
