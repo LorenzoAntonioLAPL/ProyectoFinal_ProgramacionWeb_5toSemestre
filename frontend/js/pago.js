@@ -417,7 +417,7 @@ async function mostrarTotal() {
             showSubtotal.append(`Subtotal: $${data.subtotal}`);
             // Cambiar gastos de envio
             showEnvio.removeChild(showEnvio.lastChild);
-            showEnvio.append(`Envio: $${data.gastosEnvio}`);
+            showEnvio.append(`Envio: $${parseFloat(data.gastosEnvio)}`);
             // Cambiar impuestos
             showImpuesto.removeChild(showImpuesto.lastChild);
             showImpuesto.append(`IVA: ${data.impuestos}`);

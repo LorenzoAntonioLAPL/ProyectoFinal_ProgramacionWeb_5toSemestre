@@ -5,6 +5,8 @@ import * as OfertasModel from "../models/ofertas.model.js"
 
 export const completarVenta = async (req,res) => {
     try {
+            console.warn("entre");
+            
             const { id } = req.user;
             const user = id;
         
@@ -20,6 +22,7 @@ export const completarVenta = async (req,res) => {
             if(carrito.length <= 0){
                 return res.status(400).json({mensaje: "No hay productos en el carrito"})
             }
+            console.warn("pase carrito");
             
             //Crea un arreglo de productos basado en el carrito
             let listaProd = [];
@@ -27,19 +30,19 @@ export const completarVenta = async (req,res) => {
             listaProd = await Promise.all(
                 carrito.map(id => productos.getProductById(parseInt(id)))
             );
-
-            let sumaVentas;
             //verificar las modificaciones de campo ventas segun la cantidad vendida
             //Verifica que haya suficientes existencias y las cambia
+            let prueba = 0.0;
+            let sumaVentas = 0.0;
             for (let index = 0; index < listaProd.length; index++) {
                 listaProd[index].existencia -= parseInt(listaCantidad[index]);
-                sumaVentas = parseFloat(parseFloat(listaCantidad[index]) * parseFloat(listaProd[index].precio));
-                listaProd[index].ventas += sumaVentas;
-                console.log(parseInt(listaCantidad[index]));
-                console.log(listaProd[index].precio);
-                console.log(sumaVentas);
+                sumaVentas = parseFloat(listaCantidad[index]) * parseFloat(parseFloat(listaProd[index].precio).toFixed(2));
+                listaProd[index].ventas = parseFloat(listaProd[index].ventas) + parseFloat(sumaVentas.toFixed(2));
+                console.warn(sumaVentas);
+                prueba = sumaVentas;
             }
-
+            console.warn("fuera de");
+            
             //Actualiza los datos en la base de datos
             listaProd.forEach(elemento => {
                 let producto_estado = productos.updateProduct(elemento.id, elemento.nombre, elemento.precio, elemento.descripcion, elemento.existencia, elemento.categoria, elemento.imagen, elemento.ventas);
@@ -48,12 +51,14 @@ export const completarVenta = async (req,res) => {
                 }
             });
             
+            console.warn("hola");
+            
             //Limpiar el carrito
             const carrito_estado = await CarritoModel.cleanCarrito(user);
             if(!carrito_estado){
                 return res.status(400).json({mensaje: "Ocurrio un error al actualizar el carrito"});
             }
-            res.status(200).json({mensaje: "Venta completada con exito"})
+            res.status(200).json({mensaje: "Venta completada con exito " + prueba})
     } catch (error) {
         console.error('Error al completar la venta:', error); 
         res.status(500).json({ mensaje: 'Error al completar la venta' });
