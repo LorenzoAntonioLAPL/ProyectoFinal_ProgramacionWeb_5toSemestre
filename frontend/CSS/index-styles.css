@@ -51,7 +51,11 @@
     text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
 }
 
-.home-btn {
+.product-card p {
+    min-height: 10rem;
+}
+
+.product-button, .home-btn {
     display: inline-block;
     padding: 14px 35px;
     font-size: 1.3rem;
@@ -63,9 +67,16 @@
     text-decoration: none;
     transition: 0.3s ease;
     box-shadow: 2px 2px 12px rgba(0,0,0,0.3);
+
+    cursor: pointer;
 }
 
-.home-btn:hover {
+.product-button:hover, .home-btn:hover {
     background-color: #6d4c41;
     transform: scale(1.05);
+}
+
+.product-card img {
+    height: 25vh;
+    object-fit: cover;
 }

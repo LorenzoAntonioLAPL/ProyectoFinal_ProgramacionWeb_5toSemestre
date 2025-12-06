@@ -2,11 +2,13 @@ import * as productos from "../models/productos.model.js";
 import * as CarritoModel from "../models/carrito.model.js";
 import * as PaisModel from "../models/pais.model.js";
 import * as OfertasModel from "../models/ofertas.model.js"
+import { generatePDF } from "../utils/genPDF.js";
+import { sendEmail } from "../utils/sendEmail.js"
 
 export const completarVenta = async (req,res) => {
     try {
-        const { id } = req.user;
-        const user = id;
+            const { id } = req.user;
+            const user = id;
         
             const usuario = await CarritoModel.findUserById(user); 
             if (!usuario) 
@@ -22,11 +24,16 @@ export const completarVenta = async (req,res) => {
             }
             
             //Crea un arreglo de productos basado en el carrito
-            const listaProd = [];
+            let listaProd = [];
 
-            carrito.forEach(async index => {
-                listaProd.push(await productos.getProductById(parseInt(index)));
-            });
+            listaProd = await Promise.all(
+                carrito.map(id => productos.getProductById(parseInt(id)))
+            );
+
+            //verificar las modificaciones de campo ventas segun la cantidad vendida
+            for (let index = 0; index < listaProd.length; index++) {
+                listaProd[index].ventas += (parseInt(listaCantidad[index]) * listaProd[index].precio);
+            }
 
             //Verifica que haya suficientes existencias y las cambia
             for (let index = 0; index < listaProd.length; index++) {
@@ -87,15 +94,15 @@ export const calcularPrecio = async (req, res) => {
         }
           
         //Crea un arreglo de productos basado en el carrito
-        const listaProd = [];
+        let listaProd = [];
         let listaOferta = [];
         let precioTotal = 0;
         let precioSubTotal = 0;
 
-        carrito.forEach(async index => {
-            listaProd.push(await productos.getProductById(parseInt(index)));
-        });
-
+        listaProd = await Promise.all(
+            carrito.map(id => productos.getProductById(parseInt(id)))
+        );
+        
         listaOferta = await OfertasModel.getAllProducts();
         let prodOferta;
 
@@ -109,8 +116,8 @@ export const calcularPrecio = async (req, res) => {
             }
         }
 
-        let envio = 100 * (1+pais.impuesto);
-        precioTotal = precioSubTotal*(1+pais.impuesto);
+        let envio = (100 * (1+pais.impuesto));
+        precioTotal = (precioSubTotal*(1+pais.impuesto));
         precioTotal += envio;
         
 
@@ -145,11 +152,11 @@ export const confirmarPedido = async (req, res) => {
             }
             
             //Crea un arreglo de productos basado en el carrito
-            const listaProd = [];
+            let listaProd = [];
 
-            carrito.forEach(async index => {
-                listaProd.push(await productos.getProductById(parseInt(index)));
-            });
+            listaProd = await Promise.all(
+                carrito.map(id => productos.getProductById(parseInt(id)))
+            );
 
             //Verifica que haya suficientes existencias y las cambia
             for (let index = 0; index < listaProd.length; index++) {
@@ -170,7 +177,7 @@ export const confirmarPedido = async (req, res) => {
 export const pagoTarjeta = async (req, res) => {
     try { 
         const { id } = req.user;
-    const user = id;
+        const user = id;
         const { precio } = req.body;
 
         const usuario = await CarritoModel.findUserById(user); 
@@ -191,7 +198,7 @@ export const pagoTarjeta = async (req, res) => {
 export const pagoTransferencia = async (req, res) => {
     try { 
         const { id } = req.user;
-    const user = id;
+        const user = id;
         const { precio } = req.body;
 
         const usuario = await CarritoModel.findUserById(user); 
@@ -212,7 +219,7 @@ export const pagoTransferencia = async (req, res) => {
 export const pagoOxxo = async (req, res) => {
     try { 
         const { id } = req.user;
-    const user = id;
+        const user = id;
         const { precio } = req.body;
 
         const usuario = await CarritoModel.findUserById(user); 
@@ -236,9 +243,10 @@ export const pagoOxxo = async (req, res) => {
 export const calcularSubTotal = async (req, res) => {
     try { 
         const { id } = req.user;
-    const user = id;
+        const user = id;
 
         const usuario = await CarritoModel.findUserById(user); 
+        
         if (!usuario) 
             return res.status(404).json({ mensaje: 'Usuario no encontrado' });
         
@@ -252,13 +260,13 @@ export const calcularSubTotal = async (req, res) => {
         }
           
         //Crea un arreglo de productos basado en el carrito
-        const listaProd = [];
+        let listaProd = [];
         let listaOferta = [];
         let precioSubTotal = 0;
 
-        carrito.forEach(async index => {
-            listaProd.push(await productos.getProductById(parseInt(index)));
-        });
+        listaProd = await Promise.all(
+            carrito.map(id => productos.getProductById(parseInt(id)))
+        );
         listaOferta = await OfertasModel.getAllProducts();
 
         let prodOferta;
@@ -281,5 +289,70 @@ export const calcularSubTotal = async (req, res) => {
     } catch (error) {
         console.error('Error al calcular el precio:', error); 
         res.status(500).json({ mensaje: 'Error al calcular el precio' });
+    }
+}
+
+export const correoPago = async (req, res) => {
+    const { id, email, nombre } = req.user;
+    const { method, lastDigits=0, cupon="Sin Cupón", idPais } = req.body;
+
+    // Revisar que carrito exista
+    const usuario = await CarritoModel.findUserById(user);
+
+    if (!usuario) 
+      return res.status(404).json({ mensaje: 'Usuario no encontrado' });
+
+    // Revisar pais
+    const pais = await PaisModel.findPaisById(idPais); 
+    if (!pais) 
+        return res.status(404).json({ mensaje: 'Pais no encontrado' });
+
+    // Obtener elementos del carrito
+    const carrito = usuario.product_ids.split(",");
+    if(carrito[carrito.length - 1] === "") carrito.pop();
+
+    const listaCantidad = usuario.product_num.split(",");
+    if(listaCantidad[listaCantidad.length - 1] === "") listaCantidad.pop();
+
+    let items = [];
+
+    items = await Promise.all(
+        carrito.map(id => productos.getProductById(parseInt(id)))
+    );
+
+    // Datos de cobro
+    let total = 0;
+    let subtotal = 0;
+    const iva = pais.impuesto;
+    let envi = (100.0 * (1.0+iva));
+
+    // Obtener elementos en oferta para subtotal
+    listaOferta = await OfertasModel.getAllProducts();
+    let prodOferta;
+
+    for(let i = 0; i<items.length; i++){
+        prodOferta = listaOferta.find(p => p.producto_id === items[i].id);
+        if(!prodOferta){
+            subtotal += items[i].precio * parseInt(listaCantidad[i]);
+        }
+        else{
+            subtotal += (items[i].precio * (1 - prodOferta.descuento)) * parseInt(listaCantidad[i]);
+        }
+    }
+
+    total = (subtotal*(1.0+iva));
+    total += envi;
+
+    // Generar PDF
+    const pdf = generatePDF(id, nombre, method, lastDigits, items, subtotal, iva, envi, cupon, total);
+
+    if(!(pdf === null)){
+        if(sendEmail(email,"Pago en Papa's Donuteria",pdf)){
+            return res.status(200).json({message: "Se completó el pago con exito"});
+        } else {
+            return res.status(500).json({mensaje: "Error al rnviar nota de pago"})
+        }
+    } else {
+        return res.status(500).json({mensaje: "Error al generar el PDF"})
     }
 }

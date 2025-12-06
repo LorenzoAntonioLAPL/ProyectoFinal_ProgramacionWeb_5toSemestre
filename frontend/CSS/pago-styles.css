@@ -9,6 +9,12 @@
 .a-product-button{
     height: 20vh;
     width: 30vh;
+    font-size: 1.2rem;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    text-align: center;
 }
 
 main{
@@ -17,6 +23,10 @@ main{
 
 hr {
     background-color: var(--base);
+}
+
+h1, h2, h3{
+    color: var(--base);
 }
 
 p, label {
@@ -52,4 +62,20 @@ p, label {
 
 #btn-comprar {
     min-width: 75px;
+}
+
+.a-product-card {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.a-product-card img {
+    width: 10rem;
+    height: 10rem;
+    object-fit: cover;
+}
+
+#radio-trans, #radio-tarjeta ,#radio-oxxo {
+    visibility: hidden;
 }

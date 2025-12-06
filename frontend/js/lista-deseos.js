@@ -39,6 +39,12 @@ async function mostrarDeseos() {
             let produ = productos.find(p => p.id === parseInt(prod));
             const card = crearTarjetaDeseo(produ, data.vectorImg.find(i => i.nombre === produ.imagen).data, dataOf.find(p => p.producto_id === produ.id));
             const contenedor = document.getElementById("contenedor-deseos");
+            if(dataOf.find(p => p.producto_id === produ.id)){
+                let avisoOferta = document.createElement('p');
+                avisoOferta.innerHTML = "OFERTA";
+                avisoOferta.style.color = "lightcoral";
+                card.getElementsByClassName("divPreEx")[0].appendChild(avisoOferta);
+            }
             contenedor.appendChild(card);
 
             if(produ.existencia <= 0){
@@ -95,7 +101,7 @@ function crearTarjetaDeseo(prod, imagen, oferta) {
                data-producto='${JSON.stringify(prod)}' 
                title="Añadir al carrito">
             </i>
-            <input type="number" id='nombre${prod.nombre}' min="1">
+            <input type="number" id='nombre${prod.nombre}' min="1" max="${prod.existencia}" value="1">
         </div>
     `;
 

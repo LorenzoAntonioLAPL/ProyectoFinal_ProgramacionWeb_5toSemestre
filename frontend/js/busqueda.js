@@ -89,18 +89,42 @@ idBusqueda.addEventListener("submit", async (e) => {
         prodTotal = [...prodFiltro];
     }
 
+    if(prodTotal === ""){
+        return;
+    }
+
     // Obtener imagenes
     const response = await fetch(`${API_BASE_URL}/api/imagenes/obtenerImagenes`);
     const imagen = await response.json();
 
     if (!response) {
         swal("Error", data.msg || "Hubo un error al cargar las imagenes", "error");
+        return;
+    }
+
+    const respuestaOf = await fetch(`${API_BASE_URL}/api/extras/obtenerOfertas`);
+    const dataOf = await respuestaOf.json();
+
+    if(!respuestaOf){
+        swal("Error", data.msg || "Hubo un error al cargar las ofertas", "error");
+        return;
     }
 
     prodTotal.forEach(prod => {
-        const card = crearTarjetaBusc(prod,imagen.vectorImg.find(i => i.nombre === prod.imagen).data);
-
+        const card = crearTarjetaBusc(prod,imagen.vectorImg.find(i => i.nombre === prod.imagen).data, dataOf.find(p => p.producto_id === prod.id));
+        if(dataOf.find(p => p.producto_id === prod.id)){
+                let avisoOferta = document.createElement('p');
+                avisoOferta.innerHTML = "OFERTA";
+                avisoOferta.style.color = "lightcoral";
+                card.getElementsByClassName("divPreEx")[0].appendChild(avisoOferta);
+            }
         searchedItem.appendChild(card);
+    });
+
+    prodTotal.forEach(prod => {
+        if(prod.existencia <= 0){
+            document.getElementById(`imagen${prod.nombre}`).style.filter = "grayscale(1)";
+        }
     });
 
     activarBotones();
@@ -145,7 +169,7 @@ function crearTarjetaBusc(prod, imagen, oferta) {
                data-producto='${JSON.stringify(prod)}' 
                title="Añadir al carrito">
             </i>
-            <input type="number" id='nombre${prod.nombre}' min="1">
+            <input type="number" id='nombre${prod.nombre}' min="1" max="${prod.existencia}" value="1">
         </div>
     `;
 

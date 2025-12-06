@@ -25,38 +25,114 @@ const btnSect = document.getElementById("pago-btns");
 const btnComprar = document.getElementById("btn-comprar");
 
 document.addEventListener('DOMContentLoaded', async () =>{
-    // Obtener carrito
-    try {
-        const response = await fetch(`${API_BASE_URL}/api/carritoCompra/obtenerCarrito`, {
+    try{
+        const resp = await fetch(`${API_BASE_URL}/api/products/obtenerProductos`);
+        const productos = await resp.json();
+
+        if (!resp.ok) {
+            swal("Error", "No se pudieron cargar los productos", "error");
+            return;
+        }
+
+        const respuesta = await fetch(`${API_BASE_URL}/api/carritoCompra/obtenerCarrito`, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
             }
         });
+        const productosCarrito = await respuesta.json();
+
+        if (!respuesta.ok) {
+            swal("Error", "No se pudieron cargar los productos", "error");
+            return;
+        }
+
+        const response = await fetch(`${API_BASE_URL}/api/imagenes/obtenerImagenes`);
         const data = await response.json();
         
-        if (response.ok) {
-            let prodCont = document.createElement("div");
-            
-            // Agregar todos los productos obtenidos por data
-            for(var i=0; i<data.length;i++){
-                prodCont.innerHTML +=
-                `<div class="a-product-card">
-                    <img src="imagenes/donas.jpg" alt="">
-                    <div class="a-product-desc">
-                        <h2>${data[i].nombre}</h2>
-                    </div>
-                    <h3>$${data[i].precio}</h3>
-                </div>
-                `;
+        if (!response.ok) {
+            swal("Error", data.msg || "Hubo un error al cargar las imagenes", "error");
+        }
+
+        const respuestaOf = await fetch(`${API_BASE_URL}/api/extras/obtenerOfertas`);
+        let dataOf = await respuestaOf.json();
+
+        if(!respuestaOf.ok || !dataOf){
+            dataOf = [{ producto_id: 0, descuento: 0 }]
+        }
+
+        console.log("Estoy en pago.js");
+        let j=0;
+        productosCarrito.idProductos.forEach(prod => {
+            let produp = productos.find(p => p.id === parseInt(prod));
+            let prodp = produp;
+            let imagenp = data.vectorImg.find(i => i.nombre === produp.imagen).data;
+            let cantidadTotalp = productosCarrito.cantidades[j];
+            let ofertap = dataOf.find(p => p.producto_id === produp.id);
+            const card = document.createElement("div");
+            let nomCardp;
+            if(prodp.existencia > 0){
+                nomCardp = prodp.nombre;
+            }
+            else{
+                nomCardp = "No hay existencias";
             }
 
-            prodSect.append(prodCont);
-        } else {
-            swal("Error", data.msg || "Hubo un error al cargar los productos", "error");
+            let precioNuevop;
+            if(ofertap){
+                precioNuevop = prodp.precio * (1-ofertap.descuento);
+            }
+            else{
+                precioNuevop = prodp.precio;
+            }
+            card.innerHTML = `
+                <div class="a-product-card">
+                    <img src="${imagenp}" alt="${prodp.imagen}">
+                    <div class="a-product-desc">
+                        <h1>${nomCardp}</h1>
+                        <p>${prodp.descripcion}</p>
+                    </div>
+                    <p>Precio:${precioNuevop}</p>
+                    <div class="a-product-cant">
+                        <p>Cantidad: ${cantidadTotalp}</p>
+                    </div>
+                </div>
+            `;
+            prodSect.append(card);
+            j++;
+        });
+
+        const response1p = await fetch(`${API_BASE_URL}/api/ventas/obtenerSubTotal`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        const data1p = await response1p.json();
+
+        console.log("Data1:", data1p);
+        
+        const response2p = await fetch(`${API_BASE_URL}/api/carritoCompra/obtenerTotalCarrito`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        const data2p = await response2p.json();
+        console.log("Data2:", data2p);
+
+        //Productos agregados: 0 <br> Total a pagar: $0.00
+        if(!response1p || !response2p){
+            swal("Error", data.msg || "Hubo un error al obtener datos del carrito", "error");
+        }
+        else{
+            //datos totales
+            console.log("Total productos:", data2p.totalProductos, "Subtotal:", data1p.subtotal);
         }
     } catch (error) {
-        console.error('Error: No se pudo conectar con el servidor', error);
+        console.error(error);
         swal("Error", "No se pudo conectar con el servidor", "error");
     }
 
@@ -141,7 +217,7 @@ radOxxo.addEventListener("change", () => {
     }
 });
 
-btnComprar.addEventListener("click", () =>{
+btnComprar.addEventListener("click", async() =>{
     let tarNom, tarNum, tarCVC;
 
     const checkEnv = envSect.getElementsByTagName("input");
@@ -178,7 +254,21 @@ btnComprar.addEventListener("click", () =>{
     const envPost = envPostInput.value;
     const envTel = envTelInput.value;
 
-    const precioTotal = showTotal.innerText.substring(8);
+    // Obtener el país
+    let idPais = null;
+
+    const contPais = document.getElementById("opt-pais");
+    let btnPais = contPais.getElementsByTagName("input") || null;
+
+    for(var i=0;i<btnPais.length;i++){
+        if(btnPais[i].checked){
+            idPais = btnPais[i].getAttribute("id").substring(4);
+        }
+    }
+
+    if(idPais == null){
+        idPais = 1;
+    }
 
     // Si tarjeta de crédito fue seleccionado
     if(radTarjeta.checked) {
@@ -204,6 +294,178 @@ btnComprar.addEventListener("click", () =>{
     }
 
     console.log("Elementos: ",envNom,envDir,envCity,envPost,envTel,precioTotal);
+
+    if(radTarjeta.checked) {
+        const lastDigits = tarNum.substring(tarNum.length-4);
+
+        console.log("Con tarjeta de crédito: ",tarNom,lastDigits,tarCVC);
+        try{
+            const respuestaTar = await fetch(`${API_BASE_URL}/api/ventas/pagoTarjeta`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    precio: precioTotal,
+                })
+            });
+            if (!respuestaTar.ok) {
+                swal("Error", "No se pudo procesar el pago con tarjeta de crédito", "error");
+                return;
+            }
+        } catch (error) {
+            console.error('Error: No se pudo conectar con el servidor', error);
+            swal("Error", "No se pudo conectar con el servidor", "error");
+            return;
+        }
+
+        // Enviar correo
+        try{
+            const respuestaTar = await fetch(`${API_BASE_URL}/api/ventas/correoPago`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    method: "card",
+                    idPais: idPais,
+                    lastDigits: lastDigits
+                })
+            });
+            if (!respuestaTar.ok) {
+                swal("Error", "No se pudo procesar el pago con tarjeta de crédito", "error");
+                return;
+            }
+        } catch (error) {
+            console.error('Error: No se pudo conectar con el servidor', error);
+            swal("Error", "No se pudo conectar con el servidor", "error");
+            return;
+        }
+    } else if (radTrans.checked) {
+        console.log("Con transferencia bancaria");
+        try{
+            const respuestaTrans = await fetch(`${API_BASE_URL}/api/ventas/pagoTransferencia`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    precio: precioTotal,
+                })
+            }); 
+            
+            if (!respuestaTrans.ok) {
+                swal("Error", "No se pudo procesar el pago por transferencia", "error");
+                return;
+            }
+
+        } catch (error) {
+            console.error('Error: No se pudo conectar con el servidor', error);
+            swal("Error", "No se pudo conectar con el servidor", "error");
+            return;
+        }
+
+        try{
+            const respuestaTrans = await fetch(`${API_BASE_URL}/api/ventas/correoPago`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    method: "transfer",
+                    idPais: idPais
+                })
+            });
+            
+            if (!respuestaTrans.ok) {
+                swal("Error", "No se pudo procesar el pago por transferencia", "error");
+                return;
+            }
+
+        } catch (error) {
+            console.error('Error: No se pudo conectar con el servidor', error);
+            swal("Error", "No se pudo conectar con el servidor", "error");
+            return;
+        }
+
+    } else if (radOxxo.checked) {
+        console.log("Con OXXO Pay");
+        try{
+            const respuestaOxxo = await fetch(`${API_BASE_URL}/api/ventas/pagoOxxo`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    precio: precioTotal,
+                })
+            });
+            
+            if (!respuestaOxxo.ok) {
+                swal("Error", "No se pudo procesar el pago con OXXO", "error");
+                return;
+            }
+        } catch (error) {
+            console.error('Error: No se pudo conectar con el servidor', error);
+            swal("Error", "No se pudo conectar con el servidor", "error");
+            return;
+        }
+
+        try{
+            const respuestaOxxo = await fetch(`${API_BASE_URL}/api/ventas/correoPago`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    method: "oxxo",
+                    idPais: idPais
+                })
+            });
+            
+            if (!respuestaOxxo.ok) {
+                swal("Error", "No se pudo procesar el pago con OXXO", "error");
+                return;
+            }
+        } catch (error) {
+            console.error('Error: No se pudo conectar con el servidor', error);
+            swal("Error", "No se pudo conectar con el servidor", "error");
+            return;
+        }
+    }
+
+    // Despues de maneejar los metodos todos envian un correo con los datos de compra
+    // aqui se podria insertar el envio de correo si se tiene vamos lore 
+
+    //mandar a procesar compra es decir hacer el fetch para procesar la compra del ventas de carrito actual
+    try {
+        const respuestaDeVenta = await fetch(`${API_BASE_URL}/api/ventas/completarVenta`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`,
+            }
+        });
+
+        if (!respuestaDeVenta.ok) {
+            swal("Error", "No se pudo procesar la compra", "error");
+            return;
+        }
+
+        swal("Éxito", "Compra procesada correctamente", "success").then(() => {
+            // window.location.href = "index.html";
+        });
+
+    } catch (error) {
+        console.error('Error: No se pudo conectar con el servidor', error);
+        swal("Error", "No se pudo conectar con el servidor", "error");
+    }
+
 });
 
 async function mostrarTotal() {
@@ -241,7 +503,7 @@ async function mostrarTotal() {
             showSubtotal.append(`Subtotal: $${data.subtotal}`);
             // Cambiar gastos de envio
             showEnvio.removeChild(showEnvio.lastChild);
-            showEnvio.append(`Envio: $${data.gastosEnvio}`);
+            showEnvio.append(`Envio: $${parseFloat(data.gastosEnvio)}`);
             // Cambiar impuestos
             showImpuesto.removeChild(showImpuesto.lastChild);
             showImpuesto.append(`IVA: ${data.impuestos}`);

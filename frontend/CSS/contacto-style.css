@@ -67,10 +67,6 @@
 #theme-toggle i { transition: transform .2s ease, color .2s ease; }
 #theme-toggle:hover i { transform: scale(1.12); color: var(--accent-hover); }
 
-main {
-    padding-top: 5rem;
-}
-
 .contact-wrapper {
     display: flex;
     justify-content: center;

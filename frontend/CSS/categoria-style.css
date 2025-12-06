@@ -6,6 +6,7 @@
     --card-border: #d3c2ad;
 
     --input: #d3c2ad;
+    --input-hover: #c0a584;
 }
 
 [data-theme="dark"] {
@@ -16,10 +17,10 @@
     --card-border: #311f14;
 
     --input: #918474;
+    --input-hover: #756552;
 }
 
-main{
-    margin-top: 15vh;
+main {
     padding: 2vh;
 }
 
@@ -33,7 +34,7 @@ main{
 /* Títulos de categoría */
 .container-categ, .featured-container h2 {
     color: var(--title);
-    margin: 30px 0 15px;
+    margin: 0 0 15px;
     font-size: 1.5rem;
     font-weight: bold;
 }
@@ -154,6 +155,14 @@ main{
     color: var(--title);
 }
 
+#searchSubmit {
+    cursor: pointer;
+}
+
+#searchSubmit:hover {
+    background-color: var(--input-hover);
+}
+
 #searchOffer {
     height: 3.5vh;
     width: 3.5vh;
@@ -172,6 +181,51 @@ main{
 }
 
 #contenedor-deseos{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.total-wrapper{
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-radius: 14px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(54, 23, 21, 0.1);
+}
+
+#total-carrito{
+    margin: 5px 0;
+    color: var(--title);
+    font-size: 1rem;
+}
+
+#carrito-titulo{
+    color: var(--title);
+    font-size: 3rem;
+    text-align: center;
+}
+
+#pagarBtn{
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: var(--card-bg);
+    color: var(--title);
+    border: 2px solid var(--card-border);
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(54, 23, 21, 0.1);
+    transition: background-color 0.25s ease-in-out, color 0.25s ease-in-out;
+}
+
+#contenedor-donas, #contenedor-bebidas, #contenedor-souvenirs, #searched-items{
     display: flex;
     flex-wrap: wrap;
     gap: 10px;

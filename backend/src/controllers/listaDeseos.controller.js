@@ -26,7 +26,13 @@ export const agregarLista = async (req, res) => {
 
     listaDeseos.push(String(idProducto));
 
-    const lista = listaDeseos.join(",") + ",";
+    let lista;
+    if(listaDeseos.length === 0){
+      lista = "";
+    }else{
+      lista = listaDeseos.join(",") + ",";
+    }
+
     /*let lista="";
     for(const idProd of listaDeseos){
       lista = lista + idProd + ",";
@@ -64,12 +70,14 @@ export const eliminarLista = async (req, res) => {
     else{
       return res.status(404).json({ mensaje: 'El producto no esta en la lista de deseos' });
     }
+    
+    let lista;
 
-    const lista = listaDeseos.join(",") + ",";
-    /*let lista="";
-    for(const idProd of listaDeseos){
-      lista = lista + idProd + ",";
-    }*/
+    if(listaDeseos.length === 0){
+      lista = "";
+    }else{
+      lista = listaDeseos.join(",") + ",";
+    }
 
     const filas = await ListaModel.updateLista(user, lista); 
     if (filas === 0) 
