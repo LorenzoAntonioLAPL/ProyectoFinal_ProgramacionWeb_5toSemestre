@@ -147,6 +147,7 @@ if (usuarioGuardado && tokenGuardado) {
 logoutBtn.addEventListener("click", () => {
   localStorage.removeItem("token");
   localStorage.removeItem("usuario");
+  resetThemeOnLogout();
   location.reload();
 });
 

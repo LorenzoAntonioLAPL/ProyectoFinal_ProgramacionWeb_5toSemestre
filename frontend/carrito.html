@@ -11,12 +11,17 @@
     <link rel="stylesheet" href="./CSS/essencial-styles.css">
     <link rel="stylesheet" href="./CSS/categoria-style.css">
 
+    
+    <script>
+        window.currentUserId = "{{ user.id }}"; // PHP, Node, Laravel, Django, lo que uses
+    </script>
     <!-- Scripts -->
     <script src="./js/login.js" defer></script>
     <script src="./js/slider.js" defer></script>
     <script src="./js/header.js" defer></script>
     <script src="./js/theme.js" defer></script>
     <script src="./js/carrito.js" defer></script>
+    <script src="./js/font.js" defer></script>
 
     <!-- Scripts Externos -->
     <script src="https://kit.fontawesome.com/d420dccc9b.js" crossorigin="anonymous"></script>
@@ -156,5 +161,12 @@
         <p class="footer-rights">Nota: Esto es un proyecto escolar sin el objetivo de ser una tienda real</p>
     </div>
 </footer>
+
+<!--Botones de control de tamaño-->
+    <div class="font-controls">
+        <button id="font-decrease">A-</button>
+        <button id="font-reset">A</button>
+        <button id="font-increase">A+</button>
+    </div>
 </body>
 </html>

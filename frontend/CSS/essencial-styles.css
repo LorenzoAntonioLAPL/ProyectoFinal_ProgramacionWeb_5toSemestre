@@ -465,7 +465,6 @@ footer {
     transform: scale(1.1);
 }
 
-<<<<<<< HEAD
 .font-controls {
     position: fixed;
     bottom: 20px;
@@ -497,8 +496,6 @@ footer {
     background: var(--card-p);
 }
 
-
-=======
 /* Contenido colapsable: Basicamente hacer pestañas */
 /* Encabezado/boton del contenido a colapsar */
 .collapsible {
@@ -521,4 +518,3 @@ footer {
   transition: max-height 0.2s ease-out;
   background-color: var(--collapse-cont);
 }
->>>>>>> dev

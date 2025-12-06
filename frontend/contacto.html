@@ -10,6 +10,10 @@
     <!-- Estilos -->
     <link rel="stylesheet" href="./CSS/essencial-styles.css">
     <link rel="stylesheet" href="./CSS/contacto-style.css">
+    
+    <script>
+        window.currentUserId = "{{ user.id }}"; // PHP, Node, Laravel, Django, lo que uses
+    </script>
 
     <!-- Scripts -->
     <script src="js/login.js" defer></script>
@@ -17,11 +21,14 @@
     <script src="./js/header.js" defer></script>
     <script src="./js/theme.js" defer></script>
     <script src="js/faq.js" defer></script>
+    <script src="./js/contacto.js" defer></script>
+    <script src="./js/font.js" defer></script>
 
     <!-- Scripts Externos -->
     <script src="https://kit.fontawesome.com/d420dccc9b.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    
 </head>
 <body>
     <!-- Navbar -->
@@ -86,13 +93,13 @@
                 <div class="contact-right">
                     <h2>Envíanos un mensaje</h2>
 
-                    <form id="contactForm">
-                        <input type="text" placeholder="Tu nombre" required id="nombre">
-                        <input type="email" placeholder="Tu correo electrónico" required id="email">
-                        <textarea placeholder="Escribe tu mensaje..." required id="mensaje"></textarea>
-
+                   <form id="contactForm">
+                        <input type="text" placeholder="Tu nombre" required id="nombreForm" name="nombre">
+                        <input type="email" placeholder="Tu correo electrónico" required id="emailForm" name="email">
+                        <textarea placeholder="Escribe tu mensaje..." required id="mensajeForm" name="mensaje"></textarea>
                         <button type="submit" class="btn-enviar">Enviar mensaje</button>
                     </form>
+
                 </div>
             </div>
         </section>
@@ -229,5 +236,12 @@
             <p class="footer-rights">Nota: Esto es un proyecto escolar sin el objetivo de ser una tienda real</p>
         </div>
     </footer>
+
+    <!--Botones de control de tamaño-->
+    <div class="font-controls">
+        <button id="font-decrease">A-</button>
+        <button id="font-reset">A</button>
+        <button id="font-increase">A+</button>
+    </div>
 </body>
 </html>
