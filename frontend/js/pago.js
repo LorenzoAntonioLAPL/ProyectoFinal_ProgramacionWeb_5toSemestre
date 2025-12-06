@@ -356,7 +356,7 @@ btnComprar.addEventListener("click", async() =>{
 
     // Despues de maneejar los metodos todos envian un correo con los datos de compra
     // aqui se podria insertar el envio de correo si se tiene vamos lore 
-
+    console.log("hola de antes de venta")
     //mandar a procesar compra es decir hacer el fetch para procesar la compra del ventas de carrito actual
     try {
         const respuestaDeVenta = await fetch(`${API_BASE_URL}/api/ventas/completarVenta`, {
@@ -365,12 +365,15 @@ btnComprar.addEventListener("click", async() =>{
                 "Authorization": `Bearer ${localStorage.getItem('token')}`,
             }
         });
-
+        
+        swal("hola se supone que ya entraste oke?");
+        
         if (!respuestaDeVenta.ok) {
             swal("Error", "No se pudo procesar la compra", "error");
             return;
         }
 
+        
         swal("Éxito", "Compra procesada correctamente", "success").then(() => {
             // window.location.href = "index.html";
         });

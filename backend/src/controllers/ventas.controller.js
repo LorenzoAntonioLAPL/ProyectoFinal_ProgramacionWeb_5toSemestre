@@ -5,8 +5,7 @@ import * as OfertasModel from "../models/ofertas.model.js"
 
 export const completarVenta = async (req,res) => {
     try {
-            console.warn("entre");
-            
+        console.log("hola");
             const { id } = req.user;
             const user = id;
         
@@ -22,7 +21,6 @@ export const completarVenta = async (req,res) => {
             if(carrito.length <= 0){
                 return res.status(400).json({mensaje: "No hay productos en el carrito"})
             }
-            console.warn("pase carrito");
             
             //Crea un arreglo de productos basado en el carrito
             let listaProd = [];
@@ -33,25 +31,21 @@ export const completarVenta = async (req,res) => {
             //verificar las modificaciones de campo ventas segun la cantidad vendida
             //Verifica que haya suficientes existencias y las cambia
             let prueba = 0.0;
-            let sumaVentas = 0.0;
+            let sumaVentas = [];
             for (let index = 0; index < listaProd.length; index++) {
                 listaProd[index].existencia -= parseInt(listaCantidad[index]);
-                sumaVentas = parseFloat(listaCantidad[index]) * parseFloat(parseFloat(listaProd[index].precio).toFixed(2));
-                listaProd[index].ventas = parseFloat(listaProd[index].ventas) + parseFloat(sumaVentas.toFixed(2));
-                console.warn(sumaVentas);
-                prueba = sumaVentas;
+                sumaVentas.push(parseFloat(listaCantidad[index]) * parseFloat(parseFloat(listaProd[index].precio).toFixed(2)));
             }
-            console.warn("fuera de");
             
             //Actualiza los datos en la base de datos
+            let j = 0;
             listaProd.forEach(elemento => {
-                let producto_estado = productos.updateProduct(elemento.id, elemento.nombre, elemento.precio, elemento.descripcion, elemento.existencia, elemento.categoria, elemento.imagen, elemento.ventas);
+                let producto_estado = productos.updateProduct(elemento.id, elemento.nombre, elemento.precio, elemento.descripcion, elemento.existencia, elemento.categoria, elemento.imagen, elemento.ventas + sumaVentas[j]);
                 if(!producto_estado){
                     console.log("Ocurrio un error al actualizar el producto: " + elemento.id);
                 }
+                let pruebaprod = productos.updateVentas(elemento.id, elemento.ventas + parseFloat(sumaVentas[j].toFixed(2)));
             });
-            
-            console.warn("hola");
             
             //Limpiar el carrito
             const carrito_estado = await CarritoModel.cleanCarrito(user);
@@ -121,8 +115,8 @@ export const calcularPrecio = async (req, res) => {
             }
         }
 
-        let envio = 100 * (1+pais.impuesto);
-        precioTotal = precioSubTotal*(1+pais.impuesto);
+        let envio = parseInt(100) * (1+parseFloat(pais.impuesto));
+        precioTotal = precioSubTotal*(1+parseFloat(pais.impuesto));
         precioTotal += envio;
         
 
