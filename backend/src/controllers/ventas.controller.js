@@ -253,7 +253,7 @@ export const calcularSubTotal = async (req, res) => {
         }
           
         //Crea un arreglo de productos basado en el carrito
-        const listaProd = [];
+        let listaProd = [];
         let listaOferta = [];
         let precioSubTotal = 0;
 

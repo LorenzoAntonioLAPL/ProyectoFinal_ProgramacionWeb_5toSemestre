@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
         console.log("Data2:", data2p);
 
         //Productos agregados: 0 <br> Total a pagar: $0.00
-        if(!response1 || !response2){
+        if(!response1p || !response2p){
             swal("Error", data.msg || "Hubo un error al obtener datos del carrito", "error");
         }
         else{
