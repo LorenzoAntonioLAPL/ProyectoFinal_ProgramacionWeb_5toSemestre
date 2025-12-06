@@ -1,65 +1,112 @@
-document.addEventListener("DOMContentLoaded", () => {
-    cargarProductos();
-});
+const idBusqueda = document.getElementById("formSearch");
+const searchedItem = document.getElementById("searched-items");
 
-// Mapeo de categorías NUMÉRICAS → TEXTO
-const categoriasMap = {
-    1: "dona",
-    2: "bebida",
-    3: "souvenir"
-};
+idBusqueda.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-async function cargarProductos() {
+    const searchCateg = document.getElementById("searchCateg").value || 0;
+    const searchRange_low = document.getElementById("searchRange-low").value || 0;
+    const searchRange_high = document.getElementById("searchRange-high").value || null;
+    const searchOffer = document.getElementById("searchOffer").checked || false;
+
+    let prodTotal = [];
+    let prodFiltro = [];
+
+    // Limpiar el contenedor de los items buscados
+    while (searchedItem.firstChild) {
+        searchedItem.removeChild(searchedItem.lastChild);
+    }
+
+    // Obtener todos los articulos
     try {
         const resp = await fetch(`${API_BASE_URL}/api/products/obtenerProductos`);
-        const productos = await resp.json();
+        const data = await resp.json();
 
-        if (!resp.ok) {
-            swal("Error", "No se pudieron cargar los productos", "error");
-            return;
-        }
-
-        // Contenedores del HTML
-        const contDona = document.getElementById("contenedor-donas");
-        const contBebida = document.getElementById("contenedor-bebidas");
-        const contSouvenir = document.getElementById("contenedor-souvenirs");
-
-        const response = await fetch(`${API_BASE_URL}/api/imagenes/obtenerImagenes`);
-        const data = await response.json();
-        
-        if (!response.ok) {
-            swal("Error", data.msg || "Hubo un error al cargar las imagenes", "error");
-        }
-
-        const respuestaOf = await fetch(`${API_BASE_URL}/api/extras/obtenerOfertas`);
-        const dataOf = await respuestaOf.json();
-
-        productos.forEach(prod => {
-            const categoria = categoriasMap[prod.categoria];
-            const card = crearTarjetaCateg(prod, data.vectorImg.find(i => i.nombre === prod.imagen).data, dataOf.find(p => p.producto_id === prod.id));
-
-            if (categoria === "dona") contDona.appendChild(card);
-            else if (categoria === "bebida") contBebida.appendChild(card);
-            else if (categoria === "souvenir") contSouvenir.appendChild(card);
-        });
-
-        productos.forEach(prod => {
-            if(prod.existencia <= 0){
-                document.getElementById(`imagen${prod.nombre}`).style.filter = "grayscale(1)";
-            }
-        });
-
-        //Activamos los botones DESPUÉS de cargar las tarjetas
-        if(productos.length > 0)
-        activarBotones();
-
+        prodTotal = data;
     } catch (error) {
         console.error(error);
         swal("Error", "No se pudo conectar con el servidor", "error");
     }
-}
+    
+    // Buscar por categoría
+    if(searchCateg != 0){
+        try {
+            prodTotal.forEach(prod => {
+                if(prod.categoria == searchCateg){
+                    prodFiltro.push(prod);
+                }
+            });
+        } catch (error) {
+            console.error(error);
+            swal("Error", "Error al buscar por categoría", "error");
+        }
+        prodTotal = [...prodFiltro];
+    }
 
-function crearTarjetaCateg(prod, imagen, oferta) {
+    // Buscar por rango
+    if((searchRange_low !== 0) || (searchRange_high !== null)){
+        prodFiltro = [];
+        try {
+            if(searchRange_high == null){
+                prodTotal.forEach(prod => {
+                    if(prod.precio >= searchRange_low){
+                        prodFiltro.push(prod);
+                    }
+                });
+            } else {
+                console.log("Entrar filtro rango max");
+                prodTotal.forEach(prod => {
+                    if((prod.precio >= searchRange_low) && (searchRange_high+1 > prod.precio)){
+                        prodFiltro.push(prod);
+                    }
+                });
+            }
+        } catch (error) {
+            console.error(error);
+            swal("Error", "Error al filtrar por rango", "error");
+        }
+        prodTotal = [...prodFiltro];
+    }
+
+    // Buscar por oferta
+    if(searchOffer){
+        prodFiltro = [];
+        try {
+            const resp = await fetch(`${API_BASE_URL}/api/extras/obtenerOfertas`);
+            const data = await resp.json();;
+
+            if(resp){
+                prodTotal.forEach(prod => {
+                    if(data.find(i => i.producto_id === prod.id)){
+                        prodFiltro.push(prod);
+                    }
+                });
+            }
+        } catch (error) {
+            console.error(error);
+            swal("Error", "No se pudo conectar con el servidor", "error");
+        }
+        prodTotal = [...prodFiltro];
+    }
+
+    // Obtener imagenes
+    const response = await fetch(`${API_BASE_URL}/api/imagenes/obtenerImagenes`);
+    const imagen = await response.json();
+
+    if (!response) {
+        swal("Error", data.msg || "Hubo un error al cargar las imagenes", "error");
+    }
+
+    prodTotal.forEach(prod => {
+        const card = crearTarjetaBusc(prod,imagen.vectorImg.find(i => i.nombre === prod.imagen).data);
+
+        searchedItem.appendChild(card);
+    });
+
+    activarBotones();
+});
+
+function crearTarjetaBusc(prod, imagen, oferta) {
     const card = document.createElement("div");
     card.classList.add("product-card");
     let nomCard;
@@ -115,16 +162,14 @@ function activarBotones() {
             const response = await fetch(`${API_BASE_URL}/api/listaDeseos/agregarProducto/${prod.id}`, {
                 method: "PUT",
                 headers: {
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                    "Content-Type": "application/json"
                 }
             });
             const data = await response.json();
 
             if(response.ok){
                 swal("Éxito", data.mensaje || "Se añadio el producto a la lista de deseos", "success");
-                let varIcono = document.getElementById(`icono${prod.nombre}`);
-                varIcono.classList.remove("fa-regular");
-                varIcono.classList.add("fa-solid");
                 btn.removeEventListener("click", primerClicDeseo);
                 btn.addEventListener("click", segundoClicDeseo);
             } else {
@@ -138,16 +183,14 @@ function activarBotones() {
             const response = await fetch(`${API_BASE_URL}/api/listaDeseos/eliminarProducto/${prod.id}`, {
                 method: "PUT",
                 headers: {
-                    "Authorization": `Bearer ${localStorage.getItem('token')}`
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                    "Content-Type": "application/json"
                 }
             });
             const data = await response.json();
 
             if(response.ok){
                 swal("Éxito", data.mensaje || "Se elimino el producto a la lista de deseos", "success");
-                let varIcono = document.getElementById(`icono${prod.nombre}`);
-                varIcono.classList.remove("fa-solid");
-                varIcono.classList.add("fa-regular");
                 btn.removeEventListener("click", segundoClicDeseo);
                 btn.addEventListener("click", primerClicDeseo);
             } else {
@@ -217,20 +260,3 @@ function activarBotones() {
         btn.addEventListener("click", primerClicCarrito);
     });
 }
-
-//Guardar en localStorage y redirigir
-/*function enviarA(tipo, producto) {
-    let lista = JSON.parse(localStorage.getItem(tipo)) || [];
-
-    // Si el producto ya existe, aumentar cantidad
-    const index = lista.findIndex(p => p.id === producto.id);
-
-    if (index >= 0) {
-        lista[index].cantidad += 1;
-    } else {
-        producto.cantidad = 1;
-        lista.push(producto);
-    }
-
-    localStorage.setItem(tipo, JSON.stringify(lista));
-}*/

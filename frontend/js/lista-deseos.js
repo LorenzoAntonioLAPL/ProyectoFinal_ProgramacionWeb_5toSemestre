@@ -37,7 +37,7 @@ async function mostrarDeseos() {
 
         productosLista.forEach(prod => {
             let produ = productos.find(p => p.id === parseInt(prod));
-            const card = crearTarjeta(produ, data.vectorImg.find(i => i.nombre === produ.imagen).data, dataOf.find(p => p.producto_id === produ.id));
+            const card = crearTarjetaDeseo(produ, data.vectorImg.find(i => i.nombre === produ.imagen).data, dataOf.find(p => p.producto_id === produ.id));
             const contenedor = document.getElementById("contenedor-deseos");
             contenedor.appendChild(card);
 
@@ -56,7 +56,7 @@ async function mostrarDeseos() {
     }
 }
 
-function crearTarjeta(prod, imagen, oferta) {
+function crearTarjetaDeseo(prod, imagen, oferta) {
     const card = document.createElement("div");
     card.classList.add("product-card");
     let nomCard;

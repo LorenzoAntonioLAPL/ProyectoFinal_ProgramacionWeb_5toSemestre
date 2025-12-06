@@ -4,6 +4,8 @@
 
     --card-bg: #faf5f1;
     --card-border: #d3c2ad;
+
+    --input: #d3c2ad;
 }
 
 [data-theme="dark"] {
@@ -12,10 +14,13 @@
      
     --card-bg: #665648;
     --card-border: #311f14;
+
+    --input: #918474;
 }
 
 main{
     margin-top: 15vh;
+    padding: 2vh;
 }
 
 /* CONTENEDOR GENERAL*/
@@ -29,12 +34,12 @@ main{
 .container-categ, .featured-container h2 {
     color: var(--title);
     margin: 30px 0 15px;
-    font-size: 28px;
+    font-size: 1.5rem;
     font-weight: bold;
 }
 
 
-/*GRID DE TARJETAS*/
+/* GRID DE TARJETAS */
 .featured-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
@@ -73,7 +78,7 @@ main{
 
 /* Nombre y texto */
 .product-card h3 {
-    font-size: 20px;
+    font-size: 1.5rem;
     color: var(--title);
     margin: 10px 0 5px;
 }
@@ -81,7 +86,7 @@ main{
 .product-card p {
     margin: 5px 0;
     color: var(--title);
-    font-size: 16px;
+    font-size: 1rem;
 }
 
 
@@ -94,7 +99,7 @@ main{
 }
 
 .card-icons i {
-    font-size: 22px;
+    font-size: 1.2rem;
     color: var(--title);
     cursor: pointer;
     transition: color 0.2s ease-in-out;
@@ -104,55 +109,18 @@ main{
     color: var(--title-hover);
 }
 
-/*Total de pago*/
-/* Tarjeta del total del carrito */
-#total-carrito {
-    background-color: #f0ddd0;
-    color: #361715;
-    padding: 15px 20px;
-    border-radius: 15px;
-    font-size: 18px;
-    font-weight: bold;
-    margin: 20px auto;
-    width: fit-content;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(54, 23, 21, 0.2);
-}
-
-/*centrarlo completamente*/
-.total-wrapper {
+/* Búsqueda */
+#formSearch {
+    margin-top: 2vh;
     display: flex;
-    justify-content: center;
-    margin-top: 15px;
-}
-
-/* Controles de cantidad */
-.cantidad-control {
-    display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 12px;
-    margin-top: 10px;
+    justify-content: space-around;
 }
 
-.cantidad-control button {
-    background-color: #694440;  
-    color: #faf5f1;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.cantidad-control button:hover {
-    background-color: #361715;
-}
-
-.container-categ div{
+#checkboxCont {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    align-items: center;
+    gap: 1rem;
 }
 
 .product-card {
@@ -171,6 +139,30 @@ main{
 
 .product-card input{
     width: 40px;
+}
+
+#formSearch input, #formSearch select {
+    border-radius: 0.5rem;
+    height: 5vh;
+    padding: 0.5rem;
+    border: 1px solid var(--card-border);
+    background-color: var(--input);
+    color: var(--title);
+}
+
+#formSearch input::placeholder {
+    color: var(--title);
+}
+
+#searchOffer {
+    height: 3.5vh;
+    width: 3.5vh;
+    border-radius: 0.5rem;
+    border: 0;
+}
+
+#searchSubmit {
+    width: 10vh;
 }
 
 #contenedor-carrito{

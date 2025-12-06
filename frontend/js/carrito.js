@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 async function mostrarCarrito() {
-    try {
+    try{
         const resp = await fetch(`${API_BASE_URL}/api/products/obtenerProductos`);
         const productos = await resp.json();
 
@@ -42,7 +42,7 @@ async function mostrarCarrito() {
         let j=0;
         productosCarrito.idProductos.forEach(prod => {
             let produ = productos.find(p => p.id === parseInt(prod));
-            const card = crearTarjeta(produ, data.vectorImg.find(i => i.nombre === produ.imagen).data, productosCarrito.cantidades[j], dataOf.find(p => p.producto_id === produ.id));
+            const card = crearTarjetaCart(produ, data.vectorImg.find(i => i.nombre === produ.imagen).data, productosCarrito.cantidades[j], dataOf.find(p => p.producto_id === produ.id));
             const contenedor = document.getElementById("contenedor-carrito");
             contenedor.appendChild(card);
             if(productos.find(p => p.id === parseInt(prod)).existencia <= 0){
@@ -52,7 +52,7 @@ async function mostrarCarrito() {
         });
 
     //Activamos los botones DESPUÉS de cargar las tarjetas
-        if(productosCarrito.length > 0)
+        if(productosCarrito.idProductos.length > 0)
         activarBotones();
 
         const response1 = await fetch(`${API_BASE_URL}/api/ventas/obtenerSubTotal`, {
@@ -85,7 +85,7 @@ async function mostrarCarrito() {
     }
 }
 
-function crearTarjeta(prod, imagen, cantidadTotal, oferta) {
+function crearTarjetaCart(prod, imagen, cantidadTotal, oferta) {
     const card = document.createElement("div");
     card.classList.add("product-card");
     let nomCard;
@@ -130,6 +130,8 @@ function crearTarjeta(prod, imagen, cantidadTotal, oferta) {
             <input type="number" id='nombre${prod.nombre}' min="1">
         </div>
     `;
+
+    console.log("Tarjeta generada: ",card);
 
     return card;
 }
