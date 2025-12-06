@@ -217,7 +217,7 @@ radOxxo.addEventListener("change", () => {
     }
 });
 
-btnComprar.addEventListener("click", () =>{
+btnComprar.addEventListener("click", async() =>{
     let tarNom, tarNum, tarCVC;
 
     const checkEnv = envSect.getElementsByTagName("input");
@@ -284,7 +284,7 @@ btnComprar.addEventListener("click", () =>{
     if(radTarjeta.checked) {
         console.log("Con tarjeta de crédito: ",tarNom,tarNum,tarCVC);
         try{
-            const respuestaTar = fetch(`${API_BASE_URL}/api/ventas/pagoTarjeta`, {
+            const respuestaTar = await fetch(`${API_BASE_URL}/api/ventas/pagoTarjeta`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`,
@@ -306,7 +306,7 @@ btnComprar.addEventListener("click", () =>{
     } else if (radTrans.checked) {
         console.log("Con transferencia bancaria");
         try{
-            const respuestaTrans = fetch(`${API_BASE_URL}/api/ventas/pagoTransferencia`, {
+            const respuestaTrans = await fetch(`${API_BASE_URL}/api/ventas/pagoTransferencia`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`,
@@ -332,7 +332,7 @@ btnComprar.addEventListener("click", () =>{
     } else if (radOxxo.checked) {
         console.log("Con OXXO Pay");
         try{
-            const respuestaOxxo = fetch(`${API_BASE_URL}/api/ventas/pagoOxxo`, {
+            const respuestaOxxo = await fetch(`${API_BASE_URL}/api/ventas/pagoOxxo`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`,
@@ -359,7 +359,7 @@ btnComprar.addEventListener("click", () =>{
 
     //mandar a procesar compra es decir hacer el fetch para procesar la compra del ventas de carrito actual
     try {
-        const respuestaDeVenta =  fetch(`${API_BASE_URL}/api/ventas/CompletarVenta`, {
+        const respuestaDeVenta = await fetch(`${API_BASE_URL}/api/ventas/CompletarVenta`, {
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem('token')}`,
