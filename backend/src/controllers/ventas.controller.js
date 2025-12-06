@@ -28,9 +28,14 @@ export const completarVenta = async (req,res) => {
                 carrito.map(id => productos.getProductById(parseInt(id)))
             );
 
+            let sumaVentas;
             //verificar las modificaciones de campo ventas segun la cantidad vendida
             for (let index = 0; index < listaProd.length; index++) {
-                listaProd[index].ventas += (parseInt(listaCantidad[index]) * listaProd[index].precio);
+                sumaVentas = parseFloat(parseInt(listaCantidad[index]) * listaProd[index].precio);
+                listaProd[index].ventas += sumaVentas;
+                console.log(parseInt(listaCantidad[index]));
+                console.log(listaProd[index].precio);
+                console.log(sumaVentas);
             }
 
             //Verifica que haya suficientes existencias y las cambia
