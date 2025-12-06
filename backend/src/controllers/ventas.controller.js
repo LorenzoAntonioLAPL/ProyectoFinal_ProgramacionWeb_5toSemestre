@@ -38,6 +38,7 @@ export const completarVenta = async (req,res) => {
             let sumaVentas = [];
             for (let index = 0; index < listaProd.length; index++) {
                 listaProd[index].existencia -= parseInt(listaCantidad[index]);
+                if(listaProd[index].existencia <= 0) listaProd[index].existencia = 0;
                 prodOf = ofertas.find(p => p.producto_id === listaProd[index].id)
                 if(!prodOf)
                 sumaVentas.push(parseFloat(listaCantidad[index]) * parseFloat(parseFloat(listaProd[index].precio).toFixed(2)));
