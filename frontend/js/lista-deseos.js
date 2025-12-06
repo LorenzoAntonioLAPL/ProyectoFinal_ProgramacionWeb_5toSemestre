@@ -24,6 +24,10 @@ async function mostrarDeseos() {
             swal("Error", "No se pudieron cargar los productos", "error");
             return;
         }
+        if(!productosLista || productosLista.length === 0){
+            swal("Error", "No hay productos en la lista", "error");
+            return;
+        }
 
         const response = await fetch(`${API_BASE_URL}/api/imagenes/obtenerImagenes`);
         const data = await response.json();

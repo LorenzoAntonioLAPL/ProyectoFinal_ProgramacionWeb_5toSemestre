@@ -24,6 +24,10 @@ async function mostrarCarrito() {
             swal("Error", "No se pudieron cargar los productos", "error");
             return;
         }
+        if(!productosCarrito || productosCarrito.length === 0){
+            swal("Error", "No hay productos en el carrito", "error");
+            return;
+        }
 
         const response = await fetch(`${API_BASE_URL}/api/imagenes/obtenerImagenes`);
         const data = await response.json();
@@ -227,7 +231,7 @@ pagarBtn.addEventListener("click", () => {
         swal("Debes iniciar sesión para proceder al pago.");
         return;
     }
-    
+
     if (document.getElementById("total-carrito").innerText.includes("Productos agregados: 0")) {
         swal("Tu carrito está vacío. Agrega productos antes de proceder al pago.");
         return;
