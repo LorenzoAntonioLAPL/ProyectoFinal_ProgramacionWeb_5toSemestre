@@ -130,8 +130,6 @@ document.addEventListener('DOMContentLoaded', async () =>{
         else{
             //datos totales
             console.log("Total productos:", data2p.totalProductos, "Subtotal:", data1p.subtotal);
-            // let divDatosTotales = document.getElementById("total-carrito");
-            // divDatosTotales.innerHTML=`Productos agregados: ${data2.totalProductos} <br> Total a pagar: $${data1.subtotal}`;
         }
     } catch (error) {
         console.error(error);
@@ -282,6 +280,31 @@ btnComprar.addEventListener("click", () =>{
     }
 
     console.log("Elementos: ",envNom,envDir,envCity,envPost,envTel,precioTotal);
+
+    
+    //mandar a procesar compra es decir hacer el fetch para procesar la compra del ventas de carrito actual
+    try {
+        const respuestaDeVenta =  fetch(`${API_BASE_URL}/api/ventas/CompletarVenta`, {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`,
+            }
+        });
+
+        if (!respuestaDeVenta.ok) {
+            swal("Error", "No se pudo procesar la compra", "error");
+            return;
+        }
+
+        swal("Éxito", "Compra procesada correctamente", "success").then(() => {
+            window.location.href = "index.html";
+        });
+
+    } catch (error) {
+        console.error('Error: No se pudo conectar con el servidor', error);
+        swal("Error", "No se pudo conectar con el servidor", "error");
+    }
+
 });
 
 async function mostrarTotal() {
