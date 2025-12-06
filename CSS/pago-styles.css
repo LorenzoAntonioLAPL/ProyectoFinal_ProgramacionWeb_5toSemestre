@@ -9,6 +9,12 @@
 .a-product-button{
     height: 20vh;
     width: 30vh;
+    font-size: 1.2rem;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    text-align: center;
 }
 
 main{
@@ -68,4 +74,8 @@ p, label {
     width: 10rem;
     height: 10rem;
     object-fit: cover;
+}
+
+#radio-trans, #radio-tarjeta ,#radio-oxxo {
+    visibility: hidden;
 }
