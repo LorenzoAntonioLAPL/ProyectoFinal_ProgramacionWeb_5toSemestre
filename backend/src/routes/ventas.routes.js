@@ -11,7 +11,7 @@ import { verifyToken } from "../middleware/verifyToken.js";
 
 const router = Router();
 
-router.get("/CompletarVenta", verifyToken, completarVenta);
+router.get("/completarVenta", verifyToken, completarVenta);
 router.get("/obtenerPaises", verifyToken, obtenerPaises);
 router.post("/obtenerPrecio", verifyToken, calcularPrecio);
 router.get("/confirmarPedido", verifyToken, confirmarPedido);
