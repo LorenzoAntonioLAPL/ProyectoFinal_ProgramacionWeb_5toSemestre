@@ -372,7 +372,7 @@ btnComprar.addEventListener("click", async() =>{
         }
 
         swal("Éxito", "Compra procesada correctamente", "success").then(() => {
-            window.location.href = "index.html";
+            // window.location.href = "index.html";
         });
 
     } catch (error) {
