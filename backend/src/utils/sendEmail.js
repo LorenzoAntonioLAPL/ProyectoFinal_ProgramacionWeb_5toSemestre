@@ -1,7 +1,6 @@
 import nodemailer from "nodemailer";
 
 export const sendEmail = async (to, subject, html) => {
-
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
@@ -25,24 +24,21 @@ export const sendEmail = async (to, subject, html) => {
   }
 };
 
-export const receiveEmail = async (from, subject, html) => {
-
-  console.log(to, subject, html);
-
+export const receiveEmail = async (name, from, subject, html) => {
 
   const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: "465",
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
     secure: true,
     auth: {
-      user: "papasdonuteria517@gmail.com",
-      pass: "appgjrwdjqjillsk"
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS
     }
   });
 
   try{
     let sentMail = await transporter.sendMail({
-      from: `${from}>`,
+      from: `"Usuario ${name} | ${from}" <${process.env.SMTP_USER}>`,
       to: `${process.env.SMTP_USER}`,
       subject: `${subject}`,
       html: `${html}`

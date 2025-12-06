@@ -28,6 +28,11 @@ export const completarVenta = async (req,res) => {
                 carrito.map(id => productos.getProductById(parseInt(id)))
             );
 
+            //verificar las modificaciones de campo ventas segun la cantidad vendida
+            for (let index = 0; index < listaProd.length; index++) {
+                listaProd[index].ventas += (parseInt(listaCantidad[index]) * listaProd[index].precio);
+            }
+
             //Verifica que haya suficientes existencias y las cambia
             for (let index = 0; index < listaProd.length; index++) {
                 listaProd[index].existencia -= parseInt(listaCantidad[index]);
@@ -191,7 +196,7 @@ export const pagoTarjeta = async (req, res) => {
 export const pagoTransferencia = async (req, res) => {
     try { 
         const { id } = req.user;
-    const user = id;
+        const user = id;
         const { precio } = req.body;
 
         const usuario = await CarritoModel.findUserById(user); 
