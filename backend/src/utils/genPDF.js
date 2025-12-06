@@ -6,7 +6,6 @@
 import fs from "fs";
 import PDFDocument from "pdfkit";
 import bwipjs from "bwip-js";
-import { width } from "pdfkit/js/page";
 
 // ======= DATOS SIMULADOS ======= //
 
