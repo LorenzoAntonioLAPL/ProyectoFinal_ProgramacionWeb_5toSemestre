@@ -19,6 +19,10 @@ hr {
     background-color: var(--base);
 }
 
+h1, h2, h3{
+    color: var(--base);
+}
+
 p, label {
     color: var(--base);
 }
@@ -52,4 +56,16 @@ p, label {
 
 #btn-comprar {
     min-width: 75px;
+}
+
+.a-product-card {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.a-product-card img {
+    width: 10rem;
+    height: 10rem;
+    object-fit: cover;
 }

@@ -218,3 +218,31 @@ function activarBotones() {
         btn.addEventListener("click", segundoClicCarrito);
     });
 }
+
+const pagarBtn = document.getElementById("pagarBtn");
+
+pagarBtn.addEventListener("click", () => {
+    // Primero: validaciones inmediatas
+    if (!localStorage.getItem('token')) {
+        swal("Debes iniciar sesión para proceder al pago.");
+        return;
+    }
+    
+    if (document.getElementById("total-carrito").innerText.includes("Productos agregados: 0")) {
+        swal("Tu carrito está vacío. Agrega productos antes de proceder al pago.");
+        return;
+    }
+
+    // Luego: pedir confirmación (swal devuelve una promesa)
+    swal({
+        title: "¿Desea proceder al pago de su carrito?",
+        text: "Se realizará el cobro por los productos seleccionados.",
+        icon: "warning",
+        buttons: ["Cancelar", "Sí, pagar"],
+        dangerMode: true
+    }).then((willPay) => {
+        if (willPay) {
+            window.location.href = "pago.html";
+        }
+    });
+});

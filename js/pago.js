@@ -25,38 +25,116 @@ const btnSect = document.getElementById("pago-btns");
 const btnComprar = document.getElementById("btn-comprar");
 
 document.addEventListener('DOMContentLoaded', async () =>{
-    // Obtener carrito
-    try {
-        const response = await fetch(`${API_BASE_URL}/api/carritoCompra/obtenerCarrito`, {
+    try{
+        const resp = await fetch(`${API_BASE_URL}/api/products/obtenerProductos`);
+        const productos = await resp.json();
+
+        if (!resp.ok) {
+            swal("Error", "No se pudieron cargar los productos", "error");
+            return;
+        }
+
+        const respuesta = await fetch(`${API_BASE_URL}/api/carritoCompra/obtenerCarrito`, {
             method: "GET",
             headers: {
-                "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
             }
         });
+        const productosCarrito = await respuesta.json();
+
+        if (!respuesta.ok) {
+            swal("Error", "No se pudieron cargar los productos", "error");
+            return;
+        }
+
+        const response = await fetch(`${API_BASE_URL}/api/imagenes/obtenerImagenes`);
         const data = await response.json();
         
-        if (response.ok) {
-            let prodCont = document.createElement("div");
-            
-            // Agregar todos los productos obtenidos por data
-            for(var i=0; i<data.length;i++){
-                prodCont.innerHTML +=
-                `<div class="a-product-card">
-                    <img src="imagenes/donas.jpg" alt="">
-                    <div class="a-product-desc">
-                        <h2>${data[i].nombre}</h2>
-                    </div>
-                    <h3>$${data[i].precio}</h3>
-                </div>
-                `;
+        if (!response.ok) {
+            swal("Error", data.msg || "Hubo un error al cargar las imagenes", "error");
+        }
+
+        const respuestaOf = await fetch(`${API_BASE_URL}/api/extras/obtenerOfertas`);
+        let dataOf = await respuestaOf.json();
+
+        if(!respuestaOf.ok || !dataOf){
+            dataOf = [{ producto_id: 0, descuento: 0 }]
+        }
+
+        console.log("Estoy en pago.js");
+        let j=0;
+        productosCarrito.idProductos.forEach(prod => {
+            let produp = productos.find(p => p.id === parseInt(prod));
+            let prodp = produp;
+            let imagenp = data.vectorImg.find(i => i.nombre === produp.imagen).data;
+            let cantidadTotalp = productosCarrito.cantidades[j];
+            let ofertap = dataOf.find(p => p.producto_id === produp.id);
+            const card = document.createElement("div");
+            let nomCardp;
+            if(prodp.existencia > 0){
+                nomCardp = prodp.nombre;
+            }
+            else{
+                nomCardp = "No hay existencias";
             }
 
-            prodSect.append(prodCont);
-        } else {
-            swal("Error", data.msg || "Hubo un error al cargar los productos", "error");
+            let precioNuevop;
+            if(ofertap){
+                precioNuevop = prodp.precio * (1-ofertap.descuento);
+            }
+            else{
+                precioNuevop = prodp.precio;
+            }
+            card.innerHTML = `
+                <div class="a-product-card">
+                    <img src="${imagenp}" alt="${prodp.imagen}">
+                    <div class="a-product-desc">
+                        <h1>${nomCardp}</h1>
+                        <p>${prodp.descripcion}</p>
+                    </div>
+                    <p>Precio:${precioNuevop}</p>
+                    <div class="a-product-cant">
+                        <p>Cantidad: ${cantidadTotalp}</p>
+                    </div>
+                </div>
+            `;
+            prodSect.append(card);
+            j++;
+        });
+
+        const response1p = await fetch(`${API_BASE_URL}/api/ventas/obtenerSubTotal`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        const data1p = await response1p.json();
+
+        console.log("Data1:", data1p);
+        
+        const response2p = await fetch(`${API_BASE_URL}/api/carritoCompra/obtenerTotalCarrito`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        const data2p = await response2p.json();
+        console.log("Data2:", data2p);
+
+        //Productos agregados: 0 <br> Total a pagar: $0.00
+        if(!response1 || !response2){
+            swal("Error", data.msg || "Hubo un error al obtener datos del carrito", "error");
+        }
+        else{
+            //datos totales
+            console.log("Total productos:", data2p.totalProductos, "Subtotal:", data1p.subtotal);
+            // let divDatosTotales = document.getElementById("total-carrito");
+            // divDatosTotales.innerHTML=`Productos agregados: ${data2.totalProductos} <br> Total a pagar: $${data1.subtotal}`;
         }
     } catch (error) {
-        console.error('Error: No se pudo conectar con el servidor', error);
+        console.error(error);
         swal("Error", "No se pudo conectar con el servidor", "error");
     }
 
