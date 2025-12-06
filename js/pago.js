@@ -359,8 +359,8 @@ btnComprar.addEventListener("click", async() =>{
 
     //mandar a procesar compra es decir hacer el fetch para procesar la compra del ventas de carrito actual
     try {
-        const respuestaDeVenta = await fetch(`${API_BASE_URL}/api/ventas/CompletarVenta`, {
-            method: "POST",
+        const respuestaDeVenta = await fetch(`${API_BASE_URL}/api/ventas/completarVenta`, {
+            method: "GET",
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem('token')}`,
             }
