@@ -1,5 +1,4 @@
 import nodemailer from "nodemailer";
-import { content } from "pdfkit/js/page";
 
 export const sendEmail = async (to, subject, html) => {
   const transporter = nodemailer.createTransport({
