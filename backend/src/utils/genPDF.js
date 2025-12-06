@@ -6,6 +6,7 @@
 import fs from "fs";
 import PDFDocument from "pdfkit";
 import bwipjs from "bwip-js";
+import { width } from "pdfkit/js/page";
 
 // ======= DATOS SIMULADOS ======= //
 
@@ -66,6 +67,9 @@ export const generatePDF = async (id,name, method, lastDigits, items, subtotal, 
      .restore();
 
   // Título
+  doc.moveDown(5);
+  doc.image('../assets/LogoDona.png', 0 , 5 , {width: 300, align: 'center'})
+   .text('Proportional to width', 0, 0);
   doc.moveDown(5);
   doc.fontSize(26).fillColor(TITLE).font('Helvetica-Bold')
      .text(companyName, { align: 'center' });
