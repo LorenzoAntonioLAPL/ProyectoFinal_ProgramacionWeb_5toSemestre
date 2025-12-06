@@ -254,22 +254,22 @@ btnComprar.addEventListener("click", async() =>{
     const envPost = envPostInput.value;
     const envTel = envTelInput.value;
 
-    const precioTotal = showTotal.innerText.substring(8);
-    // Obtener el país
-    let idPais = null;
+    // const precioTotal = showTotal.innerText.substring(8);
+    // // Obtener el país
+    // let idPais = null;
 
-    const contPais = document.getElementById("opt-pais");
-    let btnPais = contPais.getElementsByTagName("input") || null;
+    // const contPais = document.getElementById("opt-pais");
+    // let btnPais = contPais.getElementsByTagName("input") || null;
 
-    for(var i=0;i<btnPais.length;i++){
-        if(btnPais[i].checked){
-            idPais = btnPais[i].getAttribute("id").substring(4);
-        }
-    }
+    // for(var i=0;i<btnPais.length;i++){
+    //     if(btnPais[i].checked){
+    //         idPais = btnPais[i].getAttribute("id").substring(4);
+    //     }
+    // }
 
-    if(idPais == null){
-        idPais = 1;
-    }
+    // if(idPais == null){
+    //     idPais = 1;
+    // }
 
     // Si tarjeta de crédito fue seleccionado
     if(radTarjeta.checked) {

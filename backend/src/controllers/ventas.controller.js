@@ -2,8 +2,8 @@ import * as productos from "../models/productos.model.js";
 import * as CarritoModel from "../models/carrito.model.js";
 import * as PaisModel from "../models/pais.model.js";
 import * as OfertasModel from "../models/ofertas.model.js"
-import { generatePDF } from "../utils/genPDF.js";
-import { sendFile } from "../utils/sendEmail.js"
+// import { generatePDF } from "../utils/genPDF.js";
+// import { sendFile } from "../utils/sendEmail.js"
 
 export const completarVenta = async (req,res) => {
     try {
@@ -300,64 +300,64 @@ export const calcularSubTotal = async (req, res) => {
     }
 }
 
-export const correoPago = async (req, res) => {
-    try {
-        const { id, email, nombre } = req.user;
-        const { method, lastDigits = 0, cupon = "Sin Cupón", idPais } = req.body;
+// export const correoPago = async (req, res) => {
+//     try {
+//         const { id, email, nombre } = req.user;
+//         const { method, lastDigits = 0, cupon = "Sin Cupón", idPais } = req.body;
 
-        const usuario = await CarritoModel.findUserById(id);
-        if (!usuario)
-            return res.status(404).json({ mensaje: 'Usuario no encontrado' });
+//         const usuario = await CarritoModel.findUserById(id);
+//         if (!usuario)
+//             return res.status(404).json({ mensaje: 'Usuario no encontrado' });
 
-        const pais = await PaisModel.findPaisById(idPais);
-        if (!pais)
-            return res.status(404).json({ mensaje: 'Pais no encontrado' });
+//         const pais = await PaisModel.findPaisById(idPais);
+//         if (!pais)
+//             return res.status(404).json({ mensaje: 'Pais no encontrado' });
 
-        // Productos del carrito
-        const carrito = usuario.product_ids.split(",").filter(e => e !== "");
-        const listaCantidad = usuario.product_num.split(",").filter(e => e !== "");
+//         // Productos del carrito
+//         const carrito = usuario.product_ids.split(",").filter(e => e !== "");
+//         const listaCantidad = usuario.product_num.split(",").filter(e => e !== "");
 
-        const items = await Promise.all(
-            carrito.map(pid => productos.getProductById(parseInt(pid)))
-        );
+//         const items = await Promise.all(
+//             carrito.map(pid => productos.getProductById(parseInt(pid)))
+//         );
 
-        // Calcular precios
-        let subtotal = 0;
-        const iva = pais.impuesto;
-        const envio = 100 * (1 + iva);
+//         // Calcular precios
+//         let subtotal = 0;
+//         const iva = pais.impuesto;
+//         const envio = 100 * (1 + iva);
 
-        const listaOferta = await OfertasModel.getAllProducts();
+//         const listaOferta = await OfertasModel.getAllProducts();
 
-        for (let i = 0; i < items.length; i++) {
-            const prodOferta = listaOferta.find(p => p.producto_id === items[i].id);
+//         for (let i = 0; i < items.length; i++) {
+//             const prodOferta = listaOferta.find(p => p.producto_id === items[i].id);
 
-            if (!prodOferta)
-                subtotal += items[i].precio * parseInt(listaCantidad[i]);
-            else
-                subtotal += (items[i].precio * (1 - prodOferta.descuento)) * parseInt(listaCantidad[i]);
-        }
+//             if (!prodOferta)
+//                 subtotal += items[i].precio * parseInt(listaCantidad[i]);
+//             else
+//                 subtotal += (items[i].precio * (1 - prodOferta.descuento)) * parseInt(listaCantidad[i]);
+//         }
 
-        const total = subtotal * (1 + iva) + envio;
+//         const total = subtotal * (1 + iva) + envio;
 
-        // === Generar PDF CORRECTAMENTE ===
-        const pdfBuffer = await generatePDF(
-            id, nombre, method, lastDigits,
-            items, subtotal, iva, envio, cupon, total
-        );
+//         // === Generar PDF CORRECTAMENTE ===
+//         const pdfBuffer = await generatePDF(
+//             id, nombre, method, lastDigits,
+//             items, subtotal, iva, envio, cupon, total
+//         );
 
-        if (!pdfBuffer)
-            return res.status(500).json({ mensaje: "Error al generar PDF" });
+//         if (!pdfBuffer)
+//             return res.status(500).json({ mensaje: "Error al generar PDF" });
 
-        // === ENVIAR CORREO ===
-        const enviado = await sendFile(email, "Pago en Papa's Donuteria", pdfBuffer);
+//         // === ENVIAR CORREO ===
+//         const enviado = await sendFile(email, "Pago en Papa's Donuteria", pdfBuffer);
 
-        if (!enviado)
-            return res.status(500).json({ mensaje: "Error al enviar nota de pago" });
+//         if (!enviado)
+//             return res.status(500).json({ mensaje: "Error al enviar nota de pago" });
 
-        return res.status(200).json({ message: "Pago completado y correo enviado" });
+//         return res.status(200).json({ message: "Pago completado y correo enviado" });
 
-    } catch (error) {
-        console.error("Error en correoPago:", error);
-        return res.status(500).json({ mensaje: "Error interno en pago" });
-    }
-};
+//     } catch (error) {
+//         console.error("Error en correoPago:", error);
+//         return res.status(500).json({ mensaje: "Error interno en pago" });
+//     }
+// };
