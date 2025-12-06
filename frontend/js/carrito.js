@@ -81,7 +81,7 @@ async function mostrarCarrito() {
         }
         else{
             let divDatosTotales = document.getElementById("total-carrito");
-            if(data1)
+            if(data1.subtotal)
             divDatosTotales.innerHTML=`Productos agregados: ${data2.totalProductos} <br> Total a pagar: $${data1.subtotal}`;
             else
             divDatosTotales.innerHTML=`Productos agregados: 0 <br> Total a pagar: $0.00`;
