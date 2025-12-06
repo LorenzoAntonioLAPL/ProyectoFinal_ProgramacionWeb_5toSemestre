@@ -254,7 +254,7 @@ btnComprar.addEventListener("click", async() =>{
     const envPost = envPostInput.value;
     const envTel = envTelInput.value;
 
-    // const precioTotal = showTotal.innerText.substring(8);
+    const precioTotal = showTotal.innerText.substring(8);
     // // Obtener el país
     // let idPais = null;
 
