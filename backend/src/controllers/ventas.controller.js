@@ -95,7 +95,7 @@ export const calcularPrecio = async (req, res) => {
         listaProd = await Promise.all(
             carrito.map(id => productos.getProductById(parseInt(id)))
         );
-
+        
         listaOferta = await OfertasModel.getAllProducts();
         let prodOferta;
 
