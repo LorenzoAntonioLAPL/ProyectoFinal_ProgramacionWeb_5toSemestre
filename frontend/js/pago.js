@@ -308,7 +308,7 @@ btnComprar.addEventListener("click", async() =>{
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    precio: precioTotal,
+                    precio: precioTotal
                 })
             });
             if (!respuestaTar.ok) {
@@ -354,7 +354,7 @@ btnComprar.addEventListener("click", async() =>{
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    precio: precioTotal,
+                    precio: precioTotal
                 })
             }); 
             
@@ -403,7 +403,7 @@ btnComprar.addEventListener("click", async() =>{
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    precio: precioTotal,
+                    precio: precioTotal
                 })
             });
             
