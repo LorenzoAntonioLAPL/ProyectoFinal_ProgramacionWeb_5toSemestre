@@ -281,7 +281,79 @@ btnComprar.addEventListener("click", () =>{
 
     console.log("Elementos: ",envNom,envDir,envCity,envPost,envTel,precioTotal);
 
-    
+    if(radTarjeta.checked) {
+        console.log("Con tarjeta de crédito: ",tarNom,tarNum,tarCVC);
+        try{
+            const respuestaTar = fetch(`${API_BASE_URL}/api/ventas/pagoTarjeta`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                },
+                body: JSON.stringify({
+                    precio: precioTotal,
+                })
+            });
+            if (!respuestaTar.ok) {
+                swal("Error", "No se pudo procesar el pago con tarjeta de crédito", "error");
+                return;
+            }
+        } catch (error) {
+            console.error('Error: No se pudo conectar con el servidor', error);
+            swal("Error", "No se pudo conectar con el servidor", "error");
+            return;
+        } 
+    } else if (radTrans.checked) {
+        console.log("Con transferencia bancaria");
+        try{
+            const respuestaTrans = fetch(`${API_BASE_URL}/api/ventas/pagoTransferencia`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                },
+                body: JSON.stringify({
+                    precio: precioTotal,
+                })
+            }); 
+            
+            if (!respuestaTrans.ok) {
+                swal("Error", "No se pudo procesar el pago por transferencia", "error");
+                return;
+            }
+
+        } catch (error) {
+            console.error('Error: No se pudo conectar con el servidor', error);
+            swal("Error", "No se pudo conectar con el servidor", "error");
+            return;
+        }
+
+        
+    } else if (radOxxo.checked) {
+        console.log("Con OXXO Pay");
+        try{
+            const respuestaOxxo = fetch(`${API_BASE_URL}/api/ventas/pagoOxxo`, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${localStorage.getItem('token')}`,
+                },
+                body: JSON.stringify({
+                    precio: precioTotal,
+                })
+            });
+            
+            if (!respuestaOxxo.ok) {
+                swal("Error", "No se pudo procesar el pago con OXXO", "error");
+                return;
+            }
+        } catch (error) {
+            console.error('Error: No se pudo conectar con el servidor', error);
+            swal("Error", "No se pudo conectar con el servidor", "error");
+            return;
+        }
+    }
+
+    // Despues de maneejar los metodos todos envian un correo con los datos de compra
+    // aqui se podria insertar el envio de correo si se tiene vamos lore 
+
     //mandar a procesar compra es decir hacer el fetch para procesar la compra del ventas de carrito actual
     try {
         const respuestaDeVenta =  fetch(`${API_BASE_URL}/api/ventas/CompletarVenta`, {

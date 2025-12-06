@@ -175,7 +175,7 @@ export const confirmarPedido = async (req, res) => {
 export const pagoTarjeta = async (req, res) => {
     try { 
         const { id } = req.user;
-    const user = id;
+        const user = id;
         const { precio } = req.body;
 
         const usuario = await CarritoModel.findUserById(user); 
@@ -217,7 +217,7 @@ export const pagoTransferencia = async (req, res) => {
 export const pagoOxxo = async (req, res) => {
     try { 
         const { id } = req.user;
-    const user = id;
+        const user = id;
         const { precio } = req.body;
 
         const usuario = await CarritoModel.findUserById(user); 
