@@ -5,6 +5,7 @@ import * as OfertasModel from "../models/ofertas.model.js"
 
 export const completarVenta = async (req,res) => {
     try {
+        console.log("hola");
             const { id } = req.user;
             const user = id;
         
@@ -20,6 +21,8 @@ export const completarVenta = async (req,res) => {
             if(carrito.length <= 0){
                 return res.status(400).json({mensaje: "No hay productos en el carrito"})
             }
+
+            const ofertas = await OfertasModel.getAllProducts(); 
             
             //Crea un arreglo de productos basado en el carrito
             let listaProd = [];
@@ -29,21 +32,26 @@ export const completarVenta = async (req,res) => {
             );
             //verificar las modificaciones de campo ventas segun la cantidad vendida
             //Verifica que haya suficientes existencias y las cambia
-            let prueba = 0.0;
+            let prodOf;
             let sumaVentas = [];
             for (let index = 0; index < listaProd.length; index++) {
                 listaProd[index].existencia -= parseInt(listaCantidad[index]);
+                prodOf = ofertas.find(p => p.producto_id === listaProd[index].id)
+                if(!prodOf)
                 sumaVentas.push(parseFloat(listaCantidad[index]) * parseFloat(parseFloat(listaProd[index].precio).toFixed(2)));
+                else
+                    sumaVentas.push(parseFloat(listaCantidad[index]) * (parseFloat(parseFloat(listaProd[index].precio).toFixed(2)) * parseFloat(prodOf.descuento)));
             }
             
             //Actualiza los datos en la base de datos
             let j = 0;
             listaProd.forEach(elemento => {
-                let producto_estado = productos.updateProduct(elemento.id, elemento.nombre, elemento.precio, elemento.descripcion, elemento.existencia, elemento.categoria, elemento.imagen, elemento.ventas);
+                let producto_estado = productos.updateProduct(elemento.id, elemento.nombre, elemento.precio, elemento.descripcion, elemento.existencia, elemento.categoria, elemento.imagen, elemento.ventas + sumaVentas[j]);
                 if(!producto_estado){
                     console.log("Ocurrio un error al actualizar el producto: " + elemento.id);
                 }
                 let pruebaprod = productos.updateVentas(elemento.id, elemento.ventas + parseFloat(sumaVentas[j].toFixed(2)));
+                j++;
             });
             
             //Limpiar el carrito
@@ -51,7 +59,7 @@ export const completarVenta = async (req,res) => {
             if(!carrito_estado){
                 return res.status(400).json({mensaje: "Ocurrio un error al actualizar el carrito"});
             }
-            res.status(200).json({mensaje: "Venta completada con exito " + prueba})
+            res.status(200).json({mensaje: "Venta completada con exito "})
     } catch (error) {
         console.error('Error al completar la venta:', error); 
         res.status(500).json({ mensaje: 'Error al completar la venta' });

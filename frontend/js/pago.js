@@ -415,16 +415,16 @@ async function mostrarTotal() {
         if (response.ok) {
             // Cambia el subtotal
             showSubtotal.removeChild(showSubtotal.lastChild);
-            showSubtotal.append(`Subtotal: $${data.subtotal}`);
+            showSubtotal.append(`Subtotal: $${Math.round(data.subtotal*100)/100}`);
             // Cambiar gastos de envio
             showEnvio.removeChild(showEnvio.lastChild);
-            showEnvio.append(`Envio: $${parseFloat(data.gastosEnvio)}`);
+            showEnvio.append(`Envio: $${Math.round(parseFloat(data.gastosEnvio)*100)/100}`);
             // Cambiar impuestos
             showImpuesto.removeChild(showImpuesto.lastChild);
-            showImpuesto.append(`IVA: ${data.impuestos}`);
+            showImpuesto.append(`IVA: ${Math.round(data.impuestos*100)/100}`);
             // Cambia el total
             showTotal.removeChild(showTotal.lastChild);
-            showTotal.append(`Total: $${data.total}`);
+            showTotal.append(`Total: $${Math.round(data.total*100)/100}`);
         } else {
             swal("Error", data.msg || "Hubo un error al cargar los productos", "error");
         }
