@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import { content } from "pdfkit/js/page";
 
 export const sendEmail = async (to, subject, html) => {
   const transporter = nodemailer.createTransport({
@@ -50,4 +51,36 @@ export const receiveEmail = async (name, from, subject, html) => {
   } catch (err) {
     console.error('Error enviando correo: ',err);
   }
+};
+
+export const sendFile = async (to, subject, doc) => {
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: process.env.SMTP_PORT,
+    secure: true,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS
+    }
+  });
+
+  try{
+    let sentMail = await transporter.sendMail({
+      from: `"Soporte" <${process.env.SMTP_USER}>`,
+      to: `${to}`,
+      subject: `${subject}`,
+      html: "<h1>Descarga tu nota de compra</h1>",
+      attachment: [{
+        filename: 'nota-compra.pdf',
+        content: doc,
+        contentType: "application/pdf"
+      }]
+    });
+    console.log('Correo enviado', sentMail);
+  } catch (err) {
+    console.error('Error enviando correo: ',err);
+    return false;
+  }
+
+  return true;
 };

@@ -3,7 +3,7 @@ import * as CarritoModel from "../models/carrito.model.js";
 import * as PaisModel from "../models/pais.model.js";
 import * as OfertasModel from "../models/ofertas.model.js"
 import { generatePDF } from "../utils/genPDF.js";
-import { sendEmail } from "../utils/sendEmail.js"
+import { sendFile } from "../utils/sendEmail.js"
 
 export const completarVenta = async (req,res) => {
     try {
@@ -355,7 +355,7 @@ export const correoPago = async (req, res) => {
     const pdf = generatePDF(id, nombre, method, lastDigits, items, subtotal, iva, envi, cupon, total);
 
     if(!(pdf === null)){
-        if(sendEmail(email,"Pago en Papa's Donuteria",pdf)){
+        if(sendFile(email,"Pago en Papa's Donuteria",pdf)){
             return res.status(200).json({message: "Se completó el pago con exito"});
         } else {
             return res.status(500).json({mensaje: "Error al rnviar nota de pago"})
