@@ -10,6 +10,7 @@ const modVentas = document.getElementById("modVentas");
 const modExist = document.getElementById("modExist");
 const modCateg = document.getElementById("modCateg");
 const modImag = document.getElementById("modImagen");
+const modImagLiga = document.getElementById("modImagenLiga");
 const btnElim = document.getElementById("btn-elim");
 
 // Form agregar
@@ -297,7 +298,7 @@ searchForm.addEventListener("submit", async (e) => {
             modVentas.setAttribute("placeholder",`${data.ventas}`);
             modExist.setAttribute("placeholder",`${data.existencia}`);
             modCateg.setAttribute("placeholder",`${data.categoria}`);
-            modImag.setAttribute("placeholder",);
+            modImagLiga.value = `${img.vectorImg.find(j => j.nombre === data[idSearch].imagen).data}`;
             
             // Activar botones
             btnElim.removeAttribute("disabled");
@@ -328,9 +329,9 @@ modForm.addEventListener("submit", async (e) => {
     const existProd = modExist.value || modExist.getAttribute("placeholder");
     const categProd = modCateg.value || modCateg.getAttribute("placeholder");
     const ventasProd = modVentas.value || modVentas.getAttribute("placeholder");
-    const imgName = modImag.value.split(/(\\|\/)/g).pop() || null;
+    const imgName = modImag.value.split(/(\\|\/)/g).pop() || modImagLiga.value;
 
-    if(!(imgName === null)){
+    if(!(imgName === modImagLiga.value)){
         // Guardar imagen en backend
         const imgProd = modImag.files[0];
 
@@ -364,6 +365,30 @@ modForm.addEventListener("submit", async (e) => {
         }
         reader.readAsDataURL(imgProd);
     }
+    // else {
+    //     try{
+    //         const response = await fetch(`${API_BASE_URL}/api/products/obtenerProductos`);
+    //         const data = await response.json();
+    //         let img;
+    //         // Obtener imagenes
+    //         try{
+    //             const response = await fetch(`${API_BASE_URL}/api/imagenes/obtenerImagenes`);
+    //             img = await response.json();
+
+    //             if(!response.ok){
+    //                 swal("Error", data.msg || "Hubo un error al cargar los productos", "error");
+    //             } else {
+    //                 imgName = img.vectorImg.find(j => j.nombre === data[idSearch].imagen).data;
+    //             }
+    //         } catch {
+    //             console.error('Error: No se pudo conectar con el servidor', error);
+    //             swal("Error", "No se pudo conectar con el servidor", "error");
+    //         }
+    //     } catch (error) {
+    //         console.error('Error: No se pudo conectar con el servidor', error);
+    //         swal("Error", "No se pudo conectar con el servidor", "error");
+    //     }
+    // }
 
     try {
         const response = await fetch(`${API_BASE_URL}/api/products/actualizarProducto/${idSearch}`, {
