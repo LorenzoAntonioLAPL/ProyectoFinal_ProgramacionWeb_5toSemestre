@@ -14,9 +14,47 @@ const passwordInput = document.getElementById("password")
 const confirmPasswordInput = document.getElementById("confirmPassword")
 const forgotPasswordLink = document.getElementById("forgotPasswordLink");
 
+const cantCar = document.getElementById("carritoCant"); // id que existe en los HTML
+
+
 const API_BASE_URL = 'https://proyectofinal-programacionweb-5tosemestre.onrender.com';
 
 let isRegister = false
+
+document.addEventListener("DOMContentLoaded", () => {
+    if (localStorage.getItem('token')) {
+        actualizarbtn();
+    } else {
+        if (cantCar) cantCar.innerText = "";
+    }
+});
+
+async function actualizarbtn() {
+    if (!cantCar) return;
+    try {
+        const respuesta = await fetch(`${API_BASE_URL}/api/carritoCompra/obtenerCarrito`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        if (!respuesta.ok) {
+            cantCar.innerText = "";
+            return;
+        }
+
+        const productosCarrito = await respuesta.json();
+        const cantidad = Array.isArray(productosCarrito.idProductos)
+            ? productosCarrito.idProductos.length
+            : 0;
+
+        cantCar.innerText = `${cantidad}`;
+    } catch (err) {
+        console.error(err);
+        cantCar.innerText = "";
+    }
+}
 
 // Abrir modal
 loginBtn.addEventListener("click", () => {
