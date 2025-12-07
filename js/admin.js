@@ -285,7 +285,7 @@ searchForm.addEventListener("submit", async (e) => {
             var setInfo = searchCont.getElementsByTagName("h4")[0];
             var setDesc = searchCont.getElementsByTagName("p")[0];
 
-            setImg.innerHTML = `${img.vectorImg.find(i => i.nombre === data.imagen).data}`;
+            // setImg.innerHTML = `${img.vectorImg.find(i => i.nombre === data.imagen).data}`;
             setName.innerHTML = `${data.nombre}`;
             setId.innerHTML = `ID: ${data.id}`;
             setInfo.innerHTML = `Categoria: ${data.categoria} | Precio: ${data.precio} | Existencias: ${data.existencia} | Ventas: ${data.ventas}`;
@@ -298,7 +298,7 @@ searchForm.addEventListener("submit", async (e) => {
             modVentas.setAttribute("placeholder",`${data.ventas}`);
             modExist.setAttribute("placeholder",`${data.existencia}`);
             modCateg.setAttribute("placeholder",`${data.categoria}`);
-            modImagLiga.value = `${img.vectorImg.find(j => j.nombre === data[idSearch].imagen).data}`;
+            // modImagLiga.setAttribute(`${img.vectorImg.find(j => j.nombre === data[idSearch].imagen).data}`);
             
             // Activar botones
             btnElim.removeAttribute("disabled");
@@ -329,11 +329,16 @@ modForm.addEventListener("submit", async (e) => {
     const existProd = modExist.value || modExist.getAttribute("placeholder");
     const categProd = modCateg.value || modCateg.getAttribute("placeholder");
     const ventasProd = modVentas.value || modVentas.getAttribute("placeholder");
-    const imgName = modImag.value.split(/(\\|\/)/g).pop() || modImagLiga.value;
+    const imgName = modImagLiga.value || null;
 
-    if(!(imgName === modImagLiga.value)){
+    if(!(imgName === null)){
         // Guardar imagen en backend
-        const imgProd = modImag.files[0];
+        const imgProd = modImag.files[0] || null;
+
+        if(imgProd === null){
+            swal("Error", "No se subió un archivo de imagen", "error");
+            return;
+        }
 
         let base64String = "";
         const reader = new FileReader();
