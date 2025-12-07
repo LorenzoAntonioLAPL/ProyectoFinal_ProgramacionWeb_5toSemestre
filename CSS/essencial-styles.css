@@ -519,4 +519,7 @@ footer {
     background: var(--card-p);
 }
 
-
+#carritoCant{
+    display: flex;
+    flex-direction: column;
+}
