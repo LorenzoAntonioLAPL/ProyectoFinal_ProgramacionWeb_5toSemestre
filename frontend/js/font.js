@@ -1,33 +1,72 @@
-// VALOR BASE
-const defaultSize = 100; // 100% tamaño normal
-let currentSize = localStorage.getItem("fontSize")
-    ? parseInt(localStorage.getItem("fontSize"))
-    : defaultSize;
+(function () {
+  const defaultSize = 100; // 100%
+  let userEmail = null;
 
-// Aplicar tamaño guardado al cargar
-document.documentElement.style.fontSize = currentSize + "%";
+  // Obtener usuario logueado
+  const usuarioGuardado = localStorage.getItem("usuario");
+  if (usuarioGuardado) {
+    const usuario = JSON.parse(usuarioGuardado);
+    userEmail = usuario.email || null;
+  }
 
-document.getElementById("font-increase").addEventListener("click", () => {
-    if (currentSize < 200){
-        currentSize += 10; 
-        applyFontSize();
+  // Obtener tamaño inicial según usuario o default
+  function getInitialFontSize() {
+    if (!userEmail) {
+      // Sin sesión → NO usar localStorage
+      return defaultSize;
     }
-});
 
-document.getElementById("font-decrease").addEventListener("click", () => {
-    if (currentSize > 50) {        
+    const saved = localStorage.getItem(`fontSize_${userEmail}`);
+
+    if (saved) return parseInt(saved);
+
+    localStorage.setItem(`fontSize_${userEmail}`, defaultSize);
+    return defaultSize;
+  }
+
+  let currentSize = getInitialFontSize();
+
+  // Aplicar tamaño inicial
+  document.documentElement.style.fontSize = currentSize + "%";
+
+  // Botones
+  const increaseBtn = document.getElementById("font-increase");
+  const decreaseBtn = document.getElementById("font-decrease");
+  const resetBtn = document.getElementById("font-reset");
+
+  if (increaseBtn)
+    increaseBtn.addEventListener("click", () => {
+      currentSize += 10;
+      applyFontSize();
+    });
+
+  if (decreaseBtn)
+    decreaseBtn.addEventListener("click", () => {
+      if (currentSize > 50) {
         currentSize -= 10;
         applyFontSize();
-    }
-});
+      }
+    });
 
-document.getElementById("font-reset").addEventListener("click", () => {
-    currentSize = defaultSize;
-    applyFontSize();
-});
+  if (resetBtn)
+    resetBtn.addEventListener("click", () => {
+      currentSize = defaultSize;
+      applyFontSize();
+    });
 
-// Función para aplicar y guardar
-function applyFontSize() {
+  // Aplicar y guardar tamaño
+  function applyFontSize() {
     document.documentElement.style.fontSize = currentSize + "%";
-    localStorage.setItem("fontSize", currentSize);
-}
+
+    // Solo guardar si hay usuario logueado
+    if (userEmail) {
+      localStorage.setItem(`fontSize_${userEmail}`, currentSize);
+    }
+  }
+
+  // Reset cuando cierra sesión 
+  window.resetFontSizeOnLogout = function () {
+    // Solo volver al default visualmente
+    document.documentElement.style.fontSize = defaultSize + "%";
+  };
+})();
