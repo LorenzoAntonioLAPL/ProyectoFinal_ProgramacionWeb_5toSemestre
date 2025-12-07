@@ -255,7 +255,7 @@ async function mostrarTablasCategoria() {
 searchForm.addEventListener("submit", async (e) => {
     e.preventDefault()
 
-    const idSearch = searchIdInput.value;
+    const idSearch = parseInt(searchIdInput.value);
 
     try {
         const response = await fetch(`${API_BASE_URL}/api/products/obtenerProducto/${idSearch}`);
